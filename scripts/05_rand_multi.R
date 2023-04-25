@@ -242,8 +242,8 @@ snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(CMD_bf0$chr_snp))
 ###################################################################################
 #Import transformed timeseries frequencies
 freq_MAT <- read_csv("data/freq_env1.csv")
-freq_MAP <- read_csv("data/freq_env2.csv")
-freq_CMD <- read_csv("data/freq_env5.csv")
+freq_MAP <- read_csv("data/freq_env1.csv")
+freq_CMD <- read_csv("data/freq_env1.csv")
 ###################################################################################
 
 #Filter frequency table
