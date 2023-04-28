@@ -43,18 +43,21 @@ prop_A <- function(snp_table,pop_ID) {
   return(snp1A_T)
 }
 
-#Melt example
+# Melt glm Josee
 slope_melt <- function(df) {
   freq_1.melted <- reshape2::melt(df, id.vars = c("Site", "Year"))
   colnames(freq_1.melted)[3] <- "snp_ID"
   colnames(freq_1.melted)[4] <- "freq"
   
   freq_1.melted_mod <- na.omit(freq_1.melted)
+  #  freq_1.melted_mod <- freq_1.melted
   
   freq_1.slope <- group_by(freq_1.melted_mod, Site, snp_ID) %>%
     arrange(Site, Year) %>%
     summarize(Slope = glm(as.numeric(freq) ~ as.numeric(Year), family = binomial)$coefficients[2]*2,
-     SE = summary(glm(as.numeric(freq) ~ as.numeric(Year), family = binomial))$coefficients[2,2])
+              SE = ifelse(is.na(glm(as.numeric(freq) ~ as.numeric(Year), family = binomial)$coefficients[2]),
+                          NA,
+                          summary(glm(as.numeric(freq) ~ as.numeric(Year), family = binomial))$coefficients[2,2]))
   
   return(freq_1.slope)
 }
@@ -102,17 +105,223 @@ rm(loci)
 rm(loci_snp)
 rm(snp)
 rm(loci_united)
+rm(env1_bf0)
+rm(env2_bf0)
+rm(env3_bf0)
+rm(env4_bf0)
+rm(env5_bf0)
+rm(env6_bf0)
+rm(env7_bf0)
+rm(env8_bf0)
+rm(env9_bf0)
+rm(pop_order)
 
 
 
 #################################################################################################
-#Calculate frequencies from abundance
+#GLM for Swiss
 
-swiss_propA <- prop_A(snp_swiss,pop_order_2)
-#rm(snp_swiss)
+swiss_1 <- snp_swiss[1:100000,] #Split data set into 100k ch
+swiss_propA_1 <- prop_A(swiss_1,pop_order_2) # Get frequency table
+swiss_glm_1 <- slope_melt(swiss_propA_1) #Run glm function
+write_csv(swiss_glm_1,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_1.csv")
 
-#Split data set into 100k ch
-swiss_1 <- swiss_propA[1:100000,]
+
+rm(swiss_1)
+rm(swiss_propA_1)
+rm(swiss_glm_1)
+
+swiss_2 <- snp_swiss[100001:200000,] #Split data set into 100k ch
+swiss_propA_2 <- prop_A(swiss_2,pop_order_2) # Get frequency table
+swiss_glm_2 <- slope_melt(swiss_propA_2) #Run glm function
+write_csv(swiss_glm_2,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_2.csv")
+
+
+rm(swiss_2)
+rm(swiss_propA_2)
+rm(swiss_glm_2)
+
+#Did not run
+swiss_3 <- snp_swiss[200001:300000,] #Split data set into 100k ch
+swiss_propA_3 <- prop_A(swiss_3,pop_order_2) # Get frequency table
+swiss_glm_3 <- slope_melt(swiss_propA_3) #Run glm function
+write_csv(swiss_glm_3,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_3.csv")
+
+
+rm(swiss_3)
+rm(swiss_propA_3)
+rm(swiss_glm_3)
+
+swiss_4 <- snp_swiss[300001:400000,] #Split data set into 100k ch
+swiss_propA_4 <- prop_A(swiss_4,pop_order_2) # Get frequency table
+swiss_glm_4 <- slope_melt(swiss_propA_4) #Run glm function
+write_csv(swiss_glm_4,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_4.csv")
+
+
+rm(swiss_4)
+rm(swiss_propA_4)
+rm(swiss_glm_4)
+
+swiss_5 <- snp_swiss[400001:500000,] #Split data set into 100k ch
+swiss_propA_5 <- prop_A(swiss_5,pop_order_2) # Get frequency table
+swiss_glm_5 <- slope_melt(swiss_propA_5) #Run glm function
+write_csv(swiss_glm_5,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_5.csv")
+
+
+rm(swiss_5)
+rm(swiss_propA_5)
+rm(swiss_glm_5)
+
+swiss_6 <- snp_swiss[500001:600000,] #Split data set into 100k ch
+swiss_propA_6 <- prop_A(swiss_6,pop_order_2) # Get frequency table
+swiss_glm_6 <- slope_melt(swiss_propA_6) #Run glm function
+write_csv(swiss_glm_6,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_6.csv")
+
+
+rm(swiss_6)
+rm(swiss_propA_6)
+rm(swiss_glm_6)
+
+swiss_7 <- snp_swiss[600001:700000,] #Split data set into 100k ch
+swiss_propA_7 <- prop_A(swiss_7,pop_order_2) # Get frequency table
+swiss_glm_7 <- slope_melt(swiss_propA_7) #Run glm function
+write_csv(swiss_glm_7,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_7.csv")
+
+
+rm(swiss_7)
+rm(swiss_propA_7)
+rm(swiss_glm_7)
+
+swiss_8 <- snp_swiss[700001:800000,] #Split data set into 100k ch
+swiss_propA_8 <- prop_A(swiss_8,pop_order_2) # Get frequency table
+swiss_glm_8 <- slope_melt(swiss_propA_8) #Run glm function
+write_csv(swiss_glm_8,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_8.csv")
+
+
+rm(swiss_8)
+rm(swiss_propA_8)
+rm(swiss_glm_8)
+
+swiss_9 <- snp_swiss[800001:900000,] #Split data set into 100k ch
+swiss_propA_9 <- prop_A(swiss_9,pop_order_2) # Get frequency table
+swiss_glm_9 <- slope_melt(swiss_propA_9) #Run glm function
+write_csv(swiss_glm_9,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_9.csv")
+
+
+rm(swiss_9)
+rm(swiss_propA_9)
+rm(swiss_glm_9)
+
+swiss_10 <- snp_swiss[900001:1000000,] #Split data set into 100k ch
+swiss_propA_10 <- prop_A(swiss_10,pop_order_2) # Get frequency table
+swiss_glm_10 <- slope_melt(swiss_propA_10) #Run glm function
+write_csv(swiss_glm_10,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_10.csv")
+
+
+rm(swiss_10)
+rm(swiss_propA_10)
+rm(swiss_glm_10)
+
+swiss_11 <- snp_swiss[1000001:1100000,] #Split data set into 100k ch
+swiss_propA_11 <- prop_A(swiss_11,pop_order_2) # Get frequency table
+swiss_glm_11 <- slope_melt(swiss_propA_11) #Run glm function
+write_csv(swiss_glm_11,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_11.csv")
+
+
+rm(swiss_11)
+rm(swiss_propA_11)
+rm(swiss_glm_11)
+
+swiss_12 <- snp_swiss[1100001:1200000,] #Split data set into 100k ch
+swiss_propA_12 <- prop_A(swiss_12,pop_order_2) # Get frequency table
+swiss_glm_12 <- slope_melt(swiss_propA_12) #Run glm function
+write_csv(swiss_glm_12,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_12.csv")
+
+
+rm(swiss_12)
+rm(swiss_propA_12)
+rm(swiss_glm_12)
+
+swiss_13 <- snp_swiss[1200001:1300000,] #Split data set into 100k ch
+swiss_propA_13 <- prop_A(swiss_13,pop_order_2) # Get frequency table
+swiss_glm_13 <- slope_melt(swiss_propA_13) #Run glm function
+write_csv(swiss_glm_13,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_13.csv")
+
+
+rm(swiss_13)
+rm(swiss_propA_13)
+rm(swiss_glm_13)
+
+swiss_14 <- snp_swiss[1300001:1400000,] #Split data set into 100k ch
+swiss_propA_14 <- prop_A(swiss_14,pop_order_2) # Get frequency table
+swiss_glm_14 <- slope_melt(swiss_propA_14) #Run glm function
+write_csv(swiss_glm_14,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_14.csv")
+
+
+rm(swiss_14)
+rm(swiss_propA_14)
+rm(swiss_glm_14)
+
+swiss_15 <- snp_swiss[1400001:1500000,] #Split data set into 100k ch
+swiss_propA_15 <- prop_A(swiss_15,pop_order_2) # Get frequency table
+swiss_glm_15 <- slope_melt(swiss_propA_15) #Run glm function
+write_csv(swiss_glm_15,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_15.csv")
+
+
+rm(swiss_15)
+rm(swiss_propA_15)
+rm(swiss_glm_15)
+
+swiss_16 <- snp_swiss[1500001:1600000,] #Split data set into 100k ch
+swiss_propA_16 <- prop_A(swiss_16,pop_order_2) # Get frequency table
+swiss_glm_16 <- slope_melt(swiss_propA_16) #Run glm function
+write_csv(swiss_glm_16,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_16.csv")
+
+
+rm(swiss_16)
+rm(swiss_propA_16)
+rm(swiss_glm_16)
+
+swiss_17 <- snp_swiss[1600001:1700000,] #Split data set into 100k ch
+swiss_propA_17 <- prop_A(swiss_17,pop_order_2) # Get frequency table
+swiss_glm_17 <- slope_melt(swiss_propA_17) #Run glm function
+write_csv(swiss_glm_17,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_17.csv")
+
+
+rm(swiss_17)
+rm(swiss_propA_17)
+rm(swiss_glm_17)
+
+swiss_18 <- snp_swiss[1700001:1800000,] #Split data set into 100k ch
+swiss_propA_18 <- prop_A(swiss_18,pop_order_2) # Get frequency table
+swiss_glm_18 <- slope_melt(swiss_propA_18) #Run glm function
+write_csv(swiss_glm_18,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_18.csv")
+
+
+rm(swiss_18)
+rm(swiss_propA_18)
+rm(swiss_glm_18)
+
+swiss_19 <- snp_swiss[1800001:1900000,] #Split data set into 100k ch
+swiss_propA_19 <- prop_A(swiss_19,pop_order_2) # Get frequency table
+swiss_glm_19 <- slope_melt(swiss_propA_19) #Run glm function
+write_csv(swiss_glm_19,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_19.csv")
+
+
+rm(swiss_19)
+rm(swiss_propA_19)
+rm(swiss_glm_19)
+
+swiss_20 <- snp_swiss[1900001:1982192,] #Split data set into 100k ch
+swiss_propA_20 <- prop_A(swiss_20,pop_order_2) # Get frequency table
+swiss_glm_20 <- slope_melt(swiss_propA_20) #Run glm function
+write_csv(swiss_glm_20,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_20.csv")
+
+
+rm(swiss_20)
+rm(swiss_propA_20)
+rm(swiss_glm_20)
+
 
 
 
