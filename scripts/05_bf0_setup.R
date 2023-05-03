@@ -1,5 +1,6 @@
 ##################################################################################
-## Filter out BF>0 SNPs
+## Filter out BF>0 SNPs for all env
+## Select snp datatset that will be used for permutation test
 ## Author Daniel Anstett
 ## 
 ##

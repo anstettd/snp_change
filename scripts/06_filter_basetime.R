@@ -1,5 +1,7 @@
 ##################################################################################
 ## Filter high SE from basetime snp set (obs)
+## Basetime is the starting conditions of the timeseries
+## It is required to ensure random sampling during permuation is stratified by starting conditions
 ## Author Daniel Anstett
 ## 
 ## 

@@ -1,6 +1,6 @@
 ##################################################################################
-## Prep work for generate SNP proportion matrix per region
-## Filter timeseries by SNPS from peak window SNPS (WZA) with BF (BayPass) > 2
+## Get SNP abundances for baseline and timeseries 
+## Done for current snp set (New WZA BF>10 + all BF > 30)
 ## Author Daniel Anstett
 ## 
 ## Done for all 9 env variables

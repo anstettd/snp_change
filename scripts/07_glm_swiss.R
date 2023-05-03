@@ -1,6 +1,7 @@
 ##################################################################################
-## Calc frequency for all neutral snps
-## For env 1 (MAT)
+## Calculate glm slope and SE for every BF>0 snp
+## Computationally intensive
+## Split into 100k chucks to make managable 
 ## Author Daniel Anstett
 ## 
 ## 

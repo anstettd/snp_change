@@ -1,5 +1,5 @@
 ##################################################################################
-## Make SNP slopes histograms
+## Make SNP slopes histograms for obs data only
 ## Author Daniel Anstett
 ## 
 ## For all 9 env
