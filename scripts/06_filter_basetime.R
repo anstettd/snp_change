@@ -1,6 +1,8 @@
 ##################################################################################
-## Filter high SE from basetime snp set (obs)
+## Make basetime df for observed snps
+## Filter high SE from basetime observed snps
 ## Basetime is the starting conditions of the timeseries
+## Observed snps are the climate associated snp set that was selected through WZA & BayPass
 ## It is required to ensure random sampling during permuation is stratified by starting conditions
 ## Author Daniel Anstett
 ## 
@@ -42,7 +44,8 @@ insert_NA <- function(basetime_df,high_df){
 
 
 ###################################################################################
-#Import transformed timeseries frequencies
+#Import transformed timeseries frequencies from just obs (snp set)
+
 freq_env1 <- read_csv("data/freq_env1.csv")
 freq_env2 <- read_csv("data/freq_env2.csv")
 freq_env3 <- read_csv("data/freq_env3.csv")

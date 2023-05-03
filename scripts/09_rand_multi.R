@@ -78,18 +78,49 @@ freq_bins <- function(basetime){
   return(freq_count_calc)
 }
 
+#env_bin5
+#Increase binwidtch at 0.2 increments throughout
+freq_bin5 <- function(basetime){
+  freq_count_calc<-data.frame()
+  bin_size<-5
+  for (i in 1:12){
+    
+    #    if(i==1 || i==7){
+    #      bin_size<-10
+    #    }else if (i==3 || i==4 || i==6 || i==11){
+    #      bin_size<-4
+    #    }else if (i==8){
+    #      bin_size<-2
+    #    }else if(i==2 || i==5 || i==9 || i==10 || i==12){
+    #      bin_size<-5
+    #    }
+    
+    bin_fraction<-1/bin_size
+    bin_step<-seq(0,1,bin_fraction)
+    
+    for(j in 1:bin_size){
+      test_ENV <- basetime %>% filter(Site==i) %>% select (-Site,-Year)
+      test_ENV <- as.data.frame(test_ENV)
+      test_ENV <- as.numeric(test_ENV[1,])
+      if (j==bin_size){
+        freq_count_calc[j,i]<-sum(test_ENV >= bin_step[j] & test_ENV <= bin_step[j+1],na.rm=T )
+      }else{
+        freq_count_calc[j,i]<-sum(test_ENV >= bin_step[j] & test_ENV < bin_step[j+1],na.rm=T )
+      }  
+    }
+  }
+  return(freq_count_calc)
+}
+
+
 #env1
 freq_bins_env1 <- function(basetime){
   freq_count_calc<-data.frame()
   for (i in 1:12){
     
-    if(i==1 || i==7){
-      bin_size<-10
-    }else if (i==3 || i==4 || i==6 || i==11){
+    if(i==4){
       bin_size<-4
-    }else if (i==8){
-      bin_size<-2
-    }else if(i==2 || i==5 || i==9 || i==10 || i==12){
+    }else{
       bin_size<-5
     }
     
@@ -111,24 +142,21 @@ freq_bins_env1 <- function(basetime){
   return(freq_count_calc)
 }
 
-#env2
-freq_bins_env2 <- function(basetime){
+#env6
+freq_bins_env6 <- function(basetime){
   freq_count_calc<-data.frame()
   for (i in 1:12){
     
-    if(i==1 || i==2 || i==5 || i==7 || i==10){
-      bin_size<-10
-    }else if (i==3 || i==4 || i==6 || i==11){
+    if(i==8 | i==11){
       bin_size<-4
-    }else if (i==8){
-      bin_size<-2
-    }else if(i==9 || i==12){
+    }else{
       bin_size<-5
     }
     
     bin_fraction<-1/bin_size
     bin_step<-seq(0,1,bin_fraction)
     
+    #counting the number of SNPs that fall within a given frequency bin for a given Pop   
     for(j in 1:bin_size){
       test_ENV <- basetime %>% filter(Site==i) %>% select (-Site,-Year)
       test_ENV <- as.data.frame(test_ENV)
@@ -143,24 +171,22 @@ freq_bins_env2 <- function(basetime){
   return(freq_count_calc)
 }
 
-#env5
-freq_bins_env5 <- function(basetime){
+
+#env7
+freq_bins_env7 <- function(basetime){
   freq_count_calc<-data.frame()
   for (i in 1:12){
     
-    if(i==1 ||i==5 || i==7 || i==10){
-      bin_size<-10
-    }else if (i==3 || i==4 || i==6 || i==11){
+    if(i==2 | i==12){
       bin_size<-4
-    }else if (i==8){
-      bin_size<-2
-    }else if( i==2 || i==9 || i==12){
+    }else{
       bin_size<-5
     }
     
     bin_fraction<-1/bin_size
     bin_step<-seq(0,1,bin_fraction)
     
+    #counting the number of SNPs that fall within a given frequency bin for a given Pop   
     for(j in 1:bin_size){
       test_ENV <- basetime %>% filter(Site==i) %>% select (-Site,-Year)
       test_ENV <- as.data.frame(test_ENV)
@@ -174,6 +200,37 @@ freq_bins_env5 <- function(basetime){
   }
   return(freq_count_calc)
 }
+
+
+#env8
+freq_bins_env8 <- function(basetime){
+  freq_count_calc<-data.frame()
+  for (i in 1:12){
+    
+    if(i==2){
+      bin_size<-4
+    }else{
+      bin_size<-5
+    }
+    
+    bin_fraction<-1/bin_size
+    bin_step<-seq(0,1,bin_fraction)
+    
+    #counting the number of SNPs that fall within a given frequency bin for a given Pop   
+    for(j in 1:bin_size){
+      test_ENV <- basetime %>% filter(Site==i) %>% select (-Site,-Year)
+      test_ENV <- as.data.frame(test_ENV)
+      test_ENV <- as.numeric(test_ENV[1,])
+      if (j==bin_size){
+        freq_count_calc[j,i]<-sum(test_ENV >= bin_step[j] & test_ENV <= bin_step[j+1],na.rm=T )
+      }else{
+        freq_count_calc[j,i]<-sum(test_ENV >= bin_step[j] & test_ENV < bin_step[j+1],na.rm=T )
+      }  
+    }
+  }
+  return(freq_count_calc)
+}
+
 
 #Generate frequency matrix for prop A 
 prop_A <- function(snp_table,pop_ID) {
@@ -243,6 +300,7 @@ glm_slopes<-function(snp_popX){
 
 ###################################################################################
 
+
 ## Manupulate entire SNP datatset for timeseries
 
 #Import timeseries counts for A and B
@@ -290,6 +348,9 @@ snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env8_bf0$chr_snp))
 snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env9_bf0$chr_snp))
 
 
+# Import non-climate associated slopes with low SE
+swiss_glm <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_filter.csv")
+
 
 ###################################################################################
 #Import transformed timeseries frequencies
@@ -305,16 +366,48 @@ basetime_env9 <- read_csv("data/env9_low.csv")
 ###################################################################################
 
 #Diagnose bin size per pop per env variable
-freq_count_env1 <- freq_bins(basetime_env1)
+#freq_count_env1 <- freq_bins(basetime_env1)
+#freq_count_env1
+#freq_count_env2 <- freq_bins(basetime_env2)
+#freq_count_env2
+#freq_count_env3 <- freq_bins(basetime_env3)
+#freq_count_env3
+#freq_count_env4 <- freq_bins(basetime_env4)
+#freq_count_env4
+#freq_count_env5 <- freq_bins(basetime_env5)
+#freq_count_env5
+#freq_count_env6 <- freq_bins(basetime_env6)
+#freq_count_env6
+#freq_count_env7 <- freq_bins(basetime_env7)
+#freq_count_env7
+#freq_count_env8 <- freq_bins(basetime_env8)
+#freq_count_env8
+#freq_count_env9 <- freq_bins(basetime_env9)
+#freq_count_env9
 
-basetime_env1
+
 
 #Make frequency count table
-freq_count_env1 <- freq_bins_env1(freq_env1_1011)
-freq_count_env2 <- freq_bins_env2(freq_env2_1011)
-freq_count_env5 <- freq_bins_env5(freq_env5_1011)
+freq_count_env1 <- freq_bins_env1(basetime_env1)
+freq_count_env2 <- freq_bin5(basetime_env2)
+freq_count_env3 <- freq_bin5(basetime_env3)
+freq_count_env4 <- freq_bin5(basetime_env4)
+freq_count_env5 <- freq_bin5(basetime_env5)
+freq_count_env6 <- freq_bins_env6(basetime_env6)
+freq_count_env7 <- freq_bins_env7(basetime_env7)
+freq_count_env8 <- freq_bins_env8(basetime_env8)
+freq_count_env9 <- freq_bin5(basetime_env9)
 
-
+#Check to ensure no zeros are present
+#freq_count_env1
+#freq_count_env2
+#freq_count_env3
+#freq_count_env4
+#freq_count_env5
+#freq_count_env6
+#freq_count_env7
+#freq_count_env8
+#freq_count_env9
 
 
 ######################################################################################################
@@ -420,37 +513,37 @@ pop_V11 <- pop_order_V %>% filter(Year==2010 & Pop==11)
 pop_V12 <- pop_order_V %>% filter(Year==2010 & Pop==11)
 
 
-#Filter Baseline A and B numbers for 3 basetime regions
-loci_base_1 <- snp_swiss %>% select(chr_snp,all_of(pop_V1$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_2 <- snp_swiss %>% select(chr_snp,all_of(pop_V2$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_3 <- snp_swiss %>% select(chr_snp,all_of(pop_V3$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_4 <- snp_swiss %>% select(chr_snp,all_of(pop_V4$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_5 <- snp_swiss %>% select(chr_snp,all_of(pop_V5$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_6 <- snp_swiss %>% select(chr_snp,all_of(pop_V6$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
+#Filter Baseline A and B numbers for each population
+loci_base_1 <- snp_swiss %>% select(chr_snp,all_of(pop_V1$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_2 <- snp_swiss %>% select(chr_snp,all_of(pop_V2$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_3 <- snp_swiss %>% select(chr_snp,all_of(pop_V3$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_4 <- snp_swiss %>% select(chr_snp,all_of(pop_V4$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_5 <- snp_swiss %>% select(chr_snp,all_of(pop_V5$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_6 <- snp_swiss %>% select(chr_snp,all_of(pop_V6$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
 
-loci_base_7 <- snp_swiss %>% select(chr_snp,all_of(pop_V7$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_8 <- snp_swiss %>% select(chr_snp,all_of(pop_V8$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_9 <- snp_swiss %>% select(chr_snp,all_of(pop_V9$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_10 <- snp_swiss %>% select(chr_snp,all_of(pop_V10$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_11 <- snp_swiss %>% select(chr_snp,all_of(pop_V11$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
-loci_base_12 <- snp_swiss %>% select(chr_snp,all_of(pop_V12$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
+loci_base_7 <- snp_swiss %>% select(chr_snp,all_of(pop_V7$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_8 <- snp_swiss %>% select(chr_snp,all_of(pop_V8$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_9 <- snp_swiss %>% select(chr_snp,all_of(pop_V9$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_10 <- snp_swiss %>% select(chr_snp,all_of(pop_V10$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_11 <- snp_swiss %>% select(chr_snp,all_of(pop_V11$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
+loci_base_12 <- snp_swiss %>% select(chr_snp,all_of(pop_V12$V_ID)) %>% mutate(total_freq= rowSums(across(where(is.numeric))))
 
 
 #Calculate frequency for SNP A for 12 basetime pops
 #Gives all basetime frequencies per region
-p1A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p2A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p3A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p4A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p5A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p6A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
+p1A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p2A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p3A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p4A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p5A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p6A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
 
-p7A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p8A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p9A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p10A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p11A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
-p12A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(region_sum)) %>% select(chr_snp,snpA)
+p7A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p8A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p9A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p10A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p11A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
+p12A <- loci_base_1 %>% mutate(snpA=(loci_base_1[,2])/(total_freq)) %>% select(chr_snp,snpA)
 
 
 
@@ -733,6 +826,21 @@ setwd("~/Dropbox/AM_Workshop/AM_Workshop/")
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 rand_slope_env5_out<-data.frame()
 
 #env5 ONLY
@@ -832,4 +940,12 @@ for (seed_num in 1:1000){
   print(seed_num)
   
 }
+
+
+
+
+
+
+
+
 
