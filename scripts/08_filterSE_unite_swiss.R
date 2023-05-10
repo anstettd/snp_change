@@ -59,8 +59,22 @@ swiss_glm <- rbind(swiss_glm_1,
 swiss_glm_filter <- swiss_glm %>% filter(SE<5.5)
 
 #Export
-write_csv(swiss_glm_filter,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_filter.csv")
-write_csv(swiss_glm,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_allSE.csv")
+#write_csv(swiss_glm_filter,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_filter.csv")
+#write_csv(swiss_glm,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_allSE.csv")
 
+#Discriptive Plots
 
+#all_slopes
+env_slope<- ggplot(swiss_glm_filter,aes(x=Slope))+
+  geom_histogram(position="identity",bins=40,color="black",alpha=0.5)+
+  scale_y_continuous(name="Count")+
+  scale_x_continuous(name="Strength of Selection")+
+  theme_classic()
+#env_slope <- env_slope  + theme(
+#  axis.text.x = element_text(size=12, face="bold"),
+#  axis.text.y = element_text(size=12,face="bold"),
+#  axis.title.x = element_text(color="black", size=14, vjust = 0.5, face="bold"),
+#  axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
+env_slope <- env_slope + facet_wrap(.~Site)
+env_slope
 

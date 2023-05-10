@@ -1,7 +1,7 @@
 ##################################################################################
 ## Calculate glm slope and SE for every BF>0 snp
 ## Computationally intensive
-## Split into 100k chucks to make managable 
+## Split into 100k chucks to make managable
 ## Author Daniel Anstett
 ## 
 ## 

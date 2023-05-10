@@ -79,8 +79,8 @@ freq_bins <- function(basetime){
 }
 
 #env_bin5
-#Increase binwidtch at 0.2 increments throughout
-freq_bin5 <- function(basetime){
+#Increase bin width at 0.2 increments throughout
+freq_bins_env <- function(basetime){
   freq_count_calc<-data.frame()
   bin_size<-5
   for (i in 1:12){

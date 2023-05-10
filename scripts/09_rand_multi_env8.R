@@ -1,6 +1,6 @@
 ##################################################################################
 ## Generate stratified distribution of random non-climate associated slopes
-## For env 1 (MAT)
+## For env 8 (MAT)
 ## Author Daniel Anstett
 ## 
 ## 
@@ -81,12 +81,12 @@ freq_bins <- function(basetime){
 }
 
 #Replace function with env variable specific function
-#env1
+#env8
 freq_bins_env <- function(basetime){
   freq_count_calc<-data.frame()
   for (i in 1:12){
     
-    if(i==4){
+    if(i==2){
       bin_size<-4
     }else{
       bin_size<-5
@@ -173,7 +173,7 @@ swiss_glm <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swi
 
 #Import obs (snp set) frequency
 #already filtered to include only basetime snps with low SE
-basetime_env1 <- read_csv("data/env1_low.csv")
+basetime_env1 <- read_csv("data/env8_low.csv")
 
 ###################################################################################
 
@@ -396,7 +396,7 @@ print(seed_num)
 #Save large files in folder outside of github
 setwd("~/Dropbox/AM_Workshop/Large_files")
 
-write_csv(rand_slope_out, "rand_slope_env1_lowSE.csv")
+write_csv(rand_slope_out, "rand_slope_env8_lowSE.csv")
 
 setwd("~/Dropbox/AM_Workshop/snp_change")
 

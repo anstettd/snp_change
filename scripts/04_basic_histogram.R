@@ -13,7 +13,8 @@ library(tidyverse)
 
 #Full Data
 env_all <- read_csv("data/slope_obs_all.csv")
-env_low <- env_all %>% filter(SE<5)
+env_low <- env_all %>% filter(SE<5.5) 
+#%>% filter(Slope<=5) %>% filter(Slope>=-5)
 
 env_1 <- env_low %>% filter(Site==1)
 env_2 <- env_low %>% filter(Site==2)

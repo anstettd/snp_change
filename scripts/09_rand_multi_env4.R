@@ -1,6 +1,6 @@
 ##################################################################################
 ## Generate stratified distribution of random non-climate associated slopes
-## For env 1 (MAT)
+## For env 4 (MAT)
 ## Author Daniel Anstett
 ## 
 ## 
@@ -81,21 +81,26 @@ freq_bins <- function(basetime){
 }
 
 #Replace function with env variable specific function
-#env1
+#env_bin5
+#Increase bin width at 0.2 increments throughout
 freq_bins_env <- function(basetime){
   freq_count_calc<-data.frame()
+  bin_size<-5
   for (i in 1:12){
     
-    if(i==4){
-      bin_size<-4
-    }else{
-      bin_size<-5
-    }
+    #    if(i==1 || i==7){
+    #      bin_size<-10
+    #    }else if (i==3 || i==4 || i==6 || i==11){
+    #      bin_size<-4
+    #    }else if (i==8){
+    #      bin_size<-2
+    #    }else if(i==2 || i==5 || i==9 || i==10 || i==12){
+    #      bin_size<-5
+    #    }
     
     bin_fraction<-1/bin_size
     bin_step<-seq(0,1,bin_fraction)
     
-    #counting the number of SNPs that fall within a given frequency bin for a given Pop   
     for(j in 1:bin_size){
       test_ENV <- basetime %>% filter(Site==i) %>% select (-Site,-Year)
       test_ENV <- as.data.frame(test_ENV)
@@ -173,7 +178,7 @@ swiss_glm <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swi
 
 #Import obs (snp set) frequency
 #already filtered to include only basetime snps with low SE
-basetime_env1 <- read_csv("data/env1_low.csv")
+basetime_env1 <- read_csv("data/env4_low.csv")
 
 ###################################################################################
 
@@ -396,7 +401,7 @@ print(seed_num)
 #Save large files in folder outside of github
 setwd("~/Dropbox/AM_Workshop/Large_files")
 
-write_csv(rand_slope_out, "rand_slope_env1_lowSE.csv")
+write_csv(rand_slope_out, "rand_slope_env4_lowSE.csv")
 
 setwd("~/Dropbox/AM_Workshop/snp_change")
 

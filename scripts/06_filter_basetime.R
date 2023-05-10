@@ -3,7 +3,8 @@
 ## Filter high SE from basetime observed snps
 ## Basetime is the starting conditions of the timeseries
 ## Observed snps are the climate associated snp set that was selected through WZA & BayPass
-## It is required to ensure random sampling during permuation is stratified by starting conditions
+## Basetime is required to ensure random sampling during permuation is stratified by 
+## starting conditions while not selecting high SE SNPs/slopes
 ## Author Daniel Anstett
 ## 
 ## 
