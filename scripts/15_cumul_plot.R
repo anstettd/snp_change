@@ -29,7 +29,8 @@ Anova(lm.cumul.mean,type="III")
 #cumul slope plotted against lambda slope
 ggplot(offset_pop, aes(x=cumul_slope, y=lambda.slope, label=Paper_ID)) + 
   geom_point(aes(color=Region), size =4.5)+
-  geom_smooth(method=lm,color="black")+
+  geom_hline(yintercept=c(0,0), linetype="dotted")+
+  #geom_smooth(method=lm,color="black")+
   #  geom_label_repel(aes(label = ID))+
   geom_text(hjust=-.15, vjust=-.2)+
   scale_y_continuous(name="Lambda Slope")+
