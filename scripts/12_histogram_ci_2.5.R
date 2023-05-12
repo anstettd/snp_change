@@ -34,6 +34,7 @@ env_obs_ci <- read_csv("data/obs_ci_env.csv")  %>% filter(S <= 2.5 & S>= -2.5)
 mat_p1_hist <- ggplot(env_obs_ci,aes(x=S,y=p1,ymin=p1_low,ymax=p1_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (P1)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p1_hist 
@@ -43,6 +44,7 @@ ggsave("graphs/slopes_CI_2.5/01_slope_ci_p1.pdf",width=12, height = 8, units = "
 mat_p12_hist <- ggplot(env_obs_ci,aes(x=S,y=p12,ymin=p12_low,ymax=p12_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p12)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p12_hist 
@@ -53,6 +55,7 @@ ggsave("graphs/slopes_CI_2.5/02_slope_ci_p12.pdf",width=12, height = 8, units = 
 mat_p2_hist <- ggplot(env_obs_ci,aes(x=S,y=p2,ymin=p2_low,ymax=p2_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p2)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p2_hist 
@@ -62,6 +65,7 @@ ggsave("graphs/slopes_CI_2.5/03_slope_ci_p2.pdf",width=12, height = 8, units = "
 mat_p3_hist <- ggplot(env_obs_ci,aes(x=S,y=p3,ymin=p3_low,ymax=p3_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p3)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p3_hist 
@@ -71,6 +75,7 @@ ggsave("graphs/slopes_CI_2.5/04_slope_ci_p3.pdf",width=12, height = 8, units = "
 mat_p4_hist <- ggplot(env_obs_ci,aes(x=S,y=p4,ymin=p4_low,ymax=p4_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p4)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p4_hist 
@@ -80,6 +85,7 @@ ggsave("graphs/slopes_CI_2.5/05_slope_ci_p4.pdf",width=12, height = 8, units = "
 mat_p5_hist <- ggplot(env_obs_ci,aes(x=S,y=p5,ymin=p5_low,ymax=p5_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p5)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p5_hist 
@@ -89,6 +95,7 @@ ggsave("graphs/slopes_CI_2.5/06_slope_ci_p5.pdf",width=12, height = 8, units = "
 mat_p6_hist <- ggplot(env_obs_ci,aes(x=S,y=p6,ymin=p6_low,ymax=p6_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p6)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p6_hist 
@@ -98,6 +105,7 @@ ggsave("graphs/slopes_CI_2.5/07_slope_ci_p6.pdf",width=12, height = 8, units = "
 mat_p7_hist <- ggplot(env_obs_ci,aes(x=S,y=p7,ymin=p7_low,ymax=p7_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p7)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p7_hist 
@@ -107,6 +115,7 @@ ggsave("graphs/slopes_CI_2.5/08_slope_ci_p7.pdf",width=12, height = 8, units = "
 mat_p8_hist <- ggplot(env_obs_ci,aes(x=S,y=p8,ymin=p8_low,ymax=p8_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p8)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p8_hist 
@@ -116,6 +125,7 @@ ggsave("graphs/slopes_CI_2.5/09_slope_ci_p8.pdf",width=12, height = 8, units = "
 mat_p9_hist <- ggplot(env_obs_ci,aes(x=S,y=p9,ymin=p9_low,ymax=p9_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p9)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p9_hist 
@@ -125,6 +135,7 @@ ggsave("graphs/slopes_CI_2.5/10_slope_ci_p9.pdf",width=12, height = 8, units = "
 mat_p10_hist <- ggplot(env_obs_ci,aes(x=S,y=p10,ymin=p10_low,ymax=p10_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p10)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p10_hist 
@@ -134,6 +145,7 @@ ggsave("graphs/slopes_CI_2.5/11_slope_ci_p10.pdf",width=12, height = 8, units = 
 mat_p11_hist <- ggplot(env_obs_ci,aes(x=S,y=p11,ymin=p11_low,ymax=p11_up))+
   geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_vline(xintercept=0) +
   labs(x = "Strength of Selection (p11)", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
 mat_p11_hist 

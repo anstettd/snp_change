@@ -35,8 +35,7 @@ ns <- function(ci,slope_df){
       
       for (i in 1:dim(instruction_env)[1]){
         data.temp <- instruction_env[i,]
-        slope.temp <- env_slope_pop %>% filter(Slope >= data.temp$low_S & Slope < data.temp$high_S) %>% 
-          mutate(Site=j)
+        slope.temp <- env_slope_pop %>% filter(Slope >= data.temp$low_S & Slope < data.temp$high_S)
         slope.out.env <- rbind(slope.out.env,slope.temp)
       }
     }
@@ -95,8 +94,7 @@ for (j in 1:12){
   
   for (i in 1:dim(instruction_env)[1]){
     data.temp <- instruction_env[i,]
-    slope.temp <- env_slope_pop %>% filter(Slope >= data.temp$low_S & Slope < data.temp$high_S) %>% 
-      mutate(Site=j)
+    slope.temp <- env_slope_pop %>% filter(Slope >= data.temp$low_S & Slope < data.temp$high_S) 
     slope.out.env1 <- rbind(slope.out.env1,slope.temp)
   }
 }
@@ -105,14 +103,14 @@ for (j in 1:12){
 ############################################################################################################
 #Run ns function
 slope_out_env1 <-ns(env1_obs_ci,env1_slope)
-slope_out_env2 <-ns(env1_obs_ci,env2_slope)
-slope_out_env3 <-ns(env1_obs_ci,env3_slope)
-slope_out_env4 <-ns(env1_obs_ci,env4_slope)
-slope_out_env5 <-ns(env1_obs_ci,env5_slope)
-slope_out_env6 <-ns(env1_obs_ci,env6_slope)
-slope_out_env7 <-ns(env1_obs_ci,env7_slope)
-slope_out_env8 <-ns(env1_obs_ci,env8_slope)
-slope_out_env9 <-ns(env1_obs_ci,env9_slope)
+slope_out_env2 <-ns(env2_obs_ci,env2_slope)
+slope_out_env3 <-ns(env3_obs_ci,env3_slope)
+slope_out_env4 <-ns(env4_obs_ci,env4_slope)
+slope_out_env5 <-ns(env5_obs_ci,env5_slope)
+slope_out_env6 <-ns(env6_obs_ci,env6_slope)
+slope_out_env7 <-ns(env7_obs_ci,env7_slope)
+slope_out_env8 <-ns(env8_obs_ci,env8_slope)
+slope_out_env9 <-ns(env9_obs_ci,env9_slope)
 
 snp_list <- rbind(slope_out_env1,
                   slope_out_env2,
@@ -128,10 +126,10 @@ snp_list <- rbind(slope_out_env1,
 #Make unique snp_list across env
 
 #Diagnostics
-snp_list_p1 <- snp_list %>% filter(Site==1)
+#snp_list_p1 <- snp_list %>% filter(Site==1)
 #Not unique SNP ID
-unique(snp_list_p1$snp_ID[duplicated(snp_list_p1$snp_ID)]) 
-duplicated(snp_list_p1$snp_ID[duplicated(snp_list_p1$snp_ID)]) 
+#unique(snp_list_p1$snp_ID[duplicated(snp_list_p1$snp_ID)]) 
+#duplicated(snp_list_p1$snp_ID[duplicated(snp_list_p1$snp_ID)]) 
 
 
 #Remove not unique SNPs
