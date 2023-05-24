@@ -1,6 +1,7 @@
 ##################################################################################
 ## Generate input for strength of selection graphs
 ## Processing for both observation and permuted CI
+## Updated to count only difference between obs and upper CI rather than whole bin
 ## Author Daniel Anstett
 ## 
 ## 

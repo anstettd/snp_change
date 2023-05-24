@@ -58,18 +58,88 @@ theme(
 ################################################################################################################
 
 #Import cumul SNPs
-snp_list <- read.csv("Genomics_scripts/Data/snp_list.csv")
+#snp_list <- read.csv("Genomics_scripts/Data/snp_list.csv")
 
 #Import timeseries frequencies
-freq_mat <- read_csv("Genomics_scripts/Data/freq_MAT_peakbf5.csv")
-freq_map <- read_csv("Genomics_scripts/Data/freq_MAP_peakbf5.csv")
-freq_cmd <- read_csv("Genomics_scripts/Data/freq_CMD_peakbf5.csv")
+#freq_mat <- read_csv("Genomics_scripts/Data/freq_MAT_peakbf5.csv")
+
+freq_env1 <- read_csv("data/freq_env1.csv")
+freq_env2 <- read_csv("data/freq_env2.csv")
+freq_env3 <- read_csv("data/freq_env3.csv")
+freq_env4 <- read_csv("data/freq_env4.csv")
+freq_env5 <- read_csv("data/freq_env5.csv")
+freq_env6 <- read_csv("data/freq_env6.csv")
+freq_env7 <- read_csv("data/freq_env7.csv")
+freq_env8 <- read_csv("data/freq_env8.csv")
+freq_env9 <- read_csv("data/freq_env9.csv")
 
 #Gather data frames
-freq_mat <- freq_mat %>% gather(SNP_ID,SNP_Freq,3:dim(freq_mat)[2]) %>% mutate(env="MAT")
-freq_map <- freq_map %>% gather(SNP_ID,SNP_Freq,3:dim(freq_map)[2]) %>% mutate(env="MAP")
-freq_cmd <- freq_cmd %>% gather(SNP_ID,SNP_Freq,3:dim(freq_cmd)[2]) %>% mutate(env="CMD")
-freq_env <- rbind(freq_mat,freq_map,freq_cmd)
+freq_env1 <- freq_env1 %>% gather(SNP_ID,SNP_Freq,3:dim(freq_env1)[2]) %>% mutate(env="env1")
+freq_env2 <- freq_env2 %>% gather(SNP_ID,SNP_Freq,3:dim(freq_env2)[2]) %>% mutate(env="env2")
+freq_env3 <- freq_env3 %>% gather(SNP_ID,SNP_Freq,3:dim(freq_env3)[2]) %>% mutate(env="env3")
+freq_env4 <- freq_env4 %>% gather(SNP_ID,SNP_Freq,3:dim(freq_env4)[2]) %>% mutate(env="env4")
+freq_env5 <- freq_env5 %>% gather(SNP_ID,SNP_Freq,3:dim(freq_env5)[2]) %>% mutate(env="env5")
+freq_env6 <- freq_env6 %>% gather(SNP_ID,SNP_Freq,3:dim(freq_env6)[2]) %>% mutate(env="env6")
+freq_env7 <- freq_env7 %>% gather(SNP_ID,SNP_Freq,3:dim(freq_env7)[2]) %>% mutate(env="env7")
+freq_env8 <- freq_env8 %>% gather(SNP_ID,SNP_Freq,3:dim(freq_env8)[2]) %>% mutate(env="env8")
+freq_env9 <- freq_env9 %>% gather(SNP_ID,SNP_Freq,3:dim(freq_env9)[2]) %>% mutate(env="env9")
+
+#Get rid of duplicates SNPs across env
+freq_env <- rbind(freq_env1,
+                  freq_env2,
+                  freq_env3,
+                  freq_env4,
+                  freq_env5,
+                  freq_env6,
+                  freq_env7,
+                  freq_env8,
+                  freq_env9) %>% unite(col = "Filter_ID", c("Site", "Year","SNP_ID"), sep = "/") %>%
+  distinct(Filter_ID, .keep_all=T) %>% separate(Filter_ID, c("Site", "Year","SNP_ID"), sep = "/")
+
+#SE data
+env_all <- read_csv("data/slope_obs_all_unique.csv")
+colnames(env_all) <- c("Site","SNP_ID","Slope","SE","ENV","Type")
+#env_low <- env_all %>% filter(SE<5.5) 
+freq_env$Site <- as.numeric(freq_env$Site)
+freq_env_se <- left_join(freq_env,env_all,by=c("Site","SNP_ID")) %>% filter(SE<5.5)
+
+freq_env_se$Site <- as.factor(freq_env_se$Site)
+freq_env_se$Site <- factor(freq_env_se$Site, levels = c(1,12,2,3,4,5,6,7,8,9,10,11))
+
+
+
+################################################################################################################
+#Make Plots
+
+#All Sites
+spag_cumul_1 <- ggplot(data=freq_env_se ,aes(Year,SNP_Freq,group=SNP_ID)) + 
+  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
+  labs(y="SNP Frequency",x="Year") +  facet_wrap(.~Site) + theme_spaghetti()
+spag_cumul_1
+ggsave("graphs/07_spaghetii_obs.pdf",spag_cumul_1,width=8, height = 7, units = "in")
+
+################################################################################################################
+#Single Case
+#plot p11 between Slope = 0.4 and 0.8
+freq_env_se_p11 <- freq_env_se %>% filter(Site==11) %>% filter (Slope>0.4 & Slope <=0.8)
+
+spag_cumul_11 <- ggplot(data=freq_env_se_p11 ,aes(Year,SNP_Freq,group=SNP_ID)) + 
+  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.6,cex=0.6,color="blue") + 
+  geom_point(size=1) +
+  labs(y="SNP Frequency",x="Year") +  facet_wrap(.~SNP_ID) + theme_spaghetti()
+spag_cumul_11
+ggsave("graphs/spaghetii/spaghetii_obs_p11_pos.pdf",spag_cumul_11,width=20, height = 20, units = "in")
+
+
+
+
+
+
+
+
+
+
+
 
 ################################################################################################################
 #Single Case

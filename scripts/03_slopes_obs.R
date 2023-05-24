@@ -2,6 +2,7 @@
 ## Get pop specific SNP slopes over the timeseries for "observed" data set
 ## Done for snp set BF>10 in windows and BF>30 overall
 ## Does not include 1000 permuations of random sampling for BF<0
+## Also done for unique slopes across all env (histPop)
 ## Author Daniel Anstett
 ## 
 ## 
@@ -140,6 +141,16 @@ slope_env_all <- rbind(slope_env1,
                        slope_env8,
                        slope_env9)
 
+#Get unique SNP for merged env
+
+slope_env_all_unique <- data.frame()
+for (i in 1:dim(slope_env_all)){
+  slope.temp <- slope_env_all %>% filter(Site==i)
+  slope.unique <- slope.temp [!duplicated(slope.temp [ , "snp_ID"]), ]
+  slope_env_all_unique <- rbind(slope_env_all_unique,slope.unique)
+}
+
+
 ###################################################################################
 #Export
 write_csv(slope_env1, "data/slope_obs_env1.csv")
@@ -152,6 +163,7 @@ write_csv(slope_env7, "data/slope_obs_env7.csv")
 write_csv(slope_env8, "data/slope_obs_env8.csv")
 write_csv(slope_env9, "data/slope_obs_env9.csv")
 write_csv(slope_env_all, "data/slope_obs_all.csv")
+write_csv(slope_env_all_unique, "data/slope_obs_all_unique.csv")
 
 
 

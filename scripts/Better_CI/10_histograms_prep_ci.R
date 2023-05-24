@@ -168,8 +168,8 @@ get_ci <- function(df){
       bars <- df %>% filter(Site==j)
       test <- bars %>% filter(Slope >= (-5.0+0.2*i) & Slope< (-4.8+0.2*i))
       count <- test %>% count(Seed_ID)
-      ci_prep[1+i,j*2-1] <- as.numeric(quantile(count$n, probs = c(0.025, 0.975))[1])
-      ci_prep[1+i,j*2] <- as.numeric(quantile(count$n, probs = c(0.025, 0.975))[2])
+      ci_prep[1+i,j*2-1] <- as.numeric(quantile(count$n, probs = c(0, 0.95))[1])
+      ci_prep[1+i,j*2] <- as.numeric(quantile(count$n, probs = c(0, 0.95))[2])
     }
   }
     colnames(ci_prep) <- c("p1_low","p1_up","p2_low","p2_up","p3_low","p3_up","p4_low","p4_up"
@@ -267,11 +267,11 @@ obs_table_env_unique <- hist_table(obs_env_unique)
 #mat_ci_prep <- data.frame()
 #for(j in 1:12){
 #  for(i in 0:49){
-#    mat_bars <- rand_env1 %>% filter(Site==j)
+#    mat_bars <- rand_env_unique %>% filter(Site==j)
 #    mat_test <- mat_bars %>% filter(Slope >= (-5.0+0.2*i) & Slope< (-4.8+0.2*i))
 #    mat_count <- mat_test %>% count(Seed_ID)
-#    mat_ci_prep[1+i,j*2-1] <- as.numeric(quantile(mat_count$n, probs = c(0.025, 0.975))[1])
-#    mat_ci_prep[1+i,j*2] <- as.numeric(quantile(mat_count$n, probs = c(0.025, 0.975))[2])
+#    mat_ci_prep[1+i,j*2-1] <- as.numeric(quantile(mat_count$n, probs = c(0, 0.95))[1])
+#    mat_ci_prep[1+i,j*2] <- as.numeric(quantile(mat_count$n, probs = c(0, 0.95))[2])
 #  }
 #}
 
@@ -334,8 +334,8 @@ obs_ci_env <- rbind(obs_ci_env1,
 
 
 #Export
-#write_csv(obs_ci_env, "data/obs_ci_env.csv")
-#write_csv(obs_ci_env_unique, "data/obs_ci_env_unique.csv")
+write_csv(obs_ci_env, "data/obs_ci_env_95.csv")
+write_csv(obs_ci_env_unique, "data/obs_ci_env_unique_95.csv")
 
 
 

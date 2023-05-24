@@ -101,15 +101,19 @@ env7_low <- insert_NA(basetime_env7,env7_high)
 env8_low <- insert_NA(basetime_env8,env8_high)
 env9_low <- insert_NA(basetime_env9,env9_high)
 
+
+
+
+
 #Export
-write_csv(env1_low, "data/env1_low.csv")
-write_csv(env2_low, "data/env2_low.csv")
-write_csv(env3_low, "data/env3_low.csv")
-write_csv(env4_low, "data/env4_low.csv")
-write_csv(env5_low, "data/env5_low.csv")
-write_csv(env6_low, "data/env6_low.csv")
-write_csv(env7_low, "data/env7_low.csv")
-write_csv(env8_low, "data/env8_low.csv")
-write_csv(env9_low, "data/env9_low.csv")
+#write_csv(env1_low, "data/env1_low.csv")
+#write_csv(env2_low, "data/env2_low.csv")
+#write_csv(env3_low, "data/env3_low.csv")
+#write_csv(env4_low, "data/env4_low.csv")
+#write_csv(env5_low, "data/env5_low.csv")
+#write_csv(env6_low, "data/env6_low.csv")
+#write_csv(env7_low, "data/env7_low.csv")
+#write_csv(env8_low, "data/env8_low.csv")
+#write_csv(env9_low, "data/env9_low.csv")
 
 
