@@ -68,15 +68,15 @@ freq_env9 <- read_csv("data/freq_env9.csv")
 
 ###################################################################################
 #Single Case
-#freq_env1_pop1 <- freq_env1 %>% filter(Site==1)
-#rSNP_pop1 <- glm(CE10_chr1_865732 ~ Year, family = binomial, data = freq_env1_pop1)
-#test_pop1 <- as.data.frame(summary(rSNP_pop1)$coefficients)
-#test_pop1$Estimate[2]
-#rSNP_pop1$coefficients[2]
-#summary(rSNP_pop1)
-#rSNP_pop1 <- glm(CE10_chr1_9110324 ~ Year, family = binomial, data = freq_env1_pop1)
-#rSNP_pop1$coefficients[2]
-#summary(rSNP_pop1)
+freq_env1_pop1 <- freq_env1 %>% filter(Site==1)
+rSNP_pop1 <- glm(CE10_chr1_865732 ~ Year, family = binomial, data = freq_env1_pop1)
+test_pop1 <- as.data.frame(summary(rSNP_pop1)$coefficients)
+test_pop1$Estimate[2]
+rSNP_pop1$coefficients[2]
+summary(rSNP_pop1)
+rSNP_pop1 <- glm(CE10_chr1_9110324 ~ Year, family = binomial, data = freq_env1_pop1)
+rSNP_pop1$coefficients[2]
+summary(rSNP_pop1)
 
 ###################################################################################
 

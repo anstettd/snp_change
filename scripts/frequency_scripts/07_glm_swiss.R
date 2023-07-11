@@ -64,7 +64,7 @@ slope_melt <- function(df) {
 }
 
 #################################################################################################
-## Manupulate entire SNP datatset for timeseries
+## Manipulate entire SNP dataset for timeseries
 
 #Import BF>0 baseline SNPs
 env1_bf0 <- read_csv("data/env1_BF0.csv")
@@ -116,6 +116,8 @@ rm(env7_bf0)
 rm(env8_bf0)
 rm(env9_bf0)
 rm(pop_order)
+
+
 
 
 
@@ -322,6 +324,8 @@ write_csv(swiss_glm_20,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/sw
 rm(swiss_20)
 rm(swiss_propA_20)
 rm(swiss_glm_20)
+
+
 
 
 

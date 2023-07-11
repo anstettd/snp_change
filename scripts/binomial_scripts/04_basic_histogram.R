@@ -12,7 +12,7 @@
 library(tidyverse)
 
 #Full Data
-env_all <- read_csv("data/slope_obs_all.csv")
+env_all <- read_csv("data/binomial_data/slope_obs_all_unique.csv")
 env_low <- env_all %>% filter(SE<5.5) 
 #%>% filter(Slope<=5) %>% filter(Slope>=-5)
 
@@ -30,54 +30,7 @@ env_11 <- env_low %>% filter(Site==11)
 env_12 <- env_low %>% filter(Site==12)
 
 
-###################################################################################
-## All high SE included, all pop, all env
-###################################################################################
 
-#all_slopes
-env_slope<- ggplot(env_all,aes(x=Slope))+
-  geom_histogram(position="identity",bins=40,color="black",alpha=0.5)+
-  scale_y_continuous(name="Count")+
-  scale_x_continuous(name="Strength of Selection")+
-  theme_classic()
-#env_slope <- env_slope  + theme(
-#  axis.text.x = element_text(size=12, face="bold"),
-#  axis.text.y = element_text(size=12,face="bold"),
-#  axis.title.x = element_text(color="black", size=14, vjust = 0.5, face="bold"),
-#  axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
-env_slope <- env_slope + facet_wrap(.~ENV)
-env_slope
-ggsave("graphs/all_slope_high.pdf",width=10, height = 7.5, units = "in")
-
-#all_SE
-env_SE<- ggplot(env_all,aes(x=SE))+
-  geom_histogram(position="identity",bins=40,color="black",alpha=0.5)+
-  scale_y_continuous(name="Count")+
-  scale_x_continuous(name="Strength of Selection")+
-  theme_classic()
-#env_SE <- env_SE  + theme(
-#  axis.text.x = element_text(size=12, face="bold"),
-#  axis.text.y = element_text(size=12,face="bold"),
-#  axis.title.x = element_text(color="black", size=14, vjust = 0.5, face="bold"),
-# axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
-env_SE <- env_SE + facet_wrap(.~ENV)
-env_SE
-ggsave("graphs/all_SE_high.pdf",width=10, height = 7.5, units = "in")
-
-#SE versus Slope
-env_SE<- ggplot(env_all,aes(x=Slope,y=SE))+
-  geom_point(shape=4,size=0.8)+
-  scale_y_continuous(name="SE")+
-  scale_x_continuous(name="Strength of Selection")+
-  theme_classic()
-#env_SE <- env_SE  + theme(
-#  axis.text.x = element_text(size=12, face="bold"),
-#  axis.text.y = element_text(size=12,face="bold"),
-#  axis.title.x = element_text(color="black", size=14, vjust = 0.5, face="bold"),
-# axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
-env_SE <- env_SE + facet_wrap(.~ENV)
-env_SE
-ggsave("graphs/all_SE_vs_slope_high.pdf",width=10, height = 7.5, units = "in")
 
 
 
@@ -96,9 +49,11 @@ env_slope<- ggplot(env_low,aes(x=Slope))+
 #  axis.text.y = element_text(size=12,face="bold"),
 #  axis.title.x = element_text(color="black", size=14, vjust = 0.5, face="bold"),
 #  axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
-env_slope <- env_slope + facet_wrap(.~ENV)
+env_slope <- env_slope + facet_wrap(.~Site)
 env_slope
-ggsave("graphs/low_slope.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/obs_slope_ab.pdf",width=10, height = 7.5, units = "in")
+
+
 
 #all_SE
 env_SE<- ggplot(env_low,aes(x=SE))+
@@ -113,7 +68,7 @@ env_SE<- ggplot(env_low,aes(x=SE))+
 # axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_SE <- env_SE + facet_wrap(.~ENV)
 env_SE
-ggsave("graphs/low_SE.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/low_SE.pdf",width=10, height = 7.5, units = "in")
 
 #SE versus Slope
 env_SE<- ggplot(env_low,aes(x=Slope,y=SE))+
@@ -128,7 +83,69 @@ env_SE<- ggplot(env_low,aes(x=Slope,y=SE))+
 # axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_SE <- env_SE + facet_wrap(.~ENV)
 env_SE
-ggsave("graphs/low_SE_vs_slope.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/low_SE_vs_slope.pdf",width=10, height = 7.5, units = "in")
+
+
+
+
+
+
+###################################################################################
+## All high SE included, all pop, all env
+###################################################################################
+
+#all_slopes
+env_slope<- ggplot(env_all,aes(x=Slope))+
+  geom_histogram(position="identity",bins=40,color="black",alpha=0.5)+
+  scale_y_continuous(name="Count")+
+  scale_x_continuous(name="Strength of Selection")+
+  theme_classic()
+#env_slope <- env_slope  + theme(
+#  axis.text.x = element_text(size=12, face="bold"),
+#  axis.text.y = element_text(size=12,face="bold"),
+#  axis.title.x = element_text(color="black", size=14, vjust = 0.5, face="bold"),
+#  axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
+env_slope <- env_slope + facet_wrap(.~Site)
+env_slope
+#ggsave("graphs/all_slope_high.pdf",width=10, height = 7.5, units = "in")
+
+#all_SE
+env_SE<- ggplot(env_all,aes(x=SE))+
+  geom_histogram(position="identity",bins=40,color="black",alpha=0.5)+
+  scale_y_continuous(name="Count")+
+  scale_x_continuous(name="Strength of Selection")+
+  theme_classic()
+#env_SE <- env_SE  + theme(
+#  axis.text.x = element_text(size=12, face="bold"),
+#  axis.text.y = element_text(size=12,face="bold"),
+#  axis.title.x = element_text(color="black", size=14, vjust = 0.5, face="bold"),
+# axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
+env_SE <- env_SE + facet_wrap(.~Site)
+env_SE
+#ggsave("graphs/all_SE_high.pdf",width=10, height = 7.5, units = "in")
+
+#SE versus Slope
+env_SE<- ggplot(env_all,aes(x=Slope,y=SE))+
+  geom_point(shape=4,size=0.8)+
+  scale_y_continuous(name="SE")+
+  scale_x_continuous(name="Strength of Selection")+
+  theme_classic()
+#env_SE <- env_SE  + theme(
+#  axis.text.x = element_text(size=12, face="bold"),
+#  axis.text.y = element_text(size=12,face="bold"),
+#  axis.title.x = element_text(color="black", size=14, vjust = 0.5, face="bold"),
+# axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
+env_SE <- env_SE + facet_wrap(.~Site)
+env_SE
+#ggsave("graphs/all_SE_vs_slope_high.pdf",width=10, height = 7.5, units = "in")
+
+
+
+
+
+
+
+
 
 
 ###################################################################################
