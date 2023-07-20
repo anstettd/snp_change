@@ -10,7 +10,7 @@
 library(tidyverse)
 
 #################################################################################################
-#Functions for generating stratigied random distribution
+#Functions for generating stratified random distribution
 #################################################################################################
 #Large
 #pop_snp = p1A
