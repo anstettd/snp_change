@@ -31,7 +31,7 @@ glm_obs <-function(dfA,dfB,env_input){
         rSNP <- glm(snp_ab ~ popSNPA$Year, family = binomial)
         freq_env1_slope[counter,1]<-unique(popSNPA$Site)
         freq_env1_slope[counter,2]<-chrA
-        freq_env1_slope[counter,3]<-rSNP$coefficients[2] 
+        freq_env1_slope[counter,3]<-rSNP$coefficients[2] * 2
         sum_snp <- summary(rSNP)
         freq_env1_slope[counter,4]<-sum_snp$coefficients[2,2]
         freq_env1_slope[counter,5]<-env_input
@@ -104,7 +104,7 @@ freqB_env9 <- read_csv("data/binomial_data/freqB_env9.csv")
 #      rSNP <- glm(snp_ab ~ popSNPA$Year, family = binomial)
 #      freq_env1_slope[counter,1]<-unique(popSNPA$Site)
 #      freq_env1_slope[counter,2]<-chrA
-#      freq_env1_slope[counter,3]<-rSNP$coefficients[2] 
+#      freq_env1_slope[counter,3]<-rSNP$coefficients[2] * 2
 #      sum_snp <- summary(rSNP)
 #      freq_env1_slope[counter,4]<-sum_snp$coefficients[2,2]
 #      freq_env1_slope[counter,5]<-"MAT"
