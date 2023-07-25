@@ -61,7 +61,7 @@ plot_1 <- ggplot(pi_cumul, aes(x=pi_snp_set, y=cumul_pos)) +
     legend.title = element_blank(),
     legend.position = "none"
   )
-ggsave("graphs/bi_plot_pi_half/1_pi_cumul1.pdf",width=8, height = 6, units = "in")
+ggsave("graphs/bi_plot_pi_half/1_pi_cumul1_95.pdf",width=8, height = 6, units = "in")
 
 #direcitonal selection vs PI Genome-Wide
 plot_2 <- ggplot(pi_cumul, aes(x=pi_all_snps, y=cumul_pos)) + 
@@ -78,7 +78,7 @@ plot_2 <- ggplot(pi_cumul, aes(x=pi_all_snps, y=cumul_pos)) +
     legend.title = element_blank(),
     legend.position = "none"
   )
-ggsave("graphs/bi_plot_pi_half/2_pi_cumul2.pdf",width=8, height = 6, units = "in")
+ggsave("graphs/bi_plot_pi_half/2_pi_cumul2_95.pdf",width=8, height = 6, units = "in")
 
 
 
@@ -100,7 +100,7 @@ plot_3 <- ggplot(pi_cumul, aes(x=pi_snp_set, y=cumul_all)) +
     legend.title = element_blank(),
     legend.position = "none"
   )
-ggsave("graphs/bi_plot_pi_half/3_pi_cumul3.pdf",width=8, height = 6, units = "in")
+ggsave("graphs/bi_plot_pi_half/3_pi_cumul3_95.pdf",width=8, height = 6, units = "in")
 
 
 #total selection vs PI Genome-Wide
@@ -118,4 +118,4 @@ plot_4 <- ggplot(pi_cumul, aes(x=pi_all_snps, y=cumul_all)) +
     legend.title = element_blank(),
     legend.position = "none"
   )
-ggsave("graphs/bi_plot_pi_half/4_pi_cumul4.pdf",width=8, height = 6, units = "in")
+ggsave("graphs/bi_plot_pi_half/4_pi_cumul4_95.pdf",width=8, height = 6, units = "in")
