@@ -70,7 +70,7 @@ ns_all <- function(ci,env_name){
 
 
 #Import files that give slopes
-env_obs_ci <- read_csv("data/binomial_data/obs_ci_env_unique.csv")
+env_obs_ci <- read_csv("data/binomial_data_half/obs_ci_env_unique.csv")
 env_obs_ci[is.na(env_obs_ci)] <- 0
 
 #Run ns function to get cumulative score
@@ -98,9 +98,9 @@ time_cumul$Region <- c("South",
                        "South")
 
 #Export
-write_csv(cumul_pos,"data/binomial_data/cumul_pos.csv")
-write_csv(cumul_all,"data/binomial_data/cumul_all.csv")
-write_csv(time_cumul,"data/binomial_data/time_cumul_beagle.csv")
+write_csv(cumul_pos,"data/binomial_data_half/cumul_pos.csv")
+write_csv(cumul_all,"data/binomial_data_half/cumul_all.csv")
+write_csv(time_cumul,"data/binomial_data_half/time_cumul_beagle.csv")
 
 
 

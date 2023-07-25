@@ -96,9 +96,9 @@ slope_melt <- function(dfA,dfB) {
   freq_1.slope <- group_by(ab.melt, Site, snp_ID) %>%
     arrange(Site, Year) %>% 
     summarize(Slope = ifelse(sum(!is.na(as.numeric(abA) / as.numeric(abB))) >= 2,
-        glm(cbind(as.numeric(abA), as.numeric(abB)) ~ as.numeric(Year), family = binomial)$coefficients[2] * 2,
+        glm(cbind(as.numeric(abA), as.numeric(abB)) ~ as.numeric(Year), family = binomial)$coefficients[2],
         ifelse(sum(!is.na(as.numeric(abB) / as.numeric(abA))) >= 2,
-          glm(cbind(as.numeric(abA), as.numeric(abB)) ~ as.numeric(Year), family = binomial)$coefficients[2] * 2,
+          glm(cbind(as.numeric(abA), as.numeric(abB)) ~ as.numeric(Year), family = binomial)$coefficients[2],
           NA)),
         SE = ifelse(sum(!is.na(as.numeric(abA) / as.numeric(abB))) >= 2,
                     summary(glm(cbind(as.numeric(abA),as.numeric(abB)) ~ as.numeric(Year), family = binomial))$coefficients[2,2],

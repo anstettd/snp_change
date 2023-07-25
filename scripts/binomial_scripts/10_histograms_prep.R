@@ -16,131 +16,27 @@ library(tidyverse)
 #Function for generating stratigied random distribution
 ###################################################################################
 
-#get_range
+#get ranges using for loop
 get_range <- function(df,site){
-  # env Example
-  env_slope <- df %>% filter(Site==site)
-  
-  #Make dataframe
   env_obs <- data.frame()
-
-  #Get ranges
-  env_range1 <- env_slope %>% filter(Slope >= -5.0 & Slope< -4.8)
-  env_range2 <- env_slope %>% filter(Slope >= -4.8 & Slope< -4.6)
-  env_range3 <- env_slope %>% filter(Slope >= -4.6 & Slope< -4.4)
-  env_range4 <- env_slope %>% filter(Slope >= -4.4 & Slope< -4.2)
-  env_range5 <- env_slope %>% filter(Slope >= -4.2 & Slope< -4.0)
-  env_range6 <- env_slope %>% filter(Slope >= -4.0 & Slope< -3.8)
-  env_range7 <- env_slope %>% filter(Slope >= -3.8 & Slope< -3.6)
-  env_range8 <- env_slope %>% filter(Slope >= -3.6 & Slope< -3.4)
-  env_range9 <- env_slope %>% filter(Slope >= -3.4 & Slope< -3.2)
-  env_range10 <- env_slope %>% filter(Slope >= -3.2 & Slope< -3.0)
-  env_range11 <- env_slope %>% filter(Slope >= -3.0 & Slope< -2.8)
-  env_range12 <- env_slope %>% filter(Slope >= -2.8 & Slope< -2.6)
-  
-  env_range13 <- env_slope %>% filter(Slope >= -2.6 & Slope< -2.4)
-  env_range14 <- env_slope %>% filter(Slope >= -2.4 & Slope < -2.2)
-  env_range15 <- env_slope %>% filter(Slope >= -2.2 & Slope < -2.0)
-  env_range16 <- env_slope %>% filter(Slope >= -2.0 & Slope< -1.8)
-  env_range17 <- env_slope %>% filter(Slope >= -1.8 & Slope < -1.6)
-  env_range18 <- env_slope %>% filter(Slope >= -1.6 & Slope < -1.4)
-  env_range19 <- env_slope %>% filter(Slope >= -1.4 & Slope < -1.2)
-  env_range20 <- env_slope %>% filter(Slope >= -1.2 & Slope < -1.0)
-  env_range21 <- env_slope %>% filter(Slope >= -1.0 & Slope < -0.8)
-  env_range22 <- env_slope %>% filter(Slope >= -0.8 & Slope < -0.6)
-  env_range23 <- env_slope %>% filter(Slope >= -0.6 & Slope < -0.4)
-  env_range24 <- env_slope %>% filter(Slope >= -0.4 & Slope < -0.2)
-  env_range25 <- env_slope %>% filter(Slope >= -0.2 & Slope < 0.0)
-  env_range26 <- env_slope %>% filter(Slope >= 0.0 & Slope < 0.2)
-  env_range27 <- env_slope %>% filter(Slope >= 0.2 & Slope < 0.4)
-  env_range28 <- env_slope %>% filter(Slope >= 0.3 & Slope < 0.6)
-  env_range29 <- env_slope %>% filter(Slope >= 0.4 & Slope < 0.8)
-  env_range30 <- env_slope %>% filter(Slope >= 0.8 & Slope < 1.0)
-  env_range31 <- env_slope %>% filter(Slope >= 1.0 & Slope < 1.2)
-  env_range32 <- env_slope %>% filter(Slope >= 1.2 & Slope < 1.4)
-  env_range33 <- env_slope %>% filter(Slope >= 1.4 & Slope < 1.6)
-  env_range34 <- env_slope %>% filter(Slope >= 1.6 & Slope < 1.8)
-  env_range35 <- env_slope %>% filter(Slope >= 1.8 & Slope < 2.0)
-  env_range36 <- env_slope %>% filter(Slope >= 2.0 & Slope < 2.2)
-  env_range37 <- env_slope %>% filter(Slope >= 2.2 & Slope < 2.4)
-  env_range38 <- env_slope %>% filter(Slope >= 2.4 & Slope < 2.6)
-  
-  env_range39 <- env_slope %>% filter(Slope >= 2.6 & Slope < 2.8)
-  env_range40 <- env_slope %>% filter(Slope >= 2.8 & Slope < 3.0)
-  env_range41 <- env_slope %>% filter(Slope >= 3.0 & Slope < 3.2)
-  env_range42 <- env_slope %>% filter(Slope >= 3.2 & Slope < 3.4)
-  env_range43 <- env_slope %>% filter(Slope >= 3.4 & Slope < 3.6)
-  env_range44 <- env_slope %>% filter(Slope >= 3.6 & Slope < 3.8)
-  env_range45 <- env_slope %>% filter(Slope >= 3.8 & Slope < 4.0)
-  env_range46 <- env_slope %>% filter(Slope >= 4.0 & Slope < 4.2)
-  env_range47 <- env_slope %>% filter(Slope >= 4.2 & Slope < 4.4)
-  env_range48 <- env_slope %>% filter(Slope >= 4.4 & Slope < 4.6)
-  env_range49 <- env_slope %>% filter(Slope >= 4.6 & Slope < 4.8)
-  env_range50 <- env_slope %>% filter(Slope >= 4.8 & Slope < 5.0)
-  
-
-  
-  #get dim and put into dataframe
-  env_obs[1,1] <- dim(env_range1)[1]
-  env_obs[2,1] <- dim(env_range2)[1]
-  env_obs[3,1] <- dim(env_range3)[1]
-  env_obs[4,1] <- dim(env_range4)[1]
-  env_obs[5,1] <- dim(env_range5)[1]
-  env_obs[6,1] <- dim(env_range6)[1]
-  env_obs[7,1] <- dim(env_range7)[1]
-  env_obs[8,1] <- dim(env_range8)[1]
-  env_obs[9,1] <- dim(env_range9)[1]
-  env_obs[10,1] <- dim(env_range10)[1]
-  env_obs[11,1] <- dim(env_range11)[1]
-  env_obs[12,1] <- dim(env_range12)[1]
-  env_obs[13,1] <- dim(env_range13)[1]
-  env_obs[14,1] <- dim(env_range14)[1]
-  env_obs[15,1] <- dim(env_range15)[1]
-  env_obs[16,1] <- dim(env_range16)[1]
-  env_obs[17,1] <- dim(env_range17)[1]
-  env_obs[18,1] <- dim(env_range18)[1]
-  env_obs[19,1] <- dim(env_range19)[1]
-  env_obs[20,1] <- dim(env_range20)[1]
-  env_obs[21,1] <- dim(env_range21)[1]
-  env_obs[22,1] <- dim(env_range22)[1]
-  env_obs[23,1] <- dim(env_range23)[1]
-  env_obs[24,1] <- dim(env_range24)[1]
-  env_obs[25,1] <- dim(env_range25)[1]
-  env_obs[26,1] <- dim(env_range26)[1]
-  env_obs[27,1] <- dim(env_range27)[1]
-  env_obs[28,1] <- dim(env_range28)[1]
-  env_obs[29,1] <- dim(env_range29)[1]
-  env_obs[30,1] <- dim(env_range30)[1]
-  env_obs[31,1] <- dim(env_range31)[1]
-  env_obs[32,1] <- dim(env_range32)[1]
-  env_obs[33,1] <- dim(env_range33)[1]
-  env_obs[34,1] <- dim(env_range34)[1]
-  env_obs[35,1] <- dim(env_range35)[1]
-  env_obs[36,1] <- dim(env_range36)[1]
-  env_obs[37,1] <- dim(env_range37)[1]
-  env_obs[38,1] <- dim(env_range38)[1]
-  env_obs[39,1] <- dim(env_range39)[1]
-  env_obs[40,1] <- dim(env_range40)[1]
-  env_obs[41,1] <- dim(env_range41)[1]
-  env_obs[42,1] <- dim(env_range42)[1]
-  env_obs[43,1] <- dim(env_range43)[1]
-  env_obs[44,1] <- dim(env_range44)[1]
-  env_obs[45,1] <- dim(env_range45)[1]
-  env_obs[46,1] <- dim(env_range46)[1]
-  env_obs[47,1] <- dim(env_range47)[1]
-  env_obs[48,1] <- dim(env_range48)[1]
-  env_obs[49,1] <- dim(env_range49)[1]
-  env_obs[50,1] <- dim(env_range50)[1]
-  
+  env_slope <- df %>% filter(Site==site)
+  for(i in 0:49){
+    env_range <- env_slope %>% filter(Slope >= (-5.0+0.2*i) & Slope < (-4.8+0.2*i))
+    env_obs[i+1,1] <- dim(env_range)[1]
+  }
   return(env_obs)
 }
 
+
+
 #Histogram Table 
 hist_table <- function(df){
-  env_obs <- as.data.frame(c(-4.9,-4.7,-4.5,-4.3,-4.1,-3.9,-3.7,-3.5,-3.3,-3.1,-2.9,-2.7,
-                             -2.5,-2.3,-2.1,-1.9,-1.7,-1.5,-1.3,-1.1,-0.9,-0.7,-0.5,-0.3,-0.1,
-                             0.1,0.3,0.5,0.7,0.9,1.1,1.3,1.5,1.7,1.9,2.1,2.3,2.5,2.7,2.9,
-                             3.1,3.3,3.5,3.7,3.9,4.1,4.3,4.5,4.7,4.9))
+#  env_obs <- as.data.frame(c(-4.9,-4.7,-4.5,-4.3,-4.1,-3.9,-3.7,-3.5,-3.3,-3.1,-2.9,-2.7,
+#                             -2.5,-2.3,-2.1,-1.9,-1.7,-1.5,-1.3,-1.1,-0.9,-0.7,-0.5,-0.3,-0.1,
+#                             0.1,0.3,0.5,0.7,0.9,1.1,1.3,1.5,1.7,1.9,2.1,2.3,2.5,2.7,2.9,
+#                             3.1,3.3,3.5,3.7,3.9,4.1,4.3,4.5,4.7,4.9))
+  
+  env_obs <- as.data.frame(seq(-4.9, 4.9, by=0.2))
     env1_obs1 <- get_range(df,1)
   env1_obs2 <- get_range(df,2)
   env1_obs3 <- get_range(df,3)
@@ -336,8 +232,8 @@ obs_ci_env <- rbind(obs_ci_env1,
 
 
 #Export
-write_csv(obs_ci_env, "data/binomial_data/obs_ci_env_ab.csv")
-write_csv(obs_ci_env_unique, "data/binomial_data/obs_ci_env_unique.csv")
+#write_csv(obs_ci_env, "data/binomial_data/obs_ci_env_ab.csv")
+#write_csv(obs_ci_env_unique, "data/binomial_data/obs_ci_env_unique.csv")
 
 
 

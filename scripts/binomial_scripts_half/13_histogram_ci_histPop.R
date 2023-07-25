@@ -22,7 +22,7 @@ theme_ci <- function(){
 library(tidyverse)
 
 #Import files
-env_obs_ci_unique <- read_csv("data/binomial_data/obs_ci_env_unique.csv")
+env_obs_ci_unique <- read_csv("data/binomial_data_half/obs_ci_env_unique.csv")
 
 #Isolate each pop and lable
 env_p1 <- env_obs_ci_unique %>% select(S,p1,p1_low,p1_up) %>% mutate(Site=1,pop_lable="A Site 1")
@@ -66,52 +66,45 @@ env_histPop <- rbind(env_p1,
                      env_p10,
                      env_p11)
 
-env_histPop_25 <- env_histPop %>% filter(S <= 2.5 & S>= -2.5) 
+env_histPop_25 <- env_histPop %>% filter(S <= 1.25 & S>= -1.25) 
 
-env_histPop_1 <- env_histPop_25 %>% filter(Site==1 | Site==4 | Site==6 | Site==11)
-env_histPop_4 <- env_histPop_25 %>% filter(Site==4)
-env_histPop_6 <- env_histPop_25 %>% filter(Site==6)
-env_histPop_11 <- env_histPop_25 %>% filter(Site==11)
+
+#env_histPop_1 <- env_histPop_25 %>% filter(Site==1 | Site==4 | Site==6 | Site==11)
+#env_histPop_4 <- env_histPop_25 %>% filter(Site==4)
+#env_histPop_6 <- env_histPop_25 %>% filter(Site==6)
+#env_histPop_11 <- env_histPop_25 %>% filter(Site==11)
 
 
 ###################################################################################
 ## Histogram graphs with CI
 ###################################################################################
 
-# -5 to 5
+# -2.5 to 2.5
 histPop <- ggplot(env_histPop ,aes(x=S,y=obs,ymin=low,ymax=high))+
-  geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
+  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
   #scale_y_continuous(limits=c(0,40))+ 
   theme_ci() + facet_wrap(.~pop_lable)
 histPop
-ggsave("graphs/01_slope_ci_histPop_ab.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/01_slope_ci_histPop_ab_half_95.pdf",width=12, height = 8, units = "in")
 
 
-# -2.5 to 2.5
+# -1.25 to 1.25
 histPop <- ggplot(env_histPop_25 ,aes(x=S,y=obs,ymin=low,ymax=high))+
-  geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+  geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
+  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
-  #scale_y_continuous(limits=c(0,40))+ 
+  scale_y_continuous(limits=c(0,125),breaks=seq(0,125,by=25))+ 
   theme_ci() + facet_wrap(.~pop_lable)
 histPop
-ggsave("graphs/02_slope_ci_histPop_2.5_ab.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/02_slope_ci_histPop_2.5_ab_half_95.pdf",width=12, height = 8, units = "in")
 
 
-# -2.5 to 2.5
-histPop <- ggplot(env_histPop_25 ,aes(x=S,y=obs,ymin=low,ymax=high))+
-  geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
-  geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection", y = "Number of SNPs") +
-  #scale_y_continuous(limits=c(0,40))+ 
-  theme_ci() + facet_wrap(.~pop_lable)
-histPop
-ggsave("graphs/02_slope_ci_histPop_2.5_ab.pdf",width=12, height = 8, units = "in")
+
+
 
 ###################################################################################
 ## Individual Graphs
@@ -129,11 +122,6 @@ histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
 histPop1
 #Export 
 ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
-
-
-
-
-
 
 
 

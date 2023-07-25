@@ -53,8 +53,8 @@ get_range <- function(df,site){
   env_range25 <- env_slope %>% filter(Slope >= -0.2 & Slope < 0.0)
   env_range26 <- env_slope %>% filter(Slope >= 0.0 & Slope < 0.2)
   env_range27 <- env_slope %>% filter(Slope >= 0.2 & Slope < 0.4)
-  env_range28 <- env_slope %>% filter(Slope >= 0.3 & Slope < 0.6)
-  env_range29 <- env_slope %>% filter(Slope >= 0.4 & Slope < 0.8)
+  env_range28 <- env_slope %>% filter(Slope >= 0.4 & Slope < 0.6)
+  env_range29 <- env_slope %>% filter(Slope >= 0.6 & Slope < 0.8)
   env_range30 <- env_slope %>% filter(Slope >= 0.8 & Slope < 1.0)
   env_range31 <- env_slope %>% filter(Slope >= 1.0 & Slope < 1.2)
   env_range32 <- env_slope %>% filter(Slope >= 1.2 & Slope < 1.4)
@@ -337,7 +337,7 @@ obs_ci_env <- rbind(obs_ci_env1,
 
 #Export
 write_csv(obs_ci_env, "data/binomial_data/obs_ci_env_ab.csv")
-#write_csv(obs_ci_env_unique, "data/binomial_data/obs_ci_env_unique.csv")
+write_csv(obs_ci_env_unique, "data/binomial_data/obs_ci_env_unique.csv")
 
 
 

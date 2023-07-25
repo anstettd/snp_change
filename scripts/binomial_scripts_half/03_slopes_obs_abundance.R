@@ -31,7 +31,7 @@ glm_obs <-function(dfA,dfB,env_input){
         rSNP <- glm(snp_ab ~ popSNPA$Year, family = binomial)
         freq_env1_slope[counter,1]<-unique(popSNPA$Site)
         freq_env1_slope[counter,2]<-chrA
-        freq_env1_slope[counter,3]<-rSNP$coefficients[2] * 2
+        freq_env1_slope[counter,3]<-rSNP$coefficients[2] 
         sum_snp <- summary(rSNP)
         freq_env1_slope[counter,4]<-sum_snp$coefficients[2,2]
         freq_env1_slope[counter,5]<-env_input
@@ -104,7 +104,7 @@ freqB_env9 <- read_csv("data/binomial_data/freqB_env9.csv")
 #      rSNP <- glm(snp_ab ~ popSNPA$Year, family = binomial)
 #      freq_env1_slope[counter,1]<-unique(popSNPA$Site)
 #      freq_env1_slope[counter,2]<-chrA
-#      freq_env1_slope[counter,3]<-rSNP$coefficients[2] * 2
+#      freq_env1_slope[counter,3]<-rSNP$coefficients[2]
 #      sum_snp <- summary(rSNP)
 #      freq_env1_slope[counter,4]<-sum_snp$coefficients[2,2]
 #      freq_env1_slope[counter,5]<-"MAT"
@@ -161,17 +161,17 @@ for (i in 1:dim(slope_env_all)){
 
 ###################################################################################
 #Export
-write_csv(slope_env1, "data/binomial_data/slope_obs_env1.csv")
-write_csv(slope_env2, "data/binomial_data/slope_obs_env2.csv")
-write_csv(slope_env3, "data/binomial_data/slope_obs_env3.csv")
-write_csv(slope_env4, "data/binomial_data/slope_obs_env4.csv")
-write_csv(slope_env5, "data/binomial_data/slope_obs_env5.csv")
-write_csv(slope_env6, "data/binomial_data/slope_obs_env6.csv")
-write_csv(slope_env7, "data/binomial_data/slope_obs_env7.csv")
-write_csv(slope_env8, "data/binomial_data/slope_obs_env8.csv")
-write_csv(slope_env9, "data/binomial_data/slope_obs_env9.csv")
-write_csv(slope_env_all, "data/binomial_data/slope_obs_all.csv")
-write_csv(slope_env_all_unique, "data/binomial_data/slope_obs_all_unique.csv")
+write_csv(slope_env1, "data/binomial_data_half/slope_obs_env1.csv")
+write_csv(slope_env2, "data/binomial_data_half/slope_obs_env2.csv")
+write_csv(slope_env3, "data/binomial_data_half/slope_obs_env3.csv")
+write_csv(slope_env4, "data/binomial_data_half/slope_obs_env4.csv")
+write_csv(slope_env5, "data/binomial_data_half/slope_obs_env5.csv")
+write_csv(slope_env6, "data/binomial_data_half/slope_obs_env6.csv")
+write_csv(slope_env7, "data/binomial_data_half/slope_obs_env7.csv")
+write_csv(slope_env8, "data/binomial_data_half/slope_obs_env8.csv")
+write_csv(slope_env9, "data/binomial_data_half/slope_obs_env9.csv")
+write_csv(slope_env_all, "data/binomial_data_half/slope_obs_all.csv")
+write_csv(slope_env_all_unique, "data/binomial_data_half/slope_obs_all_unique.csv")
 
 
 
