@@ -16,13 +16,15 @@ library(tidyverse)
 ###################################################################################
 
 #Generate frequency matrix for prop A 
-pA <- function(abA,abB){freq_test <- abA[,3:dim(abA)[2]]/(abA[,3:dim(abA)[2]]+abB[,3:dim(abB)[2]])
+pA <- function(abA,abB){
+  freq_test <- abA[,3:dim(abA)[2]]/(abA[,3:dim(abA)[2]]+abB[,3:dim(abB)[2]])
 freq_test_out <- cbind(abA[,1:2],freq_test)
 return(freq_test_out)
 }
 
 
 #Get basetime frequencies
+#Basetime is the starting frequencies of the 12 timeseries populations.
 basetime <- function(freq_env){
   freq_env_1011 <- freq_env %>% filter(Site == 1 & Year==2010 |
                                            Site == 2 & Year==2010 |
@@ -40,7 +42,7 @@ basetime <- function(freq_env){
 }
 
 
-#Insert NA's for high SE SNP/site
+#Insert NA's for high SE SNPs in each site
 insert_NA <- function(basetime_df,high_df){
   basetime_df_sorted<-as.data.frame(basetime_df[order(basetime_df$Site),])
   for (i in 1:dim(high_df)[1]){
