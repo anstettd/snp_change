@@ -112,14 +112,14 @@ ggsave("graphs/02_slope_ci_histPop_2.5_bf30.pdf",width=12, height = 8, units = "
 
 
 
-histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
-  geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
-  geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection", y = "Number of SNPs") +
+#histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
+#  geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
+#  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
+#  geom_vline(xintercept=0) +
+#  labs(x = "Strength of Selection", y = "Number of SNPs") +
   #scale_y_continuous(limits=c(0,40))+ 
-  theme_ci() + facet_wrap(.~pop_lable, ncol = 4)
-histPop1
+#  theme_ci() + facet_wrap(.~pop_lable, ncol = 4)
+#histPop1
 #Export 
 #ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
 

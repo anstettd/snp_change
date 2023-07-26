@@ -12,7 +12,7 @@
 library(tidyverse)
 
 #Full Data
-env_all <- read_csv("data/binomial_data/slope_obs_all_unique.csv")
+env_all <- read_csv("data/binomial_bf20/slope_obs_all_unique.csv")
 env_low <- env_all %>% filter(SE<5.5) 
 #%>% filter(Slope<=5) %>% filter(Slope>=-5)
 
@@ -51,7 +51,7 @@ env_slope<- ggplot(env_low,aes(x=Slope))+
 #  axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_slope <- env_slope + facet_wrap(.~Site)
 env_slope
-ggsave("graphs/slope_obs/obs_slope_ab.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/obs_slope_ab.pdf",width=10, height = 7.5, units = "in")
 
 
 
@@ -68,7 +68,7 @@ env_SE<- ggplot(env_low,aes(x=SE))+
 # axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_SE <- env_SE + facet_wrap(.~ENV)
 env_SE
-ggsave("graphs/slope_obs/low_SE.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/low_SE.pdf",width=10, height = 7.5, units = "in")
 
 #SE versus Slope
 env_SE<- ggplot(env_low,aes(x=Slope,y=SE))+
@@ -83,7 +83,7 @@ env_SE<- ggplot(env_low,aes(x=Slope,y=SE))+
 # axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_SE <- env_SE + facet_wrap(.~ENV)
 env_SE
-ggsave("graphs/slope_obs/low_SE_vs_slope.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/low_SE_vs_slope.pdf",width=10, height = 7.5, units = "in")
 
 
 
@@ -107,7 +107,7 @@ env_slope<- ggplot(env_all,aes(x=Slope))+
 #  axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_slope <- env_slope + facet_wrap(.~Site)
 env_slope
-ggsave("graphs/slope_obs/all_slope_high.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/all_slope_high.pdf",width=10, height = 7.5, units = "in")
 
 #all_SE
 env_SE<- ggplot(env_all,aes(x=SE))+
@@ -122,7 +122,7 @@ env_SE<- ggplot(env_all,aes(x=SE))+
 # axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_SE <- env_SE + facet_wrap(.~Site)
 env_SE
-ggsave("graphs/slope_obs/all_SE_high.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/all_SE_high.pdf",width=10, height = 7.5, units = "in")
 
 #SE versus Slope
 env_SE<- ggplot(env_all,aes(x=Slope,y=SE))+
@@ -137,7 +137,7 @@ env_SE<- ggplot(env_all,aes(x=Slope,y=SE))+
 # axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_SE <- env_SE + facet_wrap(.~Site)
 env_SE
-ggsave("graphs/slope_obs/all_SE_vs_slope_high.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/all_SE_vs_slope_high.pdf",width=10, height = 7.5, units = "in")
 
 
 
@@ -165,7 +165,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/01_slope_obs_p1.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/01_slope_obs_p1.pdf",width=10, height = 7.5, units = "in")
 
 #p12 
 env_hist <- ggplot(env_12,aes(x=Slope))+
@@ -180,7 +180,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/02_slope_obs_p12.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/02_slope_obs_p12.pdf",width=10, height = 7.5, units = "in")
 
 #p2 
 env_hist <- ggplot(env_2,aes(x=Slope))+
@@ -195,7 +195,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/03_slope_obs_p2.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/03_slope_obs_p2.pdf",width=10, height = 7.5, units = "in")
 
 #p3 
 env_hist <- ggplot(env_3,aes(x=Slope))+
@@ -210,7 +210,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/04_slope_obs_p3.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/04_slope_obs_p3.pdf",width=10, height = 7.5, units = "in")
 
 #p4 
 env_hist <- ggplot(env_4,aes(x=Slope))+
@@ -225,7 +225,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/05_slope_obs_p4.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/05_slope_obs_p4.pdf",width=10, height = 7.5, units = "in")
 
 #p5 
 env_hist <- ggplot(env_5,aes(x=Slope))+
@@ -240,7 +240,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/06_slope_obs_p5.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/06_slope_obs_p5.pdf",width=10, height = 7.5, units = "in")
 
 #p6 
 env_hist <- ggplot(env_6,aes(x=Slope))+
@@ -255,7 +255,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/07_slope_obs_p6.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/07_slope_obs_p6.pdf",width=10, height = 7.5, units = "in")
 
 #p7 
 env_hist <- ggplot(env_7,aes(x=Slope))+
@@ -270,7 +270,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/08_slope_obs_p7.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/08_slope_obs_p7.pdf",width=10, height = 7.5, units = "in")
 
 #p8 
 env_hist <- ggplot(env_8,aes(x=Slope))+
@@ -285,7 +285,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/09_slope_obs_p8.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/09_slope_obs_p8.pdf",width=10, height = 7.5, units = "in")
 
 #p9 
 env_hist <- ggplot(env_9,aes(x=Slope))+
@@ -300,7 +300,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/10_slope_obs_p9.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/10_slope_obs_p9.pdf",width=10, height = 7.5, units = "in")
 
 #p10 
 env_hist <- ggplot(env_10,aes(x=Slope))+
@@ -315,7 +315,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/11_slope_obs_p10.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/11_slope_obs_p10.pdf",width=10, height = 7.5, units = "in")
 
 #p11 
 env_hist <- ggplot(env_11,aes(x=Slope))+
@@ -330,7 +330,7 @@ env_hist <- env_hist  + theme(
   axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_hist <- env_hist + facet_wrap(.~ENV)
 env_hist
-ggsave("graphs/slope_obs/12_slope_obs_p11.pdf",width=10, height = 7.5, units = "in")
+#ggsave("graphs/slope_obs/12_slope_obs_p11.pdf",width=10, height = 7.5, units = "in")
 
 
 

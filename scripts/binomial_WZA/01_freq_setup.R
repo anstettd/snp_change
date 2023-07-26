@@ -25,7 +25,9 @@ snp_set_env7  <- read_csv("snp_set_wza10_env7.csv")
 snp_set_env8  <- read_csv("snp_set_wza10_env8.csv")
 snp_set_env9  <- read_csv("snp_set_wza10_env9.csv")
 
+
 setwd("~/Dropbox/AM_Workshop/snp_change")
+
 
 #Import full snp table for timeseries
 pop_order_time<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/timeseries_filtered_variants.QUAL20_MQ40_AN80_MAF0.03_DP1SD.Baypass_table.pop_order", header=F, sep="\t")
@@ -73,26 +75,26 @@ snp_set_base_env8 <-loci_snp_base %>% filter (chr_snp %in% as.character(snp_set_
 snp_set_base_env9 <-loci_snp_base %>% filter (chr_snp %in% as.character(snp_set_env9$chr_snp))
 
 
-write_csv(snp_set_time_env1,"data/binomial_bf30/snp_set_time_env1.csv")
-write_csv(snp_set_time_env2,"data/binomial_bf30/snp_set_time_env2.csv")
-write_csv(snp_set_time_env3,"data/binomial_bf30/snp_set_time_env3.csv")
-write_csv(snp_set_time_env4,"data/binomial_bf30/snp_set_time_env4.csv")
-write_csv(snp_set_time_env5,"data/binomial_bf30/snp_set_time_env5.csv")
-write_csv(snp_set_time_env6,"data/binomial_bf30/snp_set_time_env6.csv")
-write_csv(snp_set_time_env7,"data/binomial_bf30/snp_set_time_env7.csv")
-write_csv(snp_set_time_env8,"data/binomial_bf30/snp_set_time_env8.csv")
-write_csv(snp_set_time_env9,"data/binomial_bf30/snp_set_time_env9.csv")
+write_csv(snp_set_time_env1,"data/binomial_wza/snp_set_time_env1.csv")
+write_csv(snp_set_time_env2,"data/binomial_wza/snp_set_time_env2.csv")
+write_csv(snp_set_time_env3,"data/binomial_wza/snp_set_time_env3.csv")
+write_csv(snp_set_time_env4,"data/binomial_wza/snp_set_time_env4.csv")
+write_csv(snp_set_time_env5,"data/binomial_wza/snp_set_time_env5.csv")
+write_csv(snp_set_time_env6,"data/binomial_wza/snp_set_time_env6.csv")
+write_csv(snp_set_time_env7,"data/binomial_wza/snp_set_time_env7.csv")
+write_csv(snp_set_time_env8,"data/binomial_wza/snp_set_time_env8.csv")
+write_csv(snp_set_time_env9,"data/binomial_wza/snp_set_time_env9.csv")
 
 
-write_csv(snp_set_base_env1,"data/binomial_bf30/snp_set_base_env1.csv")
-write_csv(snp_set_base_env2,"data/binomial_bf30/snp_set_base_env2.csv")
-write_csv(snp_set_base_env3,"data/binomial_bf30/snp_set_base_env3.csv")
-write_csv(snp_set_base_env4,"data/binomial_bf30/snp_set_base_env4.csv")
-write_csv(snp_set_base_env5,"data/binomial_bf30/snp_set_base_env5.csv")
-write_csv(snp_set_base_env6,"data/binomial_bf30/snp_set_base_env6.csv")
-write_csv(snp_set_base_env7,"data/binomial_bf30/snp_set_base_env7.csv")
-write_csv(snp_set_base_env8,"data/binomial_bf30/snp_set_base_env8.csv")
-write_csv(snp_set_base_env9,"data/binomial_bf30/snp_set_base_env9.csv")
+write_csv(snp_set_base_env1,"data/binomial_wza/snp_set_base_env1.csv")
+write_csv(snp_set_base_env2,"data/binomial_wza/snp_set_base_env2.csv")
+write_csv(snp_set_base_env3,"data/binomial_wza/snp_set_base_env3.csv")
+write_csv(snp_set_base_env4,"data/binomial_wza/snp_set_base_env4.csv")
+write_csv(snp_set_base_env5,"data/binomial_wza/snp_set_base_env5.csv")
+write_csv(snp_set_base_env6,"data/binomial_wza/snp_set_base_env6.csv")
+write_csv(snp_set_base_env7,"data/binomial_wza/snp_set_base_env7.csv")
+write_csv(snp_set_base_env8,"data/binomial_wza/snp_set_base_env8.csv")
+write_csv(snp_set_base_env9,"data/binomial_wza/snp_set_base_env9.csv")
 
 
 
