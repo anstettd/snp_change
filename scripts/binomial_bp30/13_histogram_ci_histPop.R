@@ -22,7 +22,7 @@ theme_ci <- function(){
 library(tidyverse)
 
 #Import files
-env_obs_ci_unique <- read_csv("data/binomial_data_half/obs_ci_env_unique.csv")
+env_obs_ci_unique <- read_csv("data/binomial_bf30/obs_ci_env_unique.csv")
 
 #Isolate each pop and lable
 env_p1 <- env_obs_ci_unique %>% select(S,p1,p1_low,p1_up) %>% mutate(Site=1,pop_lable="A Site 1")
@@ -88,7 +88,7 @@ histPop <- ggplot(env_histPop ,aes(x=S,y=obs,ymin=low,ymax=high))+
   #scale_y_continuous(limits=c(0,40))+ 
   theme_ci() + facet_wrap(.~pop_lable)
 histPop
-ggsave("graphs/01_slope_ci_histPop_ab_half_95.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/01_slope_ci_histPop_bf30.pdf",width=12, height = 8, units = "in")
 
 
 # -1.25 to 1.25
@@ -100,7 +100,7 @@ histPop <- ggplot(env_histPop_25 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   scale_y_continuous(limits=c(0,125),breaks=seq(0,125,by=25))+ 
   theme_ci() + facet_wrap(.~pop_lable)
 histPop
-ggsave("graphs/02_slope_ci_histPop_2.5_ab_half_95.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/02_slope_ci_histPop_2.5_bf30.pdf",width=12, height = 8, units = "in")
 
 
 
@@ -121,7 +121,7 @@ histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   theme_ci() + facet_wrap(.~pop_lable, ncol = 4)
 histPop1
 #Export 
-ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
+#ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
 
 
 
