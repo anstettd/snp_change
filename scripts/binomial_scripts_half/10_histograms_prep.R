@@ -115,7 +115,7 @@ rand_env8 <- read_csv("rand_slope_env8_ab_lowSE.csv") %>% mutate(Slope=Slope/2) 
 rand_env9 <- read_csv("rand_slope_env9_ab_lowSE.csv") %>% mutate(Slope=Slope/2) %>% filter(Slope <= 2.5 & Slope>= -2.5) 
 
 #Updated for bionomial data
-rand_env_unique <- read_csv("rand_slope_histPop_lowSE_ab.csv") %>% mutate(Slope=Slope/2) %>% filter(Slope <= 2.5 & Slope>= -2.5)  
+rand_env_unique <- read_csv("rand_slope_histPop_lowSE_ci.csv") %>% filter(Slope <= 2.5 & Slope>= -2.5)  
 
 setwd("~/Dropbox/AM_Workshop/snp_change")
 
