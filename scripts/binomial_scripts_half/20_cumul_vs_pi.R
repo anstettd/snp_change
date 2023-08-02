@@ -15,7 +15,8 @@ library(RColorBrewer)
 offset_pop <- read_csv("data/binomial_data_half/time_cumul_beagle.csv")
 pi.df <- read_csv("data/binomial_data/raw_pi.csv")
 
-pi_cumul <- left_join(offset_pop,pi.df,by=c("Paper_ID"="Site")) 
+#Join and filter out for site 12 which has geographic sampling differneces between 2010 and 2011+
+pi_cumul <- left_join(offset_pop,pi.df,by=c("Paper_ID"="Site")) %>% filter(Paper_ID!=12)
 
 #Models
 lm1 <- lm(cumul_pos~pi_snp_set,data=pi_cumul)
