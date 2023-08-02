@@ -69,7 +69,8 @@ env_histPop <- rbind(env_p1,
 env_histPop_25 <- env_histPop %>% filter(S <= 1.25 & S>= -1.25) 
 
 
-#env_histPop_1 <- env_histPop_25 %>% filter(Site==1 | Site==4 | Site==6 | Site==11)
+env_histPop_2 <- env_histPop_25 %>% filter(Site==1 | Site==12 | Site==11)
+env_histPop_1 <- env_histPop_25 %>% filter(Site==1 | Site==3 | Site==11)
 #env_histPop_4 <- env_histPop_25 %>% filter(Site==4)
 #env_histPop_6 <- env_histPop_25 %>% filter(Site==6)
 #env_histPop_11 <- env_histPop_25 %>% filter(Site==11)
@@ -112,16 +113,29 @@ ggsave("graphs/02_slope_ci_histPop_2.5_ab_half_95.pdf",width=12, height = 8, uni
 
 
 
-#histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
-#  geom_bar(colour = "black", stat = "identity", width = 0.2, fill = "lightblue1")+
-#  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.12) +
-#  geom_vline(xintercept=0) +
-#  labs(x = "Strength of Selection", y = "Number of SNPs") +
-  #scale_y_continuous(limits=c(0,40))+ 
-#  theme_ci() + facet_wrap(.~pop_lable, ncol = 4)
-#histPop1
+histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
+  geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
+  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
+  geom_vline(xintercept=0) +
+  labs(x = "Strength of Selection", y = "Number of SNPs") +
+  scale_y_continuous(breaks=seq(0,100,by=25))+ 
+  theme_ci() + facet_wrap(.~pop_lable, ncol = 4) + theme(strip.text.x = element_text(size=0))
+histPop1
 #Export 
-#ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
+ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
+
+
+histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
+  geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
+  #geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
+  geom_vline(xintercept=0) +
+  labs(x = "Strength of Selection", y = "Number of SNPs") +
+  scale_y_continuous(breaks=seq(0,100,by=25))+ 
+  theme_ci() + facet_wrap(.~pop_lable, ncol = 4)+ theme(strip.text.x = element_text(size=0))
+histPop1
+#Export 
+ggsave("graphs/histograms/p1_no_error.pdf",width=11, height = 5, units = "in")
+
 
 
 

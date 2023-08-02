@@ -1,6 +1,6 @@
 ##################################################################################
 ## Finding which allele is associated with climate change
-## For peak window SNPS (WZA) with BF (BayPass) > 10 and all BF>30
+## Done for BF>20
 ## Done for all alleles positively associated with climate change
 ## Author Daniel Anstett
 ## 

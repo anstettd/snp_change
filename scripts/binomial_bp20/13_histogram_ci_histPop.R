@@ -2,6 +2,7 @@
 ## Generate input for strength of selection graphs for unique SNPS
 ## All ENV SNPs have been joined with duplicates removed
 ## Processing for both observation and permuted CI
+## Done for BF>20
 ## Author Daniel Anstett
 ## 
 ## Modified from https://jkzorz.github.io/2020/05/17/Error-bars.html
@@ -97,7 +98,7 @@ histPop <- ggplot(env_histPop_25 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,125),breaks=seq(0,125,by=25))+ 
+  #scale_y_continuous(limits=c(0,125),breaks=seq(0,125,by=25))+ 
   theme_ci() + facet_wrap(.~pop_lable)
 histPop
 ggsave("graphs/02_slope_ci_histPop_2.5_bf20.pdf",width=12, height = 8, units = "in")

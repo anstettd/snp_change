@@ -1,6 +1,7 @@
 ##################################################################################
 ## Generate input for strength of selection graphs
 ## Processing for both observation and permuted CI
+## Done for BF>20
 ## Author Daniel Anstett
 ## 
 ## 
@@ -228,7 +229,7 @@ obs_ci_env_unique <- cbind(obs_table_env_unique,rand_table_env_unique)
 
 
 #Export
-write_csv(obs_ci_env, "data/binomial_bf20/obs_ci_env_ab.csv")
+#write_csv(obs_ci_env, "data/binomial_bf20/obs_ci_env_ab.csv")
 write_csv(obs_ci_env_unique, "data/binomial_bf20/obs_ci_env_unique.csv")
 
 

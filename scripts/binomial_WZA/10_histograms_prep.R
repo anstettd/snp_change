@@ -228,7 +228,7 @@ obs_ci_env_unique <- cbind(obs_table_env_unique,rand_table_env_unique)
 
 
 #Export
-write_csv(obs_ci_env, "data/binomial_wza/obs_ci_env_ab.csv")
+#write_csv(obs_ci_env, "data/binomial_wza/obs_ci_env_ab.csv")
 write_csv(obs_ci_env_unique, "data/binomial_wza/obs_ci_env_unique.csv")
 
 

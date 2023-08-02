@@ -2,11 +2,11 @@
 ## Make basetime df for observed snps
 ## Filter high SE from basetime observed snps
 ## Basetime is the starting conditions of the timeseries
-## Observed snps are the climate associated snp set that was selected through WZA & BayPass
+## Observed snps are the climate associated snp set that was selected for BF>20
 ## Basetime is required to ensure random sampling during permuation is stratified by 
 ## starting conditions while not selecting high SE SNPs/slopes
 ## Author Daniel Anstett
-## 
+##
 ## 
 ## Last Modified April 26, 2023
 ###################################################################################

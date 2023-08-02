@@ -1,6 +1,7 @@
 ##################################################################################
 ## Generate stratified distribution of random non-climate associated slopes
-## For unique SNP slopes across all env 
+## For unique SNP slopes across all env
+## Done for BF>20
 ## Author Daniel Anstett
 ## 
 ## 

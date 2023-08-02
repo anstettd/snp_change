@@ -1,6 +1,6 @@
 ##################################################################################
 ## Get pop specific SNP slopes over the timeseries for "observed" data set
-## Done for snp set BF>10 in windows and BF>30 overall
+## Done for BF>20
 ## Does not include 1000 permuations of random sampling for BF<0
 ## Also done for unique slopes across all env (histPop)
 ## Author Daniel Anstett

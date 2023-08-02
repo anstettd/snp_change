@@ -1,6 +1,6 @@
 ##################################################################################
 ## Get SNP abundances for baseline and timeseries 
-## Done for current snp set (New WZA BF>10 + all BF > 30)
+## Done for BF>20
 ## Author Daniel Anstett
 ## 
 ## Done for all 9 env variables
