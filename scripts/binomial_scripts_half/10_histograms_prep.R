@@ -97,6 +97,11 @@ obs_env <- rbind(obs_env1,
 #Updated for binomial data
 obs_env_unique <- read_csv("data/binomial_data_half/slope_obs_all_unique.csv") %>% filter(SE<5.5) %>% filter(Slope>-2.5)
 
+median_pop <- obs_env_unique %>% group_by(Site) %>% summarise(median = median(Slope, na.rm = TRUE))
+
+write_csv(median_pop, "data/binomial_data_half/median_pop.csv")
+
+
 ###################################################################################
 #Permuted Data
 #Must removing "%>% mutate(Slope=Slope/2)"  when permutation has been re-run

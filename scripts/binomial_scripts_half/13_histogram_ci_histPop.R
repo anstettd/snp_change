@@ -24,6 +24,9 @@ library(tidyverse)
 #Import files
 env_obs_ci_unique <- read_csv("data/binomial_data_half/obs_ci_env_unique.csv")
 
+#Import Medians
+median_pop <- read_csv("data/binomial_data_half/median_pop.csv")
+
 #Isolate each pop and lable
 env_p1 <- env_obs_ci_unique %>% select(S,p1,p1_low,p1_up) %>% mutate(Site=1,pop_lable="A Site 1")
 env_p12 <- env_obs_ci_unique %>% select(S,p12,p1_low,p12_up) %>% mutate(Site=12,pop_lable="B Site 12")
@@ -135,6 +138,7 @@ histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
 histPop1
 #Export 
 ggsave("graphs/histograms/p1_no_error.pdf",width=11, height = 5, units = "in")
+
 
 
 
