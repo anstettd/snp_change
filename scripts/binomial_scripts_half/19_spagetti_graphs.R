@@ -11,30 +11,6 @@ library(tidyverse)
 ################################################################################################################
 #Functions
 
-get_cumul <- function(freq_df,cumul_df,pop_num){
-  freq_env_pop <- freq_df %>% filter(Site==pop_num)
-  snp_list_pop <- cumul_df %>% filter(Site==pop_num)
-  freq_mat_pop <- freq_env_pop %>% filter(env=="MAT")
-  freq_map_pop <- freq_env_pop %>% filter(env=="MAP")
-  freq_cmd_pop <- freq_env_pop %>% filter(env=="CMD")
-  snp_list_pop_mat <- snp_list_pop %>% filter(env=="MAT")
-  snp_list_pop_map <- snp_list_pop %>% filter(env=="MAP")
-  snp_list_pop_cmd <- snp_list_pop %>% filter(env=="CMD")
-  freq_mat_cumul <- freq_mat_pop %>% filter(SNP_ID %in% snp_list_pop_mat$snp_ID)
-  freq_map_cumul <- freq_map_pop %>% filter(SNP_ID %in% snp_list_pop_map$snp_ID)
-  freq_cmd_cumul <- freq_cmd_pop %>% filter(SNP_ID %in% snp_list_pop_cmd$snp_ID)
-  freq_env_cumul <- rbind(freq_mat_cumul,freq_map_cumul,freq_cmd_cumul)
-  return(freq_env_cumul)
-}
-
-
-#get_cumul <- function(freq_df,cumul_df,pop_num){
-#  freq_env_pop <- freq_df %>% filter(Site==pop_num)
-#  snp_list_pop <- cumul_df %>% filter(Site==pop_num)
-#  freq_mat_cumul <- freq_env_pop %>% filter(SNP_ID %in% snp_list_pop$snp_ID)
-#  return(freq_mat_cumul)
-#}
-
 #Define Theme
 
 theme_spaghetti <- function(){ 
@@ -57,11 +33,6 @@ theme(
 )
 ################################################################################################################
 
-#Import cumul SNPs
-#snp_list <- read.csv("Genomics_scripts/Data/snp_list.csv")
-
-#Import timeseries frequencies
-#freq_mat <- read_csv("Genomics_scripts/Data/freq_MAT_peakbf5.csv")
 
 freq_env1 <- read_csv("data/freq_env1.csv")
 freq_env2 <- read_csv("data/freq_env2.csv")
@@ -97,7 +68,7 @@ freq_env <- rbind(freq_env1,
   distinct(Filter_ID, .keep_all=T) %>% separate(Filter_ID, c("Site", "Year","SNP_ID"), sep = "/")
 
 #SE data
-env_all <- read_csv("data/slope_obs_all_unique.csv")
+env_all <- read_csv("data/binomial_data_half/slope_obs_all_unique.csv")
 colnames(env_all) <- c("Site","SNP_ID","Slope","SE","ENV","Type")
 #env_low <- env_all %>% filter(SE<5.5) 
 freq_env$Site <- as.numeric(freq_env$Site)
@@ -112,11 +83,74 @@ freq_env_se$Site <- factor(freq_env_se$Site, levels = c(1,12,2,3,4,5,6,7,8,9,10,
 #Make Plots
 
 #All Sites
-spag_cumul_1 <- ggplot(data=freq_env_se ,aes(Year,SNP_Freq,group=SNP_ID)) + 
+ggplot(data=freq_env_se ,aes(Year,SNP_Freq,group=SNP_ID)) + 
   geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
   labs(y="SNP Frequency",x="Year") +  facet_wrap(.~Site) + theme_spaghetti()
-spag_cumul_1
-ggsave("graphs/07_spaghetii_obs.pdf",spag_cumul_1,width=8, height = 7, units = "in")
+ggsave("graphs/spaghetii/spaghetii_obs.pdf",width=8, height = 7, units = "in")
+
+#Combination sites
+freq_env_ver1 <- freq_env_se %>% filter(Site==1 | Site==3 | Site==11)
+ggplot(data=freq_env_ver1 ,aes(Year,SNP_Freq,group=SNP_ID)) + 
+  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
+  labs(y="SNP Frequency",x="Year") +  facet_wrap(.~Site) + theme_spaghetti()
+ggsave("graphs/spaghetii/1_3_11spaghetii_obs.pdf",width=8, height = 4, units = "in")
+
+freq_env_ver2 <- freq_env_se %>% filter(Site==1 | Site==3 | Site==6 | Site==11)
+ggplot(data=freq_env_ver2 ,aes(Year,SNP_Freq,group=SNP_ID)) + 
+  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
+  labs(y="SNP Frequency",x="Year") +  facet_wrap(.~Site, ncol = 4) + theme_spaghetti()
+ggsave("graphs/spaghetii/1_3_6_11spaghetii_obs.pdf",width=11, height = 4, units = "in")
+
+
+#Selected Sites
+freq_env_1 <- freq_env_se %>% filter(Site==1)
+ggplot(data=freq_env_1 ,aes(Year,SNP_Freq,group=SNP_ID)) + 
+  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
+  labs(y="SNP Frequency",x="Year") + theme_spaghetti()
+ggsave("graphs/spaghetii/01_spaghetii_obs.pdf",width=4, height = 4, units = "in")
+
+
+freq_env_3 <- freq_env_se %>% filter(Site==3)
+ggplot(data=freq_env_3 ,aes(Year,SNP_Freq,group=SNP_ID)) + 
+  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
+  labs(y="SNP Frequency",x="Year") + theme_spaghetti()
+ggsave("graphs/spaghetii/03_spaghetii_obs.pdf",width=4, height = 4, units = "in")
+
+
+freq_env_6 <- freq_env_se %>% filter(Site==6)
+ggplot(data=freq_env_6 ,aes(Year,SNP_Freq,group=SNP_ID)) + 
+  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
+  labs(y="SNP Frequency",x="Year") + theme_spaghetti()
+ggsave("graphs/spaghetii/06_spaghetii_obs.pdf",width=4, height = 4, units = "in")
+
+
+freq_env_11 <- freq_env_se %>% filter(Site==11)
+ggplot(data=freq_env_11 ,aes(Year,SNP_Freq,group=SNP_ID)) + 
+  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
+  labs(y="SNP Frequency",x="Year") + theme_spaghetti()
+ggsave("graphs/spaghetii/11_spaghetii_obs.pdf",width=4, height = 4, units = "in")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ################################################################################################################
 #Single Case
@@ -231,7 +265,29 @@ ggsave("Graphs_Oct_22/2_12env_both_freqchange_paper_p11.pdf",width=12, height = 
 
 
 
+get_cumul <- function(freq_df,cumul_df,pop_num){
+  freq_env_pop <- freq_df %>% filter(Site==pop_num)
+  snp_list_pop <- cumul_df %>% filter(Site==pop_num)
+  freq_mat_pop <- freq_env_pop %>% filter(env=="MAT")
+  freq_map_pop <- freq_env_pop %>% filter(env=="MAP")
+  freq_cmd_pop <- freq_env_pop %>% filter(env=="CMD")
+  snp_list_pop_mat <- snp_list_pop %>% filter(env=="MAT")
+  snp_list_pop_map <- snp_list_pop %>% filter(env=="MAP")
+  snp_list_pop_cmd <- snp_list_pop %>% filter(env=="CMD")
+  freq_mat_cumul <- freq_mat_pop %>% filter(SNP_ID %in% snp_list_pop_mat$snp_ID)
+  freq_map_cumul <- freq_map_pop %>% filter(SNP_ID %in% snp_list_pop_map$snp_ID)
+  freq_cmd_cumul <- freq_cmd_pop %>% filter(SNP_ID %in% snp_list_pop_cmd$snp_ID)
+  freq_env_cumul <- rbind(freq_mat_cumul,freq_map_cumul,freq_cmd_cumul)
+  return(freq_env_cumul)
+}
 
+
+#get_cumul <- function(freq_df,cumul_df,pop_num){
+#  freq_env_pop <- freq_df %>% filter(Site==pop_num)
+#  snp_list_pop <- cumul_df %>% filter(Site==pop_num)
+#  freq_mat_cumul <- freq_env_pop %>% filter(SNP_ID %in% snp_list_pop$snp_ID)
+#  return(freq_mat_cumul)
+#}
 
 
 

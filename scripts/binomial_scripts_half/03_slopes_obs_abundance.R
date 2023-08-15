@@ -86,44 +86,44 @@ freqB_env9 <- read_csv("data/binomial_data/freqB_env9.csv")
 
 ## Single Loop
 
-#freq_env1_slope <- data.frame()
-#counter<-1
-#  for (i in 3:dim(freqA_env1)[2]){
-#    for(j in 1:12){
-#      chrA<-colnames(freqA_env1)[i]
-#      chrB<-colnames(freqB_env1)[i]
+freq_env1_slope <- data.frame()
+counter<-1
+  for (i in 3:dim(freqA_env1)[2]){
+    for(j in 1:12){
+      chrA<-colnames(freqA_env1)[i]
+      chrB<-colnames(freqB_env1)[i]
       
-#      popSNPA <- freqA_env1 %>% filter(Site==j) %>% select(Site,Year,all_of(chrA))
-#      popSNPB <- freqB_env1 %>% filter(Site==j) %>% select(Site,Year,all_of(chrB))
+      popSNPA <- freqA_env1 %>% filter(Site==j) %>% select(Site,Year,all_of(chrA))
+      popSNPB <- freqB_env1 %>% filter(Site==j) %>% select(Site,Year,all_of(chrB))
       
-#      colnames(popSNPA)[3]<-"snp_ID"
-#      colnames(popSNPB)[3]<-"snp_ID"
-#      snp_ab <- cbind(popSNPA$snp_ID,popSNPB$snp_ID)
+      colnames(popSNPA)[3]<-"snp_ID"
+      colnames(popSNPB)[3]<-"snp_ID"
+      snp_ab <- cbind(popSNPA$snp_ID,popSNPB$snp_ID)
 
-#      if(sum(!is.na(snp_ab[,1]/snp_ab[,2]))>=2 || sum(!is.na(snp_ab[,2]/snp_ab[,1]))>=2) {
-#      rSNP <- glm(snp_ab ~ popSNPA$Year, family = binomial)
-#      freq_env1_slope[counter,1]<-unique(popSNPA$Site)
-#      freq_env1_slope[counter,2]<-chrA
-#      freq_env1_slope[counter,3]<-rSNP$coefficients[2]
-#      sum_snp <- summary(rSNP)
-#      freq_env1_slope[counter,4]<-sum_snp$coefficients[2,2]
-#      freq_env1_slope[counter,5]<-"MAT"
-#      freq_env1_slope[counter,6]<-"obs"
-#      counter<-counter+1
-#      } else {
-#      freq_env1_slope[counter,1]<-unique(popSNPA$Site)
-#      freq_env1_slope[counter,2]<-chrA
-#      freq_env1_slope[counter,3]<-NA
-#      freq_env1_slope[counter,4]<-NA
-#      freq_env1_slope[counter,5]<-"MAT"
-#      freq_env1_slope[counter,6]<-"obs"
+      if(sum(!is.na(snp_ab[,1]/snp_ab[,2]))>=2 || sum(!is.na(snp_ab[,2]/snp_ab[,1]))>=2) {
+      rSNP <- glm(snp_ab ~ popSNPA$Year, family = binomial)
+      freq_env1_slope[counter,1]<-unique(popSNPA$Site)
+      freq_env1_slope[counter,2]<-chrA
+      freq_env1_slope[counter,3]<-rSNP$coefficients[2]
+      sum_snp <- summary(rSNP)
+      freq_env1_slope[counter,4]<-sum_snp$coefficients[2,2]
+      freq_env1_slope[counter,5]<-"MAT"
+      freq_env1_slope[counter,6]<-"obs"
+      counter<-counter+1
+      } else {
+      freq_env1_slope[counter,1]<-unique(popSNPA$Site)
+      freq_env1_slope[counter,2]<-chrA
+      freq_env1_slope[counter,3]<-NA
+      freq_env1_slope[counter,4]<-NA
+      freq_env1_slope[counter,5]<-"MAT"
+      freq_env1_slope[counter,6]<-"obs"
       
-#      counter<-counter+1
-#    }
+      counter<-counter+1
+    }
       
-#    }
-#  }
-#  colnames(freq_env1_slope)<-c("Site","snp_ID","Slope","SE","ENV","Type")
+    }
+  }
+  colnames(freq_env1_slope)<-c("Site","snp_ID","Slope","SE","ENV","Type")
 
 
 ###################################################################################
