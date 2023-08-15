@@ -27,6 +27,7 @@ env_obs_ci_unique <- read_csv("data/binomial_data_half/obs_ci_env_unique.csv")
 #Import Medians
 median_pop <- read_csv("data/binomial_data_half/median_pop.csv")
 
+
 #Isolate each pop and lable
 env_p1 <- env_obs_ci_unique %>% select(S,p1,p1_low,p1_up) %>% mutate(Site=1,pop_lable="A Site 1")
 env_p12 <- env_obs_ci_unique %>% select(S,p12,p1_low,p12_up) %>% mutate(Site=12,pop_lable="B Site 12")
@@ -72,11 +73,19 @@ env_histPop <- rbind(env_p1,
 env_histPop_25 <- env_histPop %>% filter(S <= 1.25 & S>= -1.25) 
 
 
+site_unique <- env_histPop %>% select(Site,pop_lable) 
+site_unique <- unique(site_unique)
+
+median_pop <- left_join(median_pop,site_unique, by="Site")
+
 env_histPop_2 <- env_histPop_25 %>% filter(Site==1 | Site==12 | Site==11)
 env_histPop_1 <- env_histPop_25 %>% filter(Site==1 | Site==3 | Site==11)
 #env_histPop_4 <- env_histPop_25 %>% filter(Site==4)
 #env_histPop_6 <- env_histPop_25 %>% filter(Site==6)
 #env_histPop_11 <- env_histPop_25 %>% filter(Site==11)
+
+median_pop_filter_2<-median_pop %>% filter(Site==1 | Site==12 | Site==11)
+median_pop_filter_1<-median_pop %>% filter(Site==1 | Site==3 | Site==11)
 
 
 ###################################################################################
@@ -90,8 +99,9 @@ histPop <- ggplot(env_histPop ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
   #scale_y_continuous(limits=c(0,40))+ 
-  theme_ci() + facet_wrap(.~pop_lable)
-histPop
+  theme_ci() + facet_wrap(.~pop_lable) +
+  geom_vline(data = median_pop, aes(xintercept = median), linetype="dashed")
+histPop 
 ggsave("graphs/01_slope_ci_histPop_ab_half_95.pdf",width=12, height = 8, units = "in")
 
 
@@ -102,7 +112,9 @@ histPop <- ggplot(env_histPop_25 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,125),breaks=seq(0,125,by=25))+ 
-  theme_ci() + facet_wrap(.~pop_lable)
+  theme_ci() + facet_wrap(.~pop_lable)+
+  geom_vline(data = median_pop, aes(xintercept = median), linetype="dashed")
+
 histPop
 ggsave("graphs/02_slope_ci_histPop_2.5_ab_half_95.pdf",width=12, height = 8, units = "in")
 
@@ -122,7 +134,9 @@ histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
   scale_y_continuous(breaks=seq(0,100,by=25))+ 
-  theme_ci() + facet_wrap(.~pop_lable, ncol = 4) + theme(strip.text.x = element_text(size=0))
+  theme_ci() + facet_wrap(.~pop_lable, ncol = 4) + theme(strip.text.x = element_text(size=0)) +
+  geom_vline(data = median_pop_filter_1, aes(xintercept = median), linetype="dashed")
+
 histPop1
 #Export 
 ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
@@ -134,7 +148,9 @@ histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
   scale_y_continuous(breaks=seq(0,100,by=25))+ 
-  theme_ci() + facet_wrap(.~pop_lable, ncol = 4)+ theme(strip.text.x = element_text(size=0))
+  theme_ci() + facet_wrap(.~pop_lable, ncol = 4)+ theme(strip.text.x = element_text(size=0))+
+  geom_vline(data = median_pop_filter_1, aes(xintercept = median), linetype="dashed")
+
 histPop1
 #Export 
 ggsave("graphs/histograms/p1_no_error.pdf",width=11, height = 5, units = "in")
