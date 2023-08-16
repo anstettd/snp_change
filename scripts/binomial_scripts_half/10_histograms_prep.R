@@ -98,8 +98,11 @@ obs_env <- rbind(obs_env1,
 obs_env_unique <- read_csv("data/binomial_data_half/slope_obs_all_unique.csv") %>% filter(SE<5.5) %>% filter(Slope>-2.5)
 
 median_pop <- obs_env_unique %>% group_by(Site) %>% summarise(median = median(Slope, na.rm = TRUE))
+median_pop_env <- obs_env %>% group_by(Site, ENV) %>% summarise(median = median(Slope, na.rm = TRUE))
+
 
 write_csv(median_pop, "data/binomial_data_half/median_pop.csv")
+write_csv(median_pop_env, "data/binomial_data_half/median_pop_env.csv")
 
 
 ###################################################################################

@@ -25,134 +25,180 @@ library(tidyverse)
 #Import files
 env_obs_ci <- read_csv("data/binomial_data_half/obs_ci_env_ab.csv")  %>% filter(S <= 1.25 & S>= -1.25) 
 
+#Import medians
+median_pop_env <- read_csv("data/binomial_data_half/median_pop_env.csv")
+
 
 ###################################################################################
 ## Histogram graphs with CI
 ###################################################################################
 
-# p1
-mat_p1_hist <- ggplot(env_obs_ci,aes(x=S,y=p1,ymin=p1_low,ymax=p1_up))+
+#make input dataframe tidy
+
+tidy_env_obs_ci<- env_obs_ci %>% pivot_longer(starts_with("p"), names_to = "Site", values_to = "Count") %>%
+  separate(Site, sep = "_", into = c("Site", "CI")) 
+
+tidy_env_obs_ci$CI<- tidy_env_obs_ci$CI %>% replace_na("Bin_Count")
+tidy_env_obs_ci$Site<-sub("p","",tidy_env_obs_ci$Site)
+
+tidy_env_obs_ci<- tidy_env_obs_ci %>% pivot_wider(names_from = CI,  values_from = Count)
+
+tidy_env_obs_ci$Site <- as.factor(tidy_env_obs_ci$Site)
+tidy_env_obs_ci$Site <- factor(tidy_env_obs_ci$Site, levels = c(1,12,2,3,4,5,6,7,8,9,10,11))
+
+
+
+############
+ENV_Plot<- tidy_env_obs_ci %>% filter(env=="A MAT")
+median_pop_env_plot<-median_pop_env %>% filter(ENV=="MAT") %>% select(-ENV)
+
+
+env1_hist <- ggplot(ENV_Plot,aes(x=S,y=Bin_Count,ymin=low,ymax=up))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (P1)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p1_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/01_slope_ci_p1.pdf",width=12, height = 8, units = "in")
+  labs(x = "Strength of Selection (MAT)", y = "Number of SNPs") +
+  scale_y_continuous(limits=c(0,50))+ 
+  theme_ci() + facet_wrap(.~Site)+
+  geom_vline(data = median_pop_env_plot, aes(xintercept = median), linetype="dashed")
 
-# p12
-mat_p12_hist <- ggplot(env_obs_ci,aes(x=S,y=p12,ymin=p12_low,ymax=p12_up))+
+env1_hist 
+ggsave("graphs/histograms/env/slope_ci_env1.pdf",width=12, height = 8, units = "in")
+
+############
+ENV_Plot<- tidy_env_obs_ci %>% filter(env=="B MAP")
+median_pop_env_plot<-median_pop_env %>% filter(ENV=="MAP") %>% select(-ENV)
+
+
+env2_hist <- ggplot(ENV_Plot,aes(x=S,y=Bin_Count,ymin=low,ymax=up))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p12)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p12_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/02_slope_ci_p12.pdf",width=12, height = 8, units = "in")
+  labs(x = "Strength of Selection (MAP)", y = "Number of SNPs") +
+  scale_y_continuous(limits=c(0,50))+ 
+  theme_ci() + facet_wrap(.~Site)+
+  geom_vline(data = median_pop_env_plot, aes(xintercept = median), linetype="dashed")
+
+env2_hist 
+ggsave("graphs/histograms/env/slope_ci_env2.pdf",width=12, height = 8, units = "in")
+
+############
+ENV_Plot<- tidy_env_obs_ci %>% filter(env=="C PAS")
+median_pop_env_plot<-median_pop_env %>% filter(ENV=="PAS") %>% select(-ENV)
 
 
-# p2
-mat_p2_hist <- ggplot(env_obs_ci,aes(x=S,y=p2,ymin=p2_low,ymax=p2_up))+
+env3_hist <- ggplot(ENV_Plot,aes(x=S,y=Bin_Count,ymin=low,ymax=up))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p2)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p2_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/03_slope_ci_p2.pdf",width=12, height = 8, units = "in")
+  labs(x = "Strength of Selection (PAS)", y = "Number of SNPs") +
+  scale_y_continuous(limits=c(0,50))+ 
+  theme_ci() + facet_wrap(.~Site)+
+  geom_vline(data = median_pop_env_plot, aes(xintercept = median), linetype="dashed")
 
-# p3
-mat_p3_hist <- ggplot(env_obs_ci,aes(x=S,y=p3,ymin=p3_low,ymax=p3_up))+
+env3_hist 
+ggsave("graphs/histograms/env/slope_ci_env3.pdf",width=12, height = 8, units = "in")
+
+############
+ENV_Plot<- tidy_env_obs_ci %>% filter(env=="D EXT")
+median_pop_env_plot<-median_pop_env %>% filter(ENV=="EXT") %>% select(-ENV)
+
+
+env4_hist <- ggplot(ENV_Plot,aes(x=S,y=Bin_Count,ymin=low,ymax=up))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p3)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p3_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/04_slope_ci_p3.pdf",width=12, height = 8, units = "in")
+  labs(x = "Strength of Selection (EXT)", y = "Number of SNPs") +
+  scale_y_continuous(limits=c(0,50))+ 
+  theme_ci() + facet_wrap(.~Site)+
+  geom_vline(data = median_pop_env_plot, aes(xintercept = median), linetype="dashed")
 
-# p4
-mat_p4_hist <- ggplot(env_obs_ci,aes(x=S,y=p4,ymin=p4_low,ymax=p4_up))+
+env4_hist 
+ggsave("graphs/histograms/env/slope_ci_env4.pdf",width=12, height = 8, units = "in")
+
+############
+ENV_Plot<- tidy_env_obs_ci %>% filter(env=="E CMD")
+median_pop_env_plot<-median_pop_env %>% filter(ENV=="CMD") %>% select(-ENV)
+
+
+env5_hist <- ggplot(ENV_Plot,aes(x=S,y=Bin_Count,ymin=low,ymax=up))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p4)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p4_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/05_slope_ci_p4.pdf",width=12, height = 8, units = "in")
+  labs(x = "Strength of Selection (CMD)", y = "Number of SNPs") +
+  scale_y_continuous(limits=c(0,50))+ 
+  theme_ci() + facet_wrap(.~Site)+
+  geom_vline(data = median_pop_env_plot, aes(xintercept = median), linetype="dashed")
 
-# p5
-mat_p5_hist <- ggplot(env_obs_ci,aes(x=S,y=p5,ymin=p5_low,ymax=p5_up))+
+env5_hist 
+ggsave("graphs/histograms/env/slope_ci_env5.pdf",width=12, height = 8, units = "in")
+
+############
+ENV_Plot<- tidy_env_obs_ci %>% filter(env=="F Tave_wt")
+median_pop_env_plot<-median_pop_env %>% filter(ENV=="Tave_wt") %>% select(-ENV)
+
+
+env6_hist <- ggplot(ENV_Plot,aes(x=S,y=Bin_Count,ymin=low,ymax=up))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p5)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p5_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/06_slope_ci_p5.pdf",width=12, height = 8, units = "in")
+  labs(x = "Strength of Selection (Tave_wt)", y = "Number of SNPs") +
+  scale_y_continuous(limits=c(0,50))+ 
+  theme_ci() + facet_wrap(.~Site)+
+  geom_vline(data = median_pop_env_plot, aes(xintercept = median), linetype="dashed")
 
-# p6
-mat_p6_hist <- ggplot(env_obs_ci,aes(x=S,y=p6,ymin=p6_low,ymax=p6_up))+
+env6_hist 
+ggsave("graphs/histograms/env/slope_ci_env6.pdf",width=12, height = 8, units = "in")
+
+############
+ENV_Plot<- tidy_env_obs_ci %>% filter(env=="G Tave_sm")
+median_pop_env_plot<-median_pop_env %>% filter(ENV=="Tave_sm") %>% select(-ENV)
+
+
+env7_hist <- ggplot(ENV_Plot,aes(x=S,y=Bin_Count,ymin=low,ymax=up))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p6)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p6_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/07_slope_ci_p6.pdf",width=12, height = 8, units = "in")
+  labs(x = "Strength of Selection (Tave_sm)", y = "Number of SNPs") +
+  scale_y_continuous(limits=c(0,50))+ 
+  theme_ci() + facet_wrap(.~Site)+
+  geom_vline(data = median_pop_env_plot, aes(xintercept = median), linetype="dashed")
 
-# p7
-mat_p7_hist <- ggplot(env_obs_ci,aes(x=S,y=p7,ymin=p7_low,ymax=p7_up))+
+env7_hist 
+ggsave("graphs/histograms/env/slope_ci_env7.pdf",width=12, height = 8, units = "in")
+
+############
+ENV_Plot<- tidy_env_obs_ci %>% filter(env=="H PPT_wt")
+median_pop_env_plot<-median_pop_env %>% filter(ENV=="PPT_wt") %>% select(-ENV)
+
+
+env8_hist <- ggplot(ENV_Plot,aes(x=S,y=Bin_Count,ymin=low,ymax=up))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p7)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p7_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/08_slope_ci_p7.pdf",width=12, height = 8, units = "in")
+  labs(x = "Strength of Selection (PPT_wt)", y = "Number of SNPs") +
+  scale_y_continuous(limits=c(0,50))+ 
+  theme_ci() + facet_wrap(.~Site)+
+  geom_vline(data = median_pop_env_plot, aes(xintercept = median), linetype="dashed")
 
-# p8
-mat_p8_hist <- ggplot(env_obs_ci,aes(x=S,y=p8,ymin=p8_low,ymax=p8_up))+
+env8_hist 
+ggsave("graphs/histograms/env/slope_ci_env8.pdf",width=12, height = 8, units = "in")
+
+############
+ENV_Plot<- tidy_env_obs_ci %>% filter(env=="I PPT_sm")
+median_pop_env_plot<-median_pop_env %>% filter(ENV=="PPT_sm") %>% select(-ENV)
+
+
+env9_hist <- ggplot(ENV_Plot,aes(x=S,y=Bin_Count,ymin=low,ymax=up))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
   geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p8)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p8_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/09_slope_ci_p8.pdf",width=12, height = 8, units = "in")
+  labs(x = "Strength of Selection (PPT_sm)", y = "Number of SNPs") +
+  scale_y_continuous(limits=c(0,50))+ 
+  theme_ci() + facet_wrap(.~Site)+
+  geom_vline(data = median_pop_env_plot, aes(xintercept = median), linetype="dashed")
 
-# p9
-mat_p9_hist <- ggplot(env_obs_ci,aes(x=S,y=p9,ymin=p9_low,ymax=p9_up))+
-  geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
-  geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p9)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p9_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/10_slope_ci_p9.pdf",width=12, height = 8, units = "in")
-
-# p10
-mat_p10_hist <- ggplot(env_obs_ci,aes(x=S,y=p10,ymin=p10_low,ymax=p10_up))+
-  geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
-  geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p10)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p10_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/11_slope_ci_p10.pdf",width=12, height = 8, units = "in")
-
-# p11
-mat_p11_hist <- ggplot(env_obs_ci,aes(x=S,y=p11,ymin=p11_low,ymax=p11_up))+
-  geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
-  geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection (p11)", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,40))+ theme_ci() + facet_wrap(.~env)
-mat_p11_hist 
-ggsave("graphs/slopes_CI_2.5_half_95/12_slope_ci_p11.pdf",width=12, height = 8, units = "in")
-
-
-
-
+env9_hist 
+ggsave("graphs/histograms/env/slope_ci_env9.pdf",width=12, height = 8, units = "in")
 
 
