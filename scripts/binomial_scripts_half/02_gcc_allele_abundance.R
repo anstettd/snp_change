@@ -94,8 +94,8 @@ FATA_p <- function(snp_base,snp_time,climate_table,env_in){
     lm.temp_B <- glm(df_B~env_pop[,2],family=binomial) # save glm of climate predicting prop B
     
     #decides if A or B is positively associated 
-    if (isTRUE(lm.temp_A$coefficents[2]>0) && isTRUE(lm.temp_B$coefficents[2]>0)){
-      
+    if (isTRUE(lm.temp_A$coefficents[2]>0) && isTRUE(lm.temp_B$coefficents[2]>0)){ #inccorect
+    #if (isTRUE(lm.temp_A$coefficients[2]>0) && isTRUE(lm.temp_B$coefficients[2]>0)){  #correct
       print(i)
       print(lm.temp_A) 
       print(lm.temp_B) 
@@ -147,6 +147,7 @@ FATB_p <- function(snp_base,snp_time,climate_table,env_in){
     
     #decides if A or B is positively associated 
     if (isTRUE(lm.temp_A$coefficents[2]>0) && isTRUE(lm.temp_B$coefficents[2]>0)){
+      #if (isTRUE(lm.temp_A$coefficients[2]>0) && isTRUE(lm.temp_B$coefficients[2]>0)){  #correct
       
       print(i)
       print(lm.temp_A) 
@@ -171,9 +172,6 @@ FATB_p <- function(snp_base,snp_time,climate_table,env_in){
 
 
 
-
-
-#Set B as positive association with climate
 FATA_n <- function(snp_base,snp_time,climate_table,env_in){
   snp_prop_A_in<-abA(snp_base) # call function
   snp_prop_B_in<-abB(snp_base) # call function
@@ -205,6 +203,7 @@ FATA_n <- function(snp_base,snp_time,climate_table,env_in){
     
     #decides if A or B is positively associated 
     if (isTRUE(lm.temp_A$coefficents[2]<0) && isTRUE(lm.temp_B$coefficents[2]<0)){
+      #if (isTRUE(lm.temp_A$coefficients[2]<0) && isTRUE(lm.temp_B$coefficients[2]<0)){
       
       print(i)
       print(lm.temp_A) 
@@ -257,6 +256,7 @@ FATB_n <- function(snp_base,snp_time,climate_table,env_in){
     
     #decides if A or B is positively associated 
     if (isTRUE(lm.temp_A$coefficents[2]<0) && isTRUE(lm.temp_B$coefficents[2]<0)){
+      #if (isTRUE(lm.temp_A$coefficients[2]<0) && isTRUE(lm.temp_B$coefficients[2]<0)){
       
       print(i)
       print(lm.temp_A) 
