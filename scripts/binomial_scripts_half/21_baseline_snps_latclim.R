@@ -94,31 +94,31 @@ FATA_p <- function(snp_base,climate_table,env_in){
       print(lm.temp_B) 
       
     } else if(lm.temp_A$coefficients[2]>0){ 
-      print(paste("A, ", chr_snp=snp_prop_A_in$chr_snp[i]))
+#      print(paste("A, ", chr_snp=snp_prop_A_in$chr_snp[i]))
       tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
-        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
-      Coeff=lm.temp_A$coefficients[2])
+        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i])#, SNP_Select="A", 
+      #Coeff=lm.temp_A$coefficients[2])
       
       colnames(tmp_in)[2]<-"True_SNP_A"
       colnames(tmp_in)[3]<-"True_SNP_B"
       
       freq.temp<-rbind(freq.temp,tmp_in)
-      print(summary(lm.temp_A)) 
-      print(lm.temp_A) 
+#      print(summary(lm.temp_A)) 
+#      print(lm.temp_A) 
       
     } else if (lm.temp_B$coefficients[2]>0){
-       print(paste("B, ", chr_snp=snp_prop_A_in$chr_snp[i]))
+#       print(paste("B, ", chr_snp=snp_prop_A_in$chr_snp[i]))
 
       tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
-        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B",
-                Coeff=lm.temp_B$coefficients[2])
+        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i])#, SNP_Select="B",
+ #               Coeff=lm.temp_B$coefficients[2])
       
       colnames(tmp_in)[2]<-"True_SNP_A"
       colnames(tmp_in)[3]<-"True_SNP_B"
       
       freq.temp<-rbind(freq.temp,tmp_in)
-      print(summary(lm.temp_B)) 
-      print(lm.temp_B) 
+#      print(summary(lm.temp_B)) 
+#      print(lm.temp_B) 
       
     }
   }
