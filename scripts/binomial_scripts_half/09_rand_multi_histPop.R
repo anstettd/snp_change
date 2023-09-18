@@ -512,11 +512,9 @@ print(seed_num)
 #Save large files in folder outside of github
 setwd("~/Dropbox/AM_Workshop/Large_files")
 
-write_csv(rand_slope_out, "rand_slope_histPop_lowSE_ci.csv")
+write_csv(rand_slope_out, "rand_slope_histPop_inv_logit.csv")
 
 setwd("~/Dropbox/AM_Workshop/snp_change")
-
-
 
 
 

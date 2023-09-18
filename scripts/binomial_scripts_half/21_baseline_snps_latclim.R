@@ -87,10 +87,7 @@ FATA_p <- function(snp_base,climate_table,env_in){
     lm.temp_A <- glm(df_A~env_pop[,2],family=binomial) # save glm of climate predicting prop A
     lm.temp_B <- glm(df_B~env_pop[,2],family=binomial) # save glm of climate predicting prop B
     
-    print(paste(inv.logit(lm.temp_A$coefficients[2]), inv.logit(lm.temp_B$coefficients[2]), sep=" "))
-    
    if(inv.logit(lm.temp_A$coefficients[2])>0.5){ 
-    print(paste("A, ", chr_snp=snp_prop_A_in$chr_snp[i]))
     tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
       mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
               Coeff_Pick=inv.logit(lm.temp_A$coefficients[2]), 
@@ -100,12 +97,8 @@ FATA_p <- function(snp_base,climate_table,env_in){
     colnames(tmp_in)[3]<-"True_SNP_B"
     
     freq.temp<-rbind(freq.temp,tmp_in)
-#    print(summary(lm.temp_A)) 
-#    print(lm.temp_A) 
-    
+
   } else if (inv.logit(lm.temp_B$coefficients[2])>0.5){
-    print(paste("B, ", chr_snp=snp_prop_A_in$chr_snp[i]))
-    
     tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
       mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B",
               Coeff_Pick=inv.logit(lm.temp_B$coefficients[2]), 
@@ -115,89 +108,8 @@ FATA_p <- function(snp_base,climate_table,env_in){
     colnames(tmp_in)[3]<-"True_SNP_B"
     
     freq.temp<-rbind(freq.temp,tmp_in)
-#    print(summary(lm.temp_B)) 
-#    print(lm.temp_B) 
-    
-  }
-  
-    
-    
-#    }else if(inv.logit(lm.temp_A$coefficients[2]>0)){ 
-#      print(paste("A, ", chr_snp=snp_prop_A_in$chr_snp[i]))
-#      tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
-#        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
-#                Coeff_Pick=inv.logit(lm.temp_A$coefficients[2]), 
-#                Coeff_Unpick=inv.logit(lm.temp_B$coefficients[2]))
-      
-#      colnames(tmp_in)[2]<-"True_SNP_A"
-#      colnames(tmp_in)[3]<-"True_SNP_B"
-      
-#      freq.temp<-rbind(freq.temp,tmp_in)
-#      print(summary(lm.temp_A)) 
-#      print(lm.temp_A) 
-      
-#    } else if (inv.logit(lm.temp_B$coefficients[2]>0)){
-#       print(paste("B, ", chr_snp=snp_prop_A_in$chr_snp[i]))
-#
-#      tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
-#        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B",
-#                Coeff_Pick=inv.logit(lm.temp_B$coefficients[2]), 
-#                Coeff_Unpick=inv.logit(lm.temp_A$coefficients[2]))
-#      
-#      colnames(tmp_in)[2]<-"True_SNP_A"
-#      colnames(tmp_in)[3]<-"True_SNP_B"
-      
-#      freq.temp<-rbind(freq.temp,tmp_in)
-#      print(summary(lm.temp_B)) 
-#      print(lm.temp_B) 
-      
-#    }
 
-    
-    #decides if A or B is positively associated 
-#    if (isTRUE(inv.logit(lm.temp_A$coefficients[2])>=0) & isTRUE(inv.logit(lm.temp_B$coefficients[2]>=0))){
-#      
-#      print(i)
-#      print(lm.temp_A) 
-#      print(lm.temp_B) 
-#      break
-      
-#    } else if(isTRUE(inv.logit(lm.temp_A$coefficients[2])<=0) & isTRUE(inv.logit(lm.temp_B$coefficients[2]<=0))){
-      
-#      print(i)
-#      print(lm.temp_A) 
-#      print(lm.temp_B) 
-#      break
-#    }else if(inv.logit(lm.temp_A$coefficients[2]>0)){ 
-#      print(paste("A, ", chr_snp=snp_prop_A_in$chr_snp[i]))
-#      tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
-#        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
-#                Coeff_Pick=inv.logit(lm.temp_A$coefficients[2]), 
-#                Coeff_Unpick=inv.logit(lm.temp_B$coefficients[2]))
-      
-#      colnames(tmp_in)[2]<-"True_SNP_A"
-#      colnames(tmp_in)[3]<-"True_SNP_B"
-      
-#      freq.temp<-rbind(freq.temp,tmp_in)
-#      print(summary(lm.temp_A)) 
-#      print(lm.temp_A) 
-      
-#    } else if (inv.logit(lm.temp_B$coefficients[2]>0)){
-#       print(paste("B, ", chr_snp=snp_prop_A_in$chr_snp[i]))
-#
-#      tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
-#        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B",
-#                Coeff_Pick=inv.logit(lm.temp_B$coefficients[2]), 
-#                Coeff_Unpick=inv.logit(lm.temp_A$coefficients[2]))
-#      
-#      colnames(tmp_in)[2]<-"True_SNP_A"
-#      colnames(tmp_in)[3]<-"True_SNP_B"
-      
-#      freq.temp<-rbind(freq.temp,tmp_in)
-#      print(summary(lm.temp_B)) 
-#      print(lm.temp_B) 
-      
-#    }
+  }
   }
   return(freq.temp)
 }
@@ -229,7 +141,6 @@ FATA_n <- function(snp_base,climate_table,env_in){
     lm.temp_B <- glm(df_B~env_pop[,2],family=binomial) # save glm of climate predicting prop B
     
     if(inv.logit(lm.temp_A$coefficients[2])<0.5){ 
-      print(paste("A, ", chr_snp=snp_prop_A_in$chr_snp[i]))
       tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
         mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
                 Coeff_Pick=inv.logit(lm.temp_A$coefficients[2]), 
@@ -239,12 +150,8 @@ FATA_n <- function(snp_base,climate_table,env_in){
       colnames(tmp_in)[3]<-"True_SNP_B"
       
       freq.temp<-rbind(freq.temp,tmp_in)
-      #    print(summary(lm.temp_A)) 
-      #    print(lm.temp_A) 
-      
+
     } else if (inv.logit(lm.temp_B$coefficients[2])<0.5){
-      print(paste("B, ", chr_snp=snp_prop_A_in$chr_snp[i]))
-      
       tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
         mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B",
                 Coeff_Pick=inv.logit(lm.temp_B$coefficients[2]), 
@@ -254,73 +161,12 @@ FATA_n <- function(snp_base,climate_table,env_in){
       colnames(tmp_in)[3]<-"True_SNP_B"
       
       freq.temp<-rbind(freq.temp,tmp_in)
-      #    print(summary(lm.temp_B)) 
-      #    print(lm.temp_B) 
-      
     }
     
-    #decides if A or B is positively associated 
-#    if (isTRUE(inv.logit(lm.temp_A$coefficients[2]>=0)) && isTRUE(inv.logit(lm.temp_B$coefficients[2]>=0))){
-      
-#      print(i)
-#      print(lm.temp_A) 
-#      print(lm.temp_B) 
-#      break
-      
-#    } else if (isTRUE(inv.logit(lm.temp_A$coefficients[2]<=0)) && isTRUE(inv.logit(lm.temp_B$coefficients[2]<=0))){
-#      print(i)
-#      print(lm.temp_A) 
-#      print(lm.temp_B) 
-#      break
-#    } else if(inv.logit(lm.temp_A$coefficients[2]<0)){ 
-    #  print("A")
-#      tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
-#        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
-#                Coeff_Pick=inv.logit(lm.temp_A$coefficients[2]), 
-#                Coeff_Unpick=inv.logit(lm.temp_B$coefficients[2]))
-      
-#      colnames(tmp_in)[2]<-"True_SNP_A"
-#      colnames(tmp_in)[3]<-"True_SNP_B"
-            
-#      freq.temp<-rbind(freq.temp,tmp_in)
-      
-#    } else if (inv.logit(lm.temp_B$coefficients[2]<0)){
-    #   print("B")
-
-#      tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
-#        mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B", 
-#                Coeff_Pick=inv.logit(lm.temp_B$coefficients[2]), 
-#                Coeff_unpick=inv.logit(lm.temp_A$coefficients[2]))
-      
-#      colnames(tmp_in)[2]<-"True_SNP_A"
-#      colnames(tmp_in)[3]<-"True_SNP_B"
-      
-#      freq.temp<-rbind(freq.temp,tmp_in)
-#      
-#    }
   }
   return(freq.temp)
 }
 
-binomial_table<-function(df_in){
-  
-  freq_table_Final<-data.frame()
-  
-  for (i in 1:dim(df_in)[1]){
-    
-    Binomial_A<-c(rep(1, df_in[i, "True_SNP_A"]), rep(0,df_in[i, "True_SNP_B"]))
-    
-    tmp_df<- as.data.frame(Binomial_A ) %>% mutate (Site=df_in$Site[i], 
-                                                    SNP_ID=df_in$SNP_ID[i], 
-                                                    Year=df_in$Year[i])
-    
-    freq_table_Final<-rbind(freq_table_Final, tmp_df)
-    
-    print(i)
-  }
-  
-  
-}
 ########################################################################################################
 
 
