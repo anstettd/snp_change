@@ -117,7 +117,7 @@ arrg_1<-ggarrange(plot_env_1,
 
 #Export 8 X 7
 
-ggsave("graphs/spaghetii/4spaghetii_baseline_WZA_env.pdf",arrg_1,width=8, height = 7, units = "in")
+ggsave("graphs/spaghetii/4_spaghetii_baseline_WZA_env.pdf",arrg_1,width=8, height = 7, units = "in")
 
 
 

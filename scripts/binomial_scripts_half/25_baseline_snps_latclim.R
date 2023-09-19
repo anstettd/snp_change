@@ -90,8 +90,9 @@ FATA_p <- function(snp_base,climate_table,env_in){
    if(inv.logit(lm.temp_A$coefficients[2])>0.5){ 
     tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
       mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
-              Coeff_Pick=inv.logit(lm.temp_A$coefficients[2]), 
-              Coeff_Unpick=inv.logit(lm.temp_B$coefficients[2]))
+              Slope=lm.temp_A$coefficients[2],
+              Inv_Logit_Coeff=inv.logit(lm.temp_A$coefficients[2]),
+              SE=coef(summary(lm.temp_A))[2,2])
     
     colnames(tmp_in)[2]<-"True_SNP_A"
     colnames(tmp_in)[3]<-"True_SNP_B"
@@ -101,8 +102,9 @@ FATA_p <- function(snp_base,climate_table,env_in){
   } else if (inv.logit(lm.temp_B$coefficients[2])>0.5){
     tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
       mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B",
-              Coeff_Pick=inv.logit(lm.temp_B$coefficients[2]), 
-              Coeff_Unpick=inv.logit(lm.temp_A$coefficients[2]))
+              Slope=lm.temp_B$coefficients[2],
+              Inv_Logit_Coeff=inv.logit(lm.temp_B$coefficients[2]),
+              SE=coef(summary(lm.temp_B))[2,2])
     
     colnames(tmp_in)[2]<-"True_SNP_A"
     colnames(tmp_in)[3]<-"True_SNP_B"
@@ -143,8 +145,9 @@ FATA_n <- function(snp_base,climate_table,env_in){
     if(inv.logit(lm.temp_A$coefficients[2])<0.5){ 
       tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
         mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
-                Coeff_Pick=inv.logit(lm.temp_A$coefficients[2]), 
-                Coeff_Unpick=inv.logit(lm.temp_B$coefficients[2]))
+                Slope=lm.temp_A$coefficients[2],
+                Inv_Logit_Coeff=inv.logit(lm.temp_A$coefficients[2]),
+                SE=coef(summary(lm.temp_A))[2,2])
       
       colnames(tmp_in)[2]<-"True_SNP_A"
       colnames(tmp_in)[3]<-"True_SNP_B"
@@ -154,8 +157,9 @@ FATA_n <- function(snp_base,climate_table,env_in){
     } else if (inv.logit(lm.temp_B$coefficients[2])<0.5){
       tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
         mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B",
-                Coeff_Pick=inv.logit(lm.temp_B$coefficients[2]), 
-                Coeff_Unpick=inv.logit(lm.temp_A$coefficients[2]))
+                Slope=lm.temp_B$coefficients[2],
+                Inv_Logit_Coeff=inv.logit(lm.temp_B$coefficients[2]),
+                SE=coef(summary(lm.temp_B))[2,2])
       
       colnames(tmp_in)[2]<-"True_SNP_A"
       colnames(tmp_in)[3]<-"True_SNP_B"
@@ -184,26 +188,26 @@ pop_order_base<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/trim/basel
 
 ##SNP set abundances
 #Timeseries SNP abundances
-snp1_time <- read_csv("data/binomial_bf30/snp_set_time_env1.csv")
-snp2_time <- read_csv("data/binomial_bf30/snp_set_time_env2.csv")
-snp3_time <- read_csv("data/binomial_bf30/snp_set_time_env3.csv")
-snp4_time <- read_csv("data/binomial_bf30/snp_set_time_env4.csv")
-snp5_time <- read_csv("data/binomial_bf30/snp_set_time_env5.csv")
-snp6_time <- read_csv("data/binomial_bf30/snp_set_time_env6.csv")
-snp7_time <- read_csv("data/binomial_bf30/snp_set_time_env7.csv")
-snp8_time <- read_csv("data/binomial_bf30/snp_set_time_env8.csv")
-snp9_time <- read_csv("data/binomial_bf30/snp_set_time_env9.csv")
+snp1_time <- read_csv("data/snp_set_time_env1.csv")
+snp2_time <- read_csv("data/snp_set_time_env2.csv")
+snp3_time <- read_csv("data/snp_set_time_env3.csv")
+snp4_time <- read_csv("data/snp_set_time_env4.csv")
+snp5_time <- read_csv("data/snp_set_time_env5.csv")
+snp6_time <- read_csv("data/snp_set_time_env6.csv")
+snp7_time <- read_csv("data/snp_set_time_env7.csv")
+snp8_time <- read_csv("data/snp_set_time_env8.csv")
+snp9_time <- read_csv("data/snp_set_time_env9.csv")
 
 #Baseline SNP abundances
-env1_base <- read_csv("data/binomial_bf30/snp_set_base_env1.csv")
-env2_base <- read_csv("data/binomial_bf30/snp_set_base_env2.csv")
-env3_base <- read_csv("data/binomial_bf30/snp_set_base_env3.csv")
-env4_base <- read_csv("data/binomial_bf30/snp_set_base_env4.csv")
-env5_base <- read_csv("data/binomial_bf30/snp_set_base_env5.csv")
-env6_base <- read_csv("data/binomial_bf30/snp_set_base_env6.csv")
-env7_base <- read_csv("data/binomial_bf30/snp_set_base_env7.csv")
-env8_base <- read_csv("data/binomial_bf30/snp_set_base_env8.csv")
-env9_base <- read_csv("data/binomial_bf30/snp_set_base_env9.csv")
+env1_base <- read_csv("data/snp_set_base_env1.csv")
+env2_base <- read_csv("data/snp_set_base_env2.csv")
+env3_base <- read_csv("data/snp_set_base_env3.csv")
+env4_base <- read_csv("data/snp_set_base_env4.csv")
+env5_base <- read_csv("data/snp_set_base_env5.csv")
+env6_base <- read_csv("data/snp_set_base_env6.csv")
+env7_base <- read_csv("data/snp_set_base_env7.csv")
+env8_base <- read_csv("data/snp_set_base_env8.csv")
+env9_base <- read_csv("data/snp_set_base_env9.csv")
 
 ###################################################################################
 
@@ -244,6 +248,50 @@ freq_env7_A <- as.data.frame(FATA_p(env7_base,climate,"Tave_sm"))
 freq_env8_A <- as.data.frame(FATA_n(env8_base,climate,"PPT_wt"))
 freq_env9_A <- as.data.frame(FATA_n(env9_base,climate,"PPT_sm"))
 
+freq_env1_high_SE<-freq_env1_A %>% filter (SE>5)
+freq_env1_high_SE_num<-length(unique(freq_env1_high_SE$chr_snp))
+freq_env1_high_SE_snp_id<-unique(freq_env1_high_SE$chr_snp)
+
+
+freq_env2_high_SE<-freq_env2_A %>% filter (SE>5)
+freq_env2_high_SE_num<-length(unique(freq_env2_high_SE$chr_snp))
+freq_env2_high_SE_snp_id<-unique(freq_env2_high_SE$chr_snp)
+
+
+freq_env3_high_SE<-freq_env3_A %>% filter (SE>5)
+freq_env3_high_SE_num<-length(unique(freq_env3_high_SE$chr_snp))
+freq_env3_high_SE_snp_id<-unique(freq_env3_high_SE$chr_snp)
+
+
+freq_env4_high_SE<-freq_env4_A %>% filter (SE>5)
+freq_env4_high_SE_num<-length(unique(freq_env4_high_SE$chr_snp))
+freq_env4_high_SE_snp_id<-unique(freq_env4_high_SE$chr_snp)
+
+
+freq_env5_high_SE<-freq_env5_A %>% filter (SE>5)
+freq_env5_high_SE_num<-length(unique(freq_env5_high_SE$chr_snp))
+freq_env5_high_SE_snp_id<-unique(freq_env5_high_SE$chr_snp)
+
+
+freq_env6_high_SE<-freq_env6_A %>% filter (SE>5)
+freq_env6_high_SE_num<-length(unique(freq_env6_high_SE$chr_snp))
+freq_env6_high_SE_snp_id<-unique(freq_env6_high_SE$chr_snp)
+
+
+freq_env7_high_SE<-freq_env7_A %>% filter (SE>5)
+freq_env7_high_SE_num<-length(unique(freq_env7_high_SE$chr_snp))
+freq_env7_high_SE_snp_id<-unique(freq_env7_high_SE$chr_snp)
+
+
+freq_env8_high_SE<-freq_env8_A %>% filter (SE>5)
+freq_env8_high_SE_num<-length(unique(freq_env8_high_SE$chr_snp))
+freq_env8_high_SE_snp_id<-unique(freq_env8_high_SE$chr_snp)
+
+
+freq_env9_high_SE<-freq_env9_A %>% filter (SE>5)
+freq_env9_high_SE_num<-length(unique(freq_env9_high_SE$chr_snp))
+freq_env9_high_SE_snp_id<-unique(freq_env9_high_SE$chr_snp)
+
 
 ###################################################################################
 ## Implement if you want to show just SNPs that are plotted in each indiviual timesereis pop
@@ -273,6 +321,16 @@ abund_env <- rbind(freq_env1_A,
                    freq_env8_A,
                    freq_env9_A)
 
+#Get slope and SE information for unique SNPs
+unique_env <- abund_env %>%
+  select(ENV, chr_snp, Slope, Inv_Logit_Coeff, SE) %>%
+  unique()
+
+#write_csv(unique_env,"data/baseline_SNP_slope.csv")
+
+#Filter for high SE SNPS
+abund_env <-abund_env %>% filter (SE<5)
+
 #Make long binomial table
 abund_table<-data.frame()
 for (i in 1:dim(abund_env)[1]){
@@ -289,7 +347,7 @@ for (i in 1:dim(abund_env)[1]){
 abund_clim <- left_join(abund_table,climate,by="Paper_ID")
 
 #Write out file
-write_csv(abund_clim,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_bf30.csv")
+write_csv(abund_clim,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE.csv")
 
 
 
