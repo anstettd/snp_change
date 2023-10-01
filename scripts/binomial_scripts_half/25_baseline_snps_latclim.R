@@ -2,6 +2,7 @@
 ## Finding which allele is associated with climate change
 ## For peak window SNPS (WZA) with BF (BayPass) > 10 and all BF>30
 ## Done for all alleles positively associated with climate change
+## Filter for high SE
 ## Author Daniel Anstett
 ## 
 ## 
@@ -324,9 +325,10 @@ abund_env <- rbind(freq_env1_A,
 #Get slope and SE information for unique SNPs
 unique_env <- abund_env %>%
   select(ENV, chr_snp, Slope, Inv_Logit_Coeff, SE) %>%
-  unique()
+  unique() %>% filter (SE<5)
 
-#write_csv(unique_env,"data/baseline_SNP_slope.csv")
+
+write_csv(unique_env,"data/baseline_SNP_slope.csv")
 
 #Filter for high SE SNPS
 abund_env <-abund_env %>% filter (SE<5)
