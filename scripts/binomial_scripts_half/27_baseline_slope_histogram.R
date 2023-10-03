@@ -36,61 +36,61 @@ PPT_sm<-baseline_snp_slope %>% filter(ENV=="PPT_sm")
 
 #Plot frequency vs climate
 plot_env_1<- ggplot(MAT,aes(x=Slope))+
-  geom_histogram(position="identity", color="black",alpha=0.5)+
+    geom_histogram(position="identity", color="black",alpha=0.5, binwidth = 0.1)+
   scale_y_continuous(name="Count")+
   scale_x_continuous(name="MAT Slope")+
   theme_classic()
 
 #Plot frequency vs climate
 plot_env_2<- ggplot(MAP,aes(x=Slope))+
-  geom_histogram(position="identity", color="black",alpha=0.5)+
+  geom_histogram(position="identity", color="black",alpha=0.5, binwidth = 0.1)+
   scale_y_continuous(name="Count")+
   scale_x_continuous(name="MAP Slope")+
   theme_classic()
 
 #Plot frequency vs climate
 plot_env_3<- ggplot(PAS,aes(x=Slope))+
-  geom_histogram(position="identity", color="black",alpha=0.5)+
+  geom_histogram(position="identity", color="black",alpha=0.5, binwidth = 0.1)+
   scale_y_continuous(name="Count")+
   scale_x_continuous(name="PAS Slope")+
   theme_classic()
 
 #Plot frequency vs climate
 plot_env_4<- ggplot(EXT,aes(x=Slope))+
-  geom_histogram(position="identity", color="black",alpha=0.5)+
+  geom_histogram(position="identity", color="black",alpha=0.5, binwidth = 0.1)+
   scale_y_continuous(name="Count")+
   scale_x_continuous(name="EXT Slope")+
   theme_classic()
 
 #Plot frequency vs climate
 plot_env_5<- ggplot(CMD,aes(x=Slope))+
-  geom_histogram(position="identity", color="black",alpha=0.5)+
+  geom_histogram(position="identity", color="black",alpha=0.5, binwidth = 0.1)+
   scale_y_continuous(name="Count")+
   scale_x_continuous(name="CMD Slope")+
   theme_classic()
 
 #Plot frequency vs climate
 plot_env_6<- ggplot(Tave_wt,aes(x=Slope))+
-  geom_histogram(position="identity", color="black",alpha=0.5)+
+  geom_histogram(position="identity", color="black",alpha=0.5, binwidth = 0.1)+
   scale_y_continuous(name="Count")+
   scale_x_continuous(name="Tave_wt Slope")+
   theme_classic()
 
 #Plot frequency vs climate
 plot_env_7<- ggplot(Tave_sm,aes(x=Slope))+
-  geom_histogram(position="identity", color="black",alpha=0.5)+
+  geom_histogram(position="identity", color="black",alpha=0.5, binwidth = 0.1)+
   scale_y_continuous(name="Count")+
   scale_x_continuous(name="Tave_sm Slope")+
   theme_classic()
 
 plot_env_8<- ggplot(PPT_wt,aes(x=Slope))+
-  geom_histogram(position="identity", color="black",alpha=0.5)+
+  geom_histogram(position="identity", color="black",alpha=0.5, binwidth = 0.1)+
   scale_y_continuous(name="Count")+
   scale_x_continuous(name="PPT_wt Slope")+
   theme_classic()
 
 plot_env_9<- ggplot(PPT_sm,aes(x=Slope))+
-  geom_histogram(position="identity", color="black",alpha=0.5)+
+  geom_histogram(position="identity", color="black",alpha=0.5, binwidth = 0.1)+
   scale_y_continuous(name="Count")+
   scale_x_continuous(name="PPT_sm Slope")+
   theme_classic()

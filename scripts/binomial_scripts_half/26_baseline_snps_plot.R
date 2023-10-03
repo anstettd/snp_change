@@ -14,7 +14,7 @@ theme_spaghetti <- function(){
   
   theme_classic() %+replace%    #replace elements we want to change
     theme(legend.position = "none",
-          axis.text.x = element_text(size = 14, face = "bold", angle = 45,hjust = 1, vjust = 1), 
+          axis.text.x = element_text(size = 14, face = "bold", angle = 0,hjust = 1, vjust = 1), 
           axis.title = element_text(size =16, face = "bold"), 
           axis.text.y = element_text(size = 14, face = "bold"),legend.title = element_blank(),
           legend.text = element_text(size=12,face="bold"),
@@ -25,7 +25,7 @@ theme_spaghetti <- function(){
 
 ###################################################################################
 #Import SNP binomial data
-abund_clim <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE.csv",
+abund_clim <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std.csv",
                        col_names = T)
 
 ###################################################################################
@@ -117,7 +117,7 @@ arrg_1<-ggarrange(plot_env_1,
 
 #Export 8 X 7
 
-ggsave("graphs/spaghetii/8_spaghetii_baseline_env.pdf",arrg_1,width=8, height = 7, units = "in")
+ggsave("graphs/spaghetii/8_spaghetii_baseline_env_std.pdf",arrg_1,width=8, height = 7, units = "in")
 
 
 

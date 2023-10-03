@@ -180,6 +180,20 @@ FATA_n <- function(snp_base,climate_table,env_in){
 
 #Import Baseline Climate 
 climate <- read_csv("data/climate_pop.csv")
+colnames(climate) <- c("Site_Name","Paper_ID","Latitude","Longitude", "Elevation", "MAT_raw","MAP_raw","PAS_raw",
+                       "EXT_raw","CMD_raw","Tave_wt_raw","Tave_sm_raw","PPT_wt_raw","PPT_sm_raw")
+climate <- climate %>% mutate(MAT=scale(MAT_raw)[,1],
+                              MAP=scale(MAP_raw)[,1],
+                              PAS=scale(PAS_raw)[,1],
+                              EXT=scale(EXT_raw)[,1],
+                              CMD=scale(CMD_raw)[,1],
+                              Tave_wt=scale(Tave_wt_raw)[,1],
+                              Tave_sm=scale(Tave_sm_raw)[,1],
+                              PPT_wt=scale(PPT_wt_raw)[,1],
+                              PPT_sm=scale(PPT_sm_raw)[,1]
+                              ) %>% select(-MAT_raw,-MAP_raw,-PAS_raw,-EXT_raw,-CMD_raw,
+                                           -Tave_wt_raw,-Tave_sm_raw,-PPT_wt_raw,-PPT_sm_raw)
+
 
 #Import pop names (site_year names)
 pop_order<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/timeseries_filtered_variants.QUAL20_MQ40_AN80_MAF0.03_DP1SD.Baypass_table.pop_order", header=F, sep="\t")
@@ -349,7 +363,7 @@ for (i in 1:dim(abund_env)[1]){
 abund_clim <- left_join(abund_table,climate,by="Paper_ID")
 
 #Write out file
-write_csv(abund_clim,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE.csv")
+write_csv(abund_clim,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std.csv")
 
 
 
