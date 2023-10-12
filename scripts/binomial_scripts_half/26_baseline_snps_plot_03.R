@@ -25,7 +25,7 @@ theme_spaghetti <- function(){
 
 ###################################################################################
 #Import SNP binomial data
-abund_clim <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std.csv",
+abund_clim <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_03.csv",
                        col_names = T)
 
 ###################################################################################
@@ -52,7 +52,7 @@ abund_PPT_sm<-abund_clim %>% filter(ENV=="PPT_sm")
 ggplot(data=abund_clim,aes(Latitude,Binomial_A,group=chr_snp)) + 
   geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.15,cex=0.4,color="blue") + 
   labs(y="SNP Frequency",x="Latitude") +  facet_wrap(.~ENV) + theme_spaghetti()
-ggsave("graphs/spaghetii/7_spaghetii_baseline_lat.pdf",width=8, height = 7, units = "in")
+ggsave("graphs/spaghetii/base_slope_cutoff/7_03_spaghetii_baseline_lat_03.pdf",width=8, height = 7, units = "in")
 
 ############################################################################################################################
 ## Climate
@@ -121,7 +121,7 @@ arrg_1<-ggarrange(plot_env_1,
 
 #Export 8 X 7
 
-ggsave("graphs/spaghetii/8_spaghetii_baseline_env_std.pdf",arrg_1,width=8, height = 7, units = "in")
+ggsave("graphs/spaghetii/base_slope_cutoff/8_03_spaghetii_baseline_env_std.pdf",arrg_1,width=8, height = 7, units = "in")
 
 
 

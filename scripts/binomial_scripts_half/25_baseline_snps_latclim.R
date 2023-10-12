@@ -172,6 +172,22 @@ FATA_n <- function(snp_base,climate_table,env_in){
   return(freq.temp)
 }
 
+
+#Make bionomial table
+binom_table <- function(df){
+  abund_table<-data.frame()
+  for (i in 1:dim(df)[1]){
+    Binomial_A<-c(rep(1, df[i, "True_SNP_A"]), rep(0,df[i, "True_SNP_B"]))
+    tmp_df<- as.data.frame(Binomial_A) %>% mutate (Paper_ID=df$Paper_ID[i], 
+                                                   chr_snp=df$chr_snp[i], 
+                                                   ENV=df$ENV[i])
+    abund_table<-rbind(abund_table, tmp_df)
+  }
+  return(abund_table)
+}
+
+
+
 ########################################################################################################
 
 
@@ -342,28 +358,61 @@ unique_env <- abund_env %>%
   unique() %>% filter (SE<5)
 
 
-write_csv(unique_env,"data/baseline_SNP_slope.csv")
+#write_csv(unique_env,"data/baseline_SNP_slope.csv")
 
 #Filter for high SE SNPS
 abund_env <-abund_env %>% filter (SE<5)
 
+#Filter for low Slope
+abund_env_01 <- abund_env %>% filter(abs(Slope)>0.1)
+abund_env_02 <- abund_env %>% filter(abs(Slope)>0.2)
+abund_env_03 <- abund_env %>% filter(abs(Slope)>0.3)
+abund_env_04 <- abund_env %>% filter(abs(Slope)>0.4)
+abund_env_05 <- abund_env %>% filter(abs(Slope)>0.5)
+
+
+##############################################################################################################
+# Out of Loop
+#abund_table<-data.frame()
+#for (i in 1:dim(abund_env)[1]){
+#  Binomial_A<-c(rep(1, abund_env[i, "True_SNP_A"]), rep(0,abund_env[i, "True_SNP_B"]))
+#  tmp_df<- as.data.frame(Binomial_A) %>% mutate (Paper_ID=abund_env$Paper_ID[i], 
+#                                                 chr_snp=abund_env$chr_snp[i], 
+#                                                 ENV=abund_env$ENV[i])
+#  abund_table<-rbind(abund_table, tmp_df)
+#}
+##############################################################################################################
 #Make long binomial table
-abund_table<-data.frame()
-for (i in 1:dim(abund_env)[1]){
-  Binomial_A<-c(rep(1, abund_env[i, "True_SNP_A"]), rep(0,abund_env[i, "True_SNP_B"]))
-  tmp_df<- as.data.frame(Binomial_A) %>% mutate (Paper_ID=abund_env$Paper_ID[i], 
-                                                 chr_snp=abund_env$chr_snp[i], 
-                                                 ENV=abund_env$ENV[i])
-  abund_table<-rbind(abund_table, tmp_df)
-  
-  
-}
+#abund_table <-binom_table(abund_env)
+#abund_table_01 <-binom_table(abund_env_01)
+#abund_table_02 <-binom_table(abund_env_02)
+#abund_table_03 <-binom_table(abund_env_03)
+abund_table_04 <-binom_table(abund_env_04)
+abund_table_05 <-binom_table(abund_env_05)
+
+
 
 #Merge with climate data
-abund_clim <- left_join(abund_table,climate,by="Paper_ID")
+#abund_clim <- left_join(abund_table,climate,by="Paper_ID")
+#abund_clim_01 <- left_join(abund_table_01,climate,by="Paper_ID")
+#abund_clim_02 <- left_join(abund_table_02,climate,by="Paper_ID")
+#abund_clim_03 <- left_join(abund_table_03,climate,by="Paper_ID")
+abund_clim_04 <- left_join(abund_table_04,climate,by="Paper_ID")
+abund_clim_05 <- left_join(abund_table_05,climate,by="Paper_ID")
+
+
 
 #Write out file
-write_csv(abund_clim,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std.csv")
+#write_csv(abund_clim,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std.csv")
+#write_csv(abund_clim_01,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_01.csv")
+#write_csv(abund_clim_02,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_02.csv")
+#write_csv(abund_clim_03,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_03.csv")
+write_csv(abund_clim_04,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_04.csv")
+write_csv(abund_clim_05,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_05.csv")
+
+
+
+
 
 
 
