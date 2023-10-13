@@ -76,6 +76,18 @@ abund_Tave_sm<-abund_env7 %>% filter(chr_snp %in% abund_env7_rm$chr_snp)
 abund_PPT_wt<-abund_env8 %>% filter(chr_snp %in% abund_env8_rm$chr_snp)
 abund_PPT_sm<-abund_env9 %>% filter(chr_snp %in% abund_env9_rm$chr_snp)
 
+#Make reduced SNP Set
+snp_set_reduced <- rbind(abund_MAT,
+                         abund_MAP,
+                         abund_PAS,
+                         abund_EXT,
+                         abund_CMD,
+                         abund_Tave_wt,
+                         abund_Tave_sm,
+                         abund_PPT_wt,
+                         abund_PPT_sm) %>% select(chr_snp)
+snp_set_reduced <- unique(snp_set_reduced)
+
 
 ############################################################################################################################
 ## Latitude
