@@ -371,6 +371,11 @@ abund_env_04 <- abund_env %>% filter(abs(Slope)>0.4)
 abund_env_05 <- abund_env %>% filter(abs(Slope)>0.5)
 
 
+
+
+
+
+
 ##############################################################################################################
 # Out of Loop
 #abund_table<-data.frame()

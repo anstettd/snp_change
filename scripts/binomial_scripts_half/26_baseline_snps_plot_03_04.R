@@ -35,27 +35,56 @@ abund_clim$ENV <- as.factor(abund_clim$ENV)
 abund_clim$ENV <- factor(abund_clim$ENV, levels = c("MAT","MAP","PAS","EXT","CMD",
                                                      "Tave_wt","Tave_sm","PPT_wt","PPT_sm"))
 #Make separate data frames for each climate variable
-abund_MAT<-abund_clim %>% filter(ENV=="MAT")
-abund_MAP<-abund_clim %>% filter(ENV=="MAP")
-abund_PAS<-abund_clim %>% filter(ENV=="PAS")
-abund_EXT<-abund_clim %>% filter(ENV=="EXT")
-abund_CMD<-abund_clim %>% filter(ENV=="CMD")
-abund_Tave_wt<-abund_clim %>% filter(ENV=="Tave_wt")
-abund_Tave_sm<-abund_clim %>% filter(ENV=="Tave_sm")
-abund_PPT_wt<-abund_clim %>% filter(ENV=="PPT_wt")
-abund_PPT_sm<-abund_clim %>% filter(ENV=="PPT_sm")
+abund_env1<-abund_clim %>% filter(ENV=="MAT")
+abund_env2<-abund_clim %>% filter(ENV=="MAP")
+abund_env3<-abund_clim %>% filter(ENV=="PAS")
+abund_env4<-abund_clim %>% filter(ENV=="EXT")
+abund_env5<-abund_clim %>% filter(ENV=="CMD")
+abund_env6 <-abund_clim %>% filter(ENV=="Tave_wt")
+abund_env7 <-abund_clim %>% filter(ENV=="Tave_sm")
+abund_env8 <-abund_clim %>% filter(ENV=="PPT_wt")
+abund_env9 <-abund_clim %>% filter(ENV=="PPT_sm")
 
+#Filter for regressions close to 0 or 1 
+abund_env1_rm <- abund_env1 %>% group_by(chr_snp) %>% summarize(avg_slope = mean(Binomial_A)) %>% 
+  filter(avg_slope<0.96) %>% filter(avg_slope>0.04) 
+abund_env2_rm <- abund_env2 %>% group_by(chr_snp) %>% summarize(avg_slope = mean(Binomial_A)) %>% 
+  filter(avg_slope<0.96) %>% filter(avg_slope>0.04) 
+abund_env3_rm <- abund_env3 %>% group_by(chr_snp) %>% summarize(avg_slope = mean(Binomial_A)) %>% 
+  filter(avg_slope<0.96) %>% filter(avg_slope>0.04) 
+abund_env4_rm <- abund_env4 %>% group_by(chr_snp) %>% summarize(avg_slope = mean(Binomial_A)) %>% 
+  filter(avg_slope<0.96) %>% filter(avg_slope>0.04) 
+abund_env5_rm <- abund_env5 %>% group_by(chr_snp) %>% summarize(avg_slope = mean(Binomial_A)) %>% 
+  filter(avg_slope<0.96) %>% filter(avg_slope>0.04) 
+abund_env6_rm <- abund_env6 %>% group_by(chr_snp) %>% summarize(avg_slope = mean(Binomial_A)) %>% 
+  filter(avg_slope<0.96) %>% filter(avg_slope>0.04) 
+abund_env7_rm <- abund_env7 %>% group_by(chr_snp) %>% summarize(avg_slope = mean(Binomial_A)) %>% 
+  filter(avg_slope<0.96) %>% filter(avg_slope>0.04) 
+abund_env8_rm <- abund_env8 %>% group_by(chr_snp) %>% summarize(avg_slope = mean(Binomial_A)) %>% 
+  filter(avg_slope<0.96) %>% filter(avg_slope>0.04) 
+abund_env9_rm <- abund_env9 %>% group_by(chr_snp) %>% summarize(avg_slope = mean(Binomial_A)) %>% 
+  filter(avg_slope<0.96) %>% filter(avg_slope>0.04) 
 
+#Filter SNPs close to 0 or 1
+abund_MAT<-abund_env1 %>% filter(chr_snp %in% abund_env1_rm$chr_snp)
+abund_MAP<-abund_env2 %>% filter(chr_snp %in% abund_env2_rm$chr_snp)
+abund_PAS<-abund_env3 %>% filter(chr_snp %in% abund_env3_rm$chr_snp)
+abund_EXT<-abund_env4 %>% filter(chr_snp %in% abund_env4_rm$chr_snp)
+abund_CMD<-abund_env5 %>% filter(chr_snp %in% abund_env5_rm$chr_snp)
+abund_Tave_wt<-abund_env6 %>% filter(chr_snp %in% abund_env6_rm$chr_snp)
+abund_Tave_sm<-abund_env7 %>% filter(chr_snp %in% abund_env7_rm$chr_snp)
+abund_PPT_wt<-abund_env8 %>% filter(chr_snp %in% abund_env8_rm$chr_snp)
+abund_PPT_sm<-abund_env9 %>% filter(chr_snp %in% abund_env9_rm$chr_snp)
 
 
 ############################################################################################################################
 ## Latitude
 ############################################################################################################################
-#Plot frequency vs latitude vs
-ggplot(data=abund_clim,aes(Latitude,Binomial_A,group=chr_snp)) + 
-  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.15,cex=0.4,color="blue") + 
-  labs(y="SNP Frequency",x="Latitude") +  facet_wrap(.~ENV) + theme_spaghetti()
-ggsave("graphs/spaghetii/base_slope_cutoff/7_03_spaghetii_baseline_lat_03.pdf",width=8, height = 7, units = "in")
+##Plot frequency vs latitude vs
+#ggplot(data=abund_clim,aes(Latitude,Binomial_A,group=chr_snp)) + 
+#  geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.15,cex=0.4,color="blue") + 
+#  labs(y="SNP Frequency",x="Latitude") +  facet_wrap(.~ENV) + theme_spaghetti()
+#ggsave("graphs/spaghetii/base_slope_cutoff/7_03_spaghetii_baseline_lat_03.pdf",width=8, height = 7, units = "in")
 
 ############################################################################################################################
 ## Climate
@@ -124,7 +153,7 @@ arrg_1<-ggarrange(plot_env_1,
 
 #Export 8 X 7
 
-ggsave("graphs/spaghetii/base_slope_cutoff/8_03_spaghetii_baseline_env_std.pdf",arrg_1,width=8, height = 7, units = "in")
+ggsave("graphs/spaghetii/base_slope_cutoff/8_03_spaghetii_baseline_env_04_extreme_cuttoff.pdf",arrg_1,width=8, height = 7, units = "in")
 
 
 
