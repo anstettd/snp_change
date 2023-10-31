@@ -1,12 +1,13 @@
 ##################################################################################
 ## Get pop specific SNP slopes over the timeseries for "observed" data set
-## Done for snp set BF>10 in windows and BF>30 overall
+## Done for binomal strong snp set BF>10 in windows and BF>30 overall
+## SNPs across each env varaible within the baselineset have been removed 
 ## Does not include 1000 permuations of random sampling for BF<0
 ## Also done for unique slopes across all env (histPop)
 ## Author Daniel Anstett
 ## 
 ## 
-## Last Modified April 24, 2023
+## Last Modified Oct 31, 2023
 ###################################################################################
 #Functions
 
@@ -61,25 +62,25 @@ library(tidyverse)
 library(boot)
 
 #Import timeseries frequencies
-freqA_env1 <- read_csv("data/binomial_data/freqA_env1.csv")
-freqA_env2 <- read_csv("data/binomial_data/freqA_env2.csv")
-freqA_env3 <- read_csv("data/binomial_data/freqA_env3.csv")
-freqA_env4 <- read_csv("data/binomial_data/freqA_env4.csv")
-freqA_env5 <- read_csv("data/binomial_data/freqA_env5.csv")
-freqA_env6 <- read_csv("data/binomial_data/freqA_env6.csv")
-freqA_env7 <- read_csv("data/binomial_data/freqA_env7.csv")
-freqA_env8 <- read_csv("data/binomial_data/freqA_env8.csv")
-freqA_env9 <- read_csv("data/binomial_data/freqA_env9.csv")
+freqA_env1 <- read_csv("data/binomial_strong/freqA_env1.csv")
+freqA_env2 <- read_csv("data/binomial_strong/freqA_env2.csv")
+freqA_env3 <- read_csv("data/binomial_strong/freqA_env3.csv")
+freqA_env4 <- read_csv("data/binomial_strong/freqA_env4.csv")
+freqA_env5 <- read_csv("data/binomial_strong/freqA_env5.csv")
+freqA_env6 <- read_csv("data/binomial_strong/freqA_env6.csv")
+freqA_env7 <- read_csv("data/binomial_strong/freqA_env7.csv")
+freqA_env8 <- read_csv("data/binomial_strong/freqA_env8.csv")
+freqA_env9 <- read_csv("data/binomial_strong/freqA_env9.csv")
 
-freqB_env1 <- read_csv("data/binomial_data/freqB_env1.csv")
-freqB_env2 <- read_csv("data/binomial_data/freqB_env2.csv")
-freqB_env3 <- read_csv("data/binomial_data/freqB_env3.csv")
-freqB_env4 <- read_csv("data/binomial_data/freqB_env4.csv")
-freqB_env5 <- read_csv("data/binomial_data/freqB_env5.csv")
-freqB_env6 <- read_csv("data/binomial_data/freqB_env6.csv")
-freqB_env7 <- read_csv("data/binomial_data/freqB_env7.csv")
-freqB_env8 <- read_csv("data/binomial_data/freqB_env8.csv")
-freqB_env9 <- read_csv("data/binomial_data/freqB_env9.csv")
+freqB_env1 <- read_csv("data/binomial_strong/freqB_env1.csv")
+freqB_env2 <- read_csv("data/binomial_strong/freqB_env2.csv")
+freqB_env3 <- read_csv("data/binomial_strong/freqB_env3.csv")
+freqB_env4 <- read_csv("data/binomial_strong/freqB_env4.csv")
+freqB_env5 <- read_csv("data/binomial_strong/freqB_env5.csv")
+freqB_env6 <- read_csv("data/binomial_strong/freqB_env6.csv")
+freqB_env7 <- read_csv("data/binomial_strong/freqB_env7.csv")
+freqB_env8 <- read_csv("data/binomial_strong/freqB_env8.csv")
+freqB_env9 <- read_csv("data/binomial_strong/freqB_env9.csv")
 
 
 ###################################################################################
@@ -161,17 +162,17 @@ for (i in 1:dim(slope_env_all)){
 
 ###################################################################################
 #Export
-write_csv(slope_env1, "data/binomial_data_half/slope_obs_env1.csv")
-write_csv(slope_env2, "data/binomial_data_half/slope_obs_env2.csv")
-write_csv(slope_env3, "data/binomial_data_half/slope_obs_env3.csv")
-write_csv(slope_env4, "data/binomial_data_half/slope_obs_env4.csv")
-write_csv(slope_env5, "data/binomial_data_half/slope_obs_env5.csv")
-write_csv(slope_env6, "data/binomial_data_half/slope_obs_env6.csv")
-write_csv(slope_env7, "data/binomial_data_half/slope_obs_env7.csv")
-write_csv(slope_env8, "data/binomial_data_half/slope_obs_env8.csv")
-write_csv(slope_env9, "data/binomial_data_half/slope_obs_env9.csv")
-write_csv(slope_env_all, "data/binomial_data_half/slope_obs_all.csv")
-write_csv(slope_env_all_unique, "data/binomial_data_half/slope_obs_all_unique.csv")
+write_csv(slope_env1, "data/binomial_strong/slope_obs_env1.csv")
+write_csv(slope_env2, "data/binomial_strong/slope_obs_env2.csv")
+write_csv(slope_env3, "data/binomial_strong/slope_obs_env3.csv")
+write_csv(slope_env4, "data/binomial_strong/slope_obs_env4.csv")
+write_csv(slope_env5, "data/binomial_strong/slope_obs_env5.csv")
+write_csv(slope_env6, "data/binomial_strong/slope_obs_env6.csv")
+write_csv(slope_env7, "data/binomial_strong/slope_obs_env7.csv")
+write_csv(slope_env8, "data/binomial_strong/slope_obs_env8.csv")
+write_csv(slope_env9, "data/binomial_strong/slope_obs_env9.csv")
+write_csv(slope_env_all, "data/binomial_strong/slope_obs_all.csv")
+write_csv(slope_env_all_unique, "data/binomial_strong/slope_obs_all_unique.csv")
 
 
 

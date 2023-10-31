@@ -12,16 +12,16 @@
 #Import libraries
 library(tidyverse)
 
-#Import Peak window
-snp_set_env1  <- read_csv("data/snp_set_env1.csv")
-snp_set_env2  <- read_csv("data/snp_set_env2.csv")
-snp_set_env3  <- read_csv("data/snp_set_env3.csv")
-snp_set_env4  <- read_csv("data/snp_set_env4.csv")
-snp_set_env5  <- read_csv("data/snp_set_env5.csv")
-snp_set_env6  <- read_csv("data/snp_set_env6.csv")
-snp_set_env7  <- read_csv("data/snp_set_env7.csv")
-snp_set_env8  <- read_csv("data/snp_set_env8.csv")
-snp_set_env9  <- read_csv("data/snp_set_env9.csv")
+#Import strong SNP set filtered for Baseline nonlinearity
+snp_set_env1  <- read_csv("data/binomial_strong/strong_snp_set_env1.csv")
+snp_set_env2  <- read_csv("data/binomial_strong/strong_snp_set_env2.csv")
+snp_set_env3  <- read_csv("data/binomial_strong/strong_snp_set_env3.csv")
+snp_set_env4  <- read_csv("data/binomial_strong/strong_snp_set_env4.csv")
+snp_set_env5  <- read_csv("data/binomial_strong/strong_snp_set_env5.csv")
+snp_set_env6  <- read_csv("data/binomial_strong/strong_snp_set_env6.csv")
+snp_set_env7  <- read_csv("data/binomial_strong/strong_snp_set_env7.csv")
+snp_set_env8  <- read_csv("data/binomial_strong/strong_snp_set_env8.csv")
+snp_set_env9  <- read_csv("data/binomial_strong/strong_snp_set_env9.csv")
 
 
 #Import full snp table for timeseries
@@ -70,26 +70,26 @@ snp_set_base_env8 <-loci_snp_base %>% filter (chr_snp %in% as.character(snp_set_
 snp_set_base_env9 <-loci_snp_base %>% filter (chr_snp %in% as.character(snp_set_env9$chr_snp))
 
 
-write_csv(snp_set_time_env1,"data/snp_set_time_env1.csv")
-write_csv(snp_set_time_env2,"data/snp_set_time_env2.csv")
-write_csv(snp_set_time_env3,"data/snp_set_time_env3.csv")
-write_csv(snp_set_time_env4,"data/snp_set_time_env4.csv")
-write_csv(snp_set_time_env5,"data/snp_set_time_env5.csv")
-write_csv(snp_set_time_env6,"data/snp_set_time_env6.csv")
-write_csv(snp_set_time_env7,"data/snp_set_time_env7.csv")
-write_csv(snp_set_time_env8,"data/snp_set_time_env8.csv")
-write_csv(snp_set_time_env9,"data/snp_set_time_env9.csv")
+write_csv(snp_set_time_env1,"data/binomial_strong/snp_set_time_env1.csv")
+write_csv(snp_set_time_env2,"data/binomial_strong/snp_set_time_env2.csv")
+write_csv(snp_set_time_env3,"data/binomial_strong/snp_set_time_env3.csv")
+write_csv(snp_set_time_env4,"data/binomial_strong/snp_set_time_env4.csv")
+write_csv(snp_set_time_env5,"data/binomial_strong/snp_set_time_env5.csv")
+write_csv(snp_set_time_env6,"data/binomial_strong/snp_set_time_env6.csv")
+write_csv(snp_set_time_env7,"data/binomial_strong/snp_set_time_env7.csv")
+write_csv(snp_set_time_env8,"data/binomial_strong/snp_set_time_env8.csv")
+write_csv(snp_set_time_env9,"data/binomial_strong/snp_set_time_env9.csv")
 
 
-write_csv(snp_set_base_env1,"data/snp_set_base_env1.csv")
-write_csv(snp_set_base_env2,"data/snp_set_base_env2.csv")
-write_csv(snp_set_base_env3,"data/snp_set_base_env3.csv")
-write_csv(snp_set_base_env4,"data/snp_set_base_env4.csv")
-write_csv(snp_set_base_env5,"data/snp_set_base_env5.csv")
-write_csv(snp_set_base_env6,"data/snp_set_base_env6.csv")
-write_csv(snp_set_base_env7,"data/snp_set_base_env7.csv")
-write_csv(snp_set_base_env8,"data/snp_set_base_env8.csv")
-write_csv(snp_set_base_env9,"data/snp_set_base_env9.csv")
+write_csv(snp_set_base_env1,"data/binomial_strong/snp_set_base_env1.csv")
+write_csv(snp_set_base_env2,"data/binomial_strong/snp_set_base_env2.csv")
+write_csv(snp_set_base_env3,"data/binomial_strong/snp_set_base_env3.csv")
+write_csv(snp_set_base_env4,"data/binomial_strong/snp_set_base_env4.csv")
+write_csv(snp_set_base_env5,"data/binomial_strong/snp_set_base_env5.csv")
+write_csv(snp_set_base_env6,"data/binomial_strong/snp_set_base_env6.csv")
+write_csv(snp_set_base_env7,"data/binomial_strong/snp_set_base_env7.csv")
+write_csv(snp_set_base_env8,"data/binomial_strong/snp_set_base_env8.csv")
+write_csv(snp_set_base_env9,"data/binomial_strong/snp_set_base_env9.csv")
 
 
 

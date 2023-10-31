@@ -75,6 +75,15 @@ strong_snp_set <- rbind(abund_env1_rm[,1],
                         abund_env7_rm[,1],
                         abund_env8_rm[,1],
                         abund_env9_rm[,1]) %>% unique()
+write_csv(abund_env1_rm[,1],"data/binomial_strong/strong_snp_set_env1.csv")
+write_csv(abund_env2_rm[,1],"data/binomial_strong/strong_snp_set_env2.csv")
+write_csv(abund_env3_rm[,1],"data/binomial_strong/strong_snp_set_env3.csv")
+write_csv(abund_env4_rm[,1],"data/binomial_strong/strong_snp_set_env4.csv")
+write_csv(abund_env5_rm[,1],"data/binomial_strong/strong_snp_set_env5.csv")
+write_csv(abund_env6_rm[,1],"data/binomial_strong/strong_snp_set_env6.csv")
+write_csv(abund_env7_rm[,1],"data/binomial_strong/strong_snp_set_env7.csv")
+write_csv(abund_env8_rm[,1],"data/binomial_strong/strong_snp_set_env8.csv")
+write_csv(abund_env9_rm[,1],"data/binomial_strong/strong_snp_set_env9.csv")
 write_csv(strong_snp_set,"data/binomial_strong/strong_snp_set.csv")
 
 
