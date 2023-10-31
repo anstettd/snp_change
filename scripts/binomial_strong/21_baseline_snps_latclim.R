@@ -2,7 +2,6 @@
 ## Finding which allele is associated with climate change
 ## For peak window SNPS (WZA) with BF (BayPass) > 10 and all BF>30
 ## Done for all alleles positively associated with climate change
-## Filter for high SE
 ## Author Daniel Anstett
 ## 
 ## 
@@ -91,9 +90,8 @@ FATA_p <- function(snp_base,climate_table,env_in){
    if(inv.logit(lm.temp_A$coefficients[2])>0.5){ 
     tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
       mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
-              Slope=lm.temp_A$coefficients[2],
-              Inv_Logit_Coeff=inv.logit(lm.temp_A$coefficients[2]),
-              SE=coef(summary(lm.temp_A))[2,2])
+              Coeff_Pick=inv.logit(lm.temp_A$coefficients[2]), 
+              Coeff_Unpick=inv.logit(lm.temp_B$coefficients[2]))
     
     colnames(tmp_in)[2]<-"True_SNP_A"
     colnames(tmp_in)[3]<-"True_SNP_B"
@@ -103,9 +101,8 @@ FATA_p <- function(snp_base,climate_table,env_in){
   } else if (inv.logit(lm.temp_B$coefficients[2])>0.5){
     tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
       mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B",
-              Slope=lm.temp_B$coefficients[2],
-              Inv_Logit_Coeff=inv.logit(lm.temp_B$coefficients[2]),
-              SE=coef(summary(lm.temp_B))[2,2])
+              Coeff_Pick=inv.logit(lm.temp_B$coefficients[2]), 
+              Coeff_Unpick=inv.logit(lm.temp_A$coefficients[2]))
     
     colnames(tmp_in)[2]<-"True_SNP_A"
     colnames(tmp_in)[3]<-"True_SNP_B"
@@ -146,9 +143,8 @@ FATA_n <- function(snp_base,climate_table,env_in){
     if(inv.logit(lm.temp_A$coefficients[2])<0.5){ 
       tmp_in<-env_pop %>% select(Paper_ID, prop_A, prop_B) %>% 
         mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="A", 
-                Slope=lm.temp_A$coefficients[2],
-                Inv_Logit_Coeff=inv.logit(lm.temp_A$coefficients[2]),
-                SE=coef(summary(lm.temp_A))[2,2])
+                Coeff_Pick=inv.logit(lm.temp_A$coefficients[2]), 
+                Coeff_Unpick=inv.logit(lm.temp_B$coefficients[2]))
       
       colnames(tmp_in)[2]<-"True_SNP_A"
       colnames(tmp_in)[3]<-"True_SNP_B"
@@ -158,9 +154,8 @@ FATA_n <- function(snp_base,climate_table,env_in){
     } else if (inv.logit(lm.temp_B$coefficients[2])<0.5){
       tmp_in<-env_pop %>% select(Paper_ID, prop_B, prop_A) %>% 
         mutate (ENV=as.character(env_in), chr_snp=snp_prop_A_in$chr_snp[i], SNP_Select="B",
-                Slope=lm.temp_B$coefficients[2],
-                Inv_Logit_Coeff=inv.logit(lm.temp_B$coefficients[2]),
-                SE=coef(summary(lm.temp_B))[2,2])
+                Coeff_Pick=inv.logit(lm.temp_B$coefficients[2]), 
+                Coeff_Unpick=inv.logit(lm.temp_A$coefficients[2]))
       
       colnames(tmp_in)[2]<-"True_SNP_A"
       colnames(tmp_in)[3]<-"True_SNP_B"
@@ -172,22 +167,6 @@ FATA_n <- function(snp_base,climate_table,env_in){
   return(freq.temp)
 }
 
-
-#Make bionomial table
-binom_table <- function(df){
-  abund_table<-data.frame()
-  for (i in 1:dim(df)[1]){
-    Binomial_A<-c(rep(1, df[i, "True_SNP_A"]), rep(0,df[i, "True_SNP_B"]))
-    tmp_df<- as.data.frame(Binomial_A) %>% mutate (Paper_ID=df$Paper_ID[i], 
-                                                   chr_snp=df$chr_snp[i], 
-                                                   ENV=df$ENV[i])
-    abund_table<-rbind(abund_table, tmp_df)
-  }
-  return(abund_table)
-}
-
-
-
 ########################################################################################################
 
 
@@ -196,20 +175,6 @@ binom_table <- function(df){
 
 #Import Baseline Climate 
 climate <- read_csv("data/climate_pop.csv")
-colnames(climate) <- c("Site_Name","Paper_ID","Latitude","Longitude", "Elevation", "MAT_raw","MAP_raw","PAS_raw",
-                       "EXT_raw","CMD_raw","Tave_wt_raw","Tave_sm_raw","PPT_wt_raw","PPT_sm_raw")
-climate <- climate %>% mutate(MAT=scale(MAT_raw)[,1],
-                              MAP=scale(MAP_raw)[,1],
-                              PAS=scale(PAS_raw)[,1],
-                              EXT=scale(EXT_raw)[,1],
-                              CMD=scale(CMD_raw)[,1],
-                              Tave_wt=scale(Tave_wt_raw)[,1],
-                              Tave_sm=scale(Tave_sm_raw)[,1],
-                              PPT_wt=scale(PPT_wt_raw)[,1],
-                              PPT_sm=scale(PPT_sm_raw)[,1]
-                              ) %>% select(-MAT_raw,-MAP_raw,-PAS_raw,-EXT_raw,-CMD_raw,
-                                           -Tave_wt_raw,-Tave_sm_raw,-PPT_wt_raw,-PPT_sm_raw)
-
 
 #Import pop names (site_year names)
 pop_order<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/timeseries_filtered_variants.QUAL20_MQ40_AN80_MAF0.03_DP1SD.Baypass_table.pop_order", header=F, sep="\t")
@@ -279,50 +244,6 @@ freq_env7_A <- as.data.frame(FATA_p(env7_base,climate,"Tave_sm"))
 freq_env8_A <- as.data.frame(FATA_n(env8_base,climate,"PPT_wt"))
 freq_env9_A <- as.data.frame(FATA_n(env9_base,climate,"PPT_sm"))
 
-freq_env1_high_SE<-freq_env1_A %>% filter (SE>5)
-freq_env1_high_SE_num<-length(unique(freq_env1_high_SE$chr_snp))
-freq_env1_high_SE_snp_id<-unique(freq_env1_high_SE$chr_snp)
-
-
-freq_env2_high_SE<-freq_env2_A %>% filter (SE>5)
-freq_env2_high_SE_num<-length(unique(freq_env2_high_SE$chr_snp))
-freq_env2_high_SE_snp_id<-unique(freq_env2_high_SE$chr_snp)
-
-
-freq_env3_high_SE<-freq_env3_A %>% filter (SE>5)
-freq_env3_high_SE_num<-length(unique(freq_env3_high_SE$chr_snp))
-freq_env3_high_SE_snp_id<-unique(freq_env3_high_SE$chr_snp)
-
-
-freq_env4_high_SE<-freq_env4_A %>% filter (SE>5)
-freq_env4_high_SE_num<-length(unique(freq_env4_high_SE$chr_snp))
-freq_env4_high_SE_snp_id<-unique(freq_env4_high_SE$chr_snp)
-
-
-freq_env5_high_SE<-freq_env5_A %>% filter (SE>5)
-freq_env5_high_SE_num<-length(unique(freq_env5_high_SE$chr_snp))
-freq_env5_high_SE_snp_id<-unique(freq_env5_high_SE$chr_snp)
-
-
-freq_env6_high_SE<-freq_env6_A %>% filter (SE>5)
-freq_env6_high_SE_num<-length(unique(freq_env6_high_SE$chr_snp))
-freq_env6_high_SE_snp_id<-unique(freq_env6_high_SE$chr_snp)
-
-
-freq_env7_high_SE<-freq_env7_A %>% filter (SE>5)
-freq_env7_high_SE_num<-length(unique(freq_env7_high_SE$chr_snp))
-freq_env7_high_SE_snp_id<-unique(freq_env7_high_SE$chr_snp)
-
-
-freq_env8_high_SE<-freq_env8_A %>% filter (SE>5)
-freq_env8_high_SE_num<-length(unique(freq_env8_high_SE$chr_snp))
-freq_env8_high_SE_snp_id<-unique(freq_env8_high_SE$chr_snp)
-
-
-freq_env9_high_SE<-freq_env9_A %>% filter (SE>5)
-freq_env9_high_SE_num<-length(unique(freq_env9_high_SE$chr_snp))
-freq_env9_high_SE_snp_id<-unique(freq_env9_high_SE$chr_snp)
-
 
 ###################################################################################
 ## Implement if you want to show just SNPs that are plotted in each indiviual timesereis pop
@@ -352,72 +273,23 @@ abund_env <- rbind(freq_env1_A,
                    freq_env8_A,
                    freq_env9_A)
 
-#Get slope and SE information for unique SNPs
-unique_env <- abund_env %>%
-  select(ENV, chr_snp, Slope, Inv_Logit_Coeff, SE) %>%
-  unique() %>% filter (SE<5)
-
-
-#write_csv(unique_env,"data/baseline_SNP_slope.csv")
-
-#Filter for high SE SNPS
-abund_env <-abund_env %>% filter (SE<5)
-
-#Filter for low Slope
-abund_env_01 <- abund_env %>% filter(abs(Slope)>0.1)
-abund_env_02 <- abund_env %>% filter(abs(Slope)>0.2)
-abund_env_03 <- abund_env %>% filter(abs(Slope)>0.3)
-abund_env_04 <- abund_env %>% filter(abs(Slope)>0.4)
-abund_env_05 <- abund_env %>% filter(abs(Slope)>0.5)
-
-
-
-
-
-
-
-##############################################################################################################
-# Out of Loop
-#abund_table<-data.frame()
-#for (i in 1:dim(abund_env)[1]){
-#  Binomial_A<-c(rep(1, abund_env[i, "True_SNP_A"]), rep(0,abund_env[i, "True_SNP_B"]))
-#  tmp_df<- as.data.frame(Binomial_A) %>% mutate (Paper_ID=abund_env$Paper_ID[i], 
-#                                                 chr_snp=abund_env$chr_snp[i], 
-#                                                 ENV=abund_env$ENV[i])
-#  abund_table<-rbind(abund_table, tmp_df)
-#}
-##############################################################################################################
 #Make long binomial table
-abund_table <-binom_table(abund_env)
-abund_table_01 <-binom_table(abund_env_01)
-abund_table_02 <-binom_table(abund_env_02)
-abund_table_03 <-binom_table(abund_env_03)
-abund_table_04 <-binom_table(abund_env_04)
-abund_table_05 <-binom_table(abund_env_05)
-
-
+abund_table<-data.frame()
+for (i in 1:dim(abund_env)[1]){
+  Binomial_A<-c(rep(1, abund_env[i, "True_SNP_A"]), rep(0,abund_env[i, "True_SNP_B"]))
+  tmp_df<- as.data.frame(Binomial_A) %>% mutate (Paper_ID=abund_env$Paper_ID[i], 
+                                                 chr_snp=abund_env$chr_snp[i], 
+                                                 ENV=abund_env$ENV[i])
+  abund_table<-rbind(abund_table, tmp_df)
+  
+  
+}
 
 #Merge with climate data
 abund_clim <- left_join(abund_table,climate,by="Paper_ID")
-abund_clim_01 <- left_join(abund_table_01,climate,by="Paper_ID")
-abund_clim_02 <- left_join(abund_table_02,climate,by="Paper_ID")
-abund_clim_03 <- left_join(abund_table_03,climate,by="Paper_ID")
-abund_clim_04 <- left_join(abund_table_04,climate,by="Paper_ID")
-abund_clim_05 <- left_join(abund_table_05,climate,by="Paper_ID")
-
-
 
 #Write out file
-write_csv(abund_clim,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std.csv")
-write_csv(abund_clim_01,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_01.csv")
-write_csv(abund_clim_02,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_02.csv")
-write_csv(abund_clim_03,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_03.csv")
-write_csv(abund_clim_04,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_04.csv")
-write_csv(abund_clim_05,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline_slope_SE_std_05.csv")
-
-
-
-
+write_csv(abund_clim,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/abund_table_baseline.csv")
 
 
 
