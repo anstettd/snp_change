@@ -22,10 +22,10 @@ theme_ci <- function(){
 library(tidyverse)
 
 #Import files
-env_obs_ci_unique <- read_csv("data/binomial_data_half/obs_ci_env_unique.csv")
+env_obs_ci_unique <- read_csv("data/binomial_strong/obs_ci_env_unique.csv")
 
 #Import Medians
-median_pop <- read_csv("data/binomial_data_half/median_pop.csv")
+median_pop <- read_csv("data/binomial_strong/median_pop.csv")
 
 
 #Isolate each pop and lable
@@ -103,7 +103,7 @@ histPop <- ggplot(env_histPop ,aes(x=S,y=obs,ymin=low,ymax=high))+
   theme_ci() + facet_wrap(.~pop_lable) +
   geom_vline(data = median_pop, aes(xintercept = median), linetype="dashed")
 histPop 
-#ggsave("graphs/histograms/01_slope_ci_histPop_ab_half_95.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/histograms/strong/01_slope_ci_2.5.pdf", histPop, width=12, height = 8, units = "in")
 
 
 # -1.25 to 1.25
@@ -117,7 +117,7 @@ histPop <- ggplot(env_histPop_25 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_vline(data = median_pop, aes(xintercept = median), linetype="dashed")
 
 histPop
-#ggsave("graphs/histograms/02_slope_ci_histPop_2.5_ab_half_95.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/histograms/strong/02_slope_ci_1.25.pdf", histPop, width=12, height = 8, units = "in")
 
 
 
@@ -140,7 +140,7 @@ histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
 
 histPop1
 #Export 
-ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
+#ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
 
 #No CI
 histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
@@ -154,7 +154,7 @@ histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
 
 histPop1
 #Export 
-ggsave("graphs/histograms/p1_no_error.pdf",width=11, height = 5, units = "in")
+#ggsave("graphs/histograms/p1_no_error.pdf",width=11, height = 5, units = "in")
 
 
 #Sites 1, 3, 6, 11
@@ -169,6 +169,5 @@ ggplot(env_histPop_2 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_vline(data = median_pop_filter_2, aes(xintercept = median), linetype="dashed")
 
 #Export 
-ggsave("graphs/histograms/p2.pdf",width=14, height = 5, units = "in")
-
+#ggsave("graphs/histograms/p2.pdf",width=14, height = 5, units = "in")
 

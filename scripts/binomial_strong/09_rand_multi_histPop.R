@@ -210,15 +210,15 @@ swiss_glm <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swi
 
 #Import obs (snp set) frequency
 #already filtered to include only basetime snps with low SE
-basetime_env1 <- read_csv("data/binomial_data/env1_low.csv")
-basetime_env2 <- read_csv("data/binomial_data/env2_low.csv")
-basetime_env3 <- read_csv("data/binomial_data/env3_low.csv")
-basetime_env4 <- read_csv("data/binomial_data/env4_low.csv")
-basetime_env5 <- read_csv("data/binomial_data/env5_low.csv")
-basetime_env6 <- read_csv("data/binomial_data/env6_low.csv")
-basetime_env7 <- read_csv("data/binomial_data/env7_low.csv")
-basetime_env8 <- read_csv("data/binomial_data/env8_low.csv")
-basetime_env9 <- read_csv("data/binomial_data/env9_low.csv")
+basetime_env1 <- read_csv("data/binomial_strong/env1_low.csv")
+basetime_env2 <- read_csv("data/binomial_strong/env2_low.csv")
+basetime_env3 <- read_csv("data/binomial_strong/env3_low.csv")
+basetime_env4 <- read_csv("data/binomial_strong/env4_low.csv")
+basetime_env5 <- read_csv("data/binomial_strong/env5_low.csv")
+basetime_env6 <- read_csv("data/binomial_strong/env6_low.csv")
+basetime_env7 <- read_csv("data/binomial_strong/env7_low.csv")
+basetime_env8 <- read_csv("data/binomial_strong/env8_low.csv")
+basetime_env9 <- read_csv("data/binomial_strong/env9_low.csv")
 
 
 ############################################################################################
@@ -512,7 +512,7 @@ print(seed_num)
 #Save large files in folder outside of github
 setwd("~/Dropbox/AM_Workshop/Large_files")
 
-write_csv(rand_slope_out, "rand_slope_histPop_inv_logit.csv")
+write_csv(rand_slope_out, "rand_slope_histPop_strong.csv")
 
 setwd("~/Dropbox/AM_Workshop/snp_change")
 

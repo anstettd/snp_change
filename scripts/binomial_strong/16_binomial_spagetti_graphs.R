@@ -36,25 +36,25 @@ theme(
 ############
 
 #Import timeseries frequencies
-freqA_env1 <- read_csv("data/binomial_data/freqA_env1.csv")
-freqA_env2 <- read_csv("data/binomial_data/freqA_env2.csv")
-freqA_env3 <- read_csv("data/binomial_data/freqA_env3.csv")
-freqA_env4 <- read_csv("data/binomial_data/freqA_env4.csv")
-freqA_env5 <- read_csv("data/binomial_data/freqA_env5.csv")
-freqA_env6 <- read_csv("data/binomial_data/freqA_env6.csv")
-freqA_env7 <- read_csv("data/binomial_data/freqA_env7.csv")
-freqA_env8 <- read_csv("data/binomial_data/freqA_env8.csv")
-freqA_env9 <- read_csv("data/binomial_data/freqA_env9.csv")
+freqA_env1 <- read_csv("data/binomial_strong/freqA_env1.csv")
+freqA_env2 <- read_csv("data/binomial_strong/freqA_env2.csv")
+freqA_env3 <- read_csv("data/binomial_strong/freqA_env3.csv")
+freqA_env4 <- read_csv("data/binomial_strong/freqA_env4.csv")
+freqA_env5 <- read_csv("data/binomial_strong/freqA_env5.csv")
+freqA_env6 <- read_csv("data/binomial_strong/freqA_env6.csv")
+freqA_env7 <- read_csv("data/binomial_strong/freqA_env7.csv")
+freqA_env8 <- read_csv("data/binomial_strong/freqA_env8.csv")
+freqA_env9 <- read_csv("data/binomial_strong/freqA_env9.csv")
 
-freqB_env1 <- read_csv("data/binomial_data/freqB_env1.csv")
-freqB_env2 <- read_csv("data/binomial_data/freqB_env2.csv")
-freqB_env3 <- read_csv("data/binomial_data/freqB_env3.csv")
-freqB_env4 <- read_csv("data/binomial_data/freqB_env4.csv")
-freqB_env5 <- read_csv("data/binomial_data/freqB_env5.csv")
-freqB_env6 <- read_csv("data/binomial_data/freqB_env6.csv")
-freqB_env7 <- read_csv("data/binomial_data/freqB_env7.csv")
-freqB_env8 <- read_csv("data/binomial_data/freqB_env8.csv")
-freqB_env9 <- read_csv("data/binomial_data/freqB_env9.csv")
+freqB_env1 <- read_csv("data/binomial_strong/freqB_env1.csv")
+freqB_env2 <- read_csv("data/binomial_strong/freqB_env2.csv")
+freqB_env3 <- read_csv("data/binomial_strong/freqB_env3.csv")
+freqB_env4 <- read_csv("data/binomial_strong/freqB_env4.csv")
+freqB_env5 <- read_csv("data/binomial_strong/freqB_env5.csv")
+freqB_env6 <- read_csv("data/binomial_strong/freqB_env6.csv")
+freqB_env7 <- read_csv("data/binomial_strong/freqB_env7.csv")
+freqB_env8 <- read_csv("data/binomial_strong/freqB_env8.csv")
+freqB_env9 <- read_csv("data/binomial_strong/freqB_env9.csv")
 
 
 
@@ -138,7 +138,7 @@ freq_table_all<-rbind(freq_table_1,
 
 
 #SE data
-env_all <- read_csv("data/binomial_data_half/slope_obs_all_unique.csv")
+env_all <- read_csv("data/binomial_strong/slope_obs_all_unique.csv")
 colnames(env_all) <- c("Site","SNP_ID","Slope","SE","ENV","Type")
 #env_low <- env_all %>% filter(SE<5.5) 
 freq_table_all$Site <- as.numeric(freq_table_all$Site)
@@ -173,7 +173,15 @@ freq_table_Final$Site <- factor(freq_table_Final$Site, levels = c(1,12,2,3,4,5,6
 ggplot(data=freq_table_Final ,aes(Year,Binomial_A,group=SNP_ID)) + 
   geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
   labs(y="SNP Frequency",x="Year") +  facet_wrap(.~Site) + theme_spaghetti()
-ggsave("graphs/spaghetii/spaghetii_obs.pdf",width=8, height = 7, units = "in")
+ggsave("graphs/spaghetii/Strong/spaghetii_obs.pdf",width=8, height = 7, units = "in")
+
+
+
+
+
+
+
+
 
 
 #Combination sites
@@ -181,13 +189,13 @@ freq_env_ver1 <- freq_table_Final %>% filter(Site==1 | Site==3 | Site==11)
 ggplot(data=freq_env_ver1 ,aes(Year,Binomial_A,group=SNP_ID)) + 
   geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
   labs(y="SNP Frequency",x="Year") +  facet_wrap(.~Site) + theme_spaghetti()
-ggsave("graphs/spaghetii/1_3_11spaghetii_obs.pdf",width=8, height = 4, units = "in")
+#ggsave("graphs/spaghetii/1_3_11spaghetii_obs.pdf",width=8, height = 4, units = "in")
 
 freq_env_ver2 <- freq_table_Final %>% filter(Site==1 | Site==3 | Site==6 | Site==11)
 ggplot(data=freq_env_ver2 ,aes(Year,Binomial_A,group=SNP_ID)) + 
   geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
   labs(y="SNP Frequency",x="Year") +  facet_wrap(.~Site, ncol = 4) + theme_spaghetti()
-ggsave("graphs/spaghetii/1_3_6_11spaghetii_obs.pdf",width=11, height = 4, units = "in")
+#ggsave("graphs/spaghetii/1_3_6_11spaghetii_obs.pdf",width=11, height = 4, units = "in")
 
 
 #Selected Sites
@@ -195,25 +203,25 @@ freq_env_1 <- freq_table_Final %>% filter(Site==1)
 ggplot(data=freq_env_1 ,aes(Year,Binomial_A,group=SNP_ID)) + 
   geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
   labs(y="SNP Frequency",x="Year") + theme_spaghetti()
-ggsave("graphs/spaghetii/01_spaghetii_obs.pdf",width=4, height = 4, units = "in")
+#ggsave("graphs/spaghetii/01_spaghetii_obs.pdf",width=4, height = 4, units = "in")
 
 
 freq_env_3 <- freq_table_Final %>% filter(Site==3)
 ggplot(data=freq_env_3 ,aes(Year,Binomial_A,group=SNP_ID)) + 
   geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
   labs(y="SNP Frequency",x="Year") + theme_spaghetti()
-ggsave("graphs/spaghetii/03_spaghetii_obs.pdf",width=4, height = 4, units = "in")
+#ggsave("graphs/spaghetii/03_spaghetii_obs.pdf",width=4, height = 4, units = "in")
 
 
 freq_env_6 <- freq_table_Final %>% filter(Site==6)
 ggplot(data=freq_env_6 ,aes(Year,Binomial_A,group=SNP_ID)) + 
   geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
   labs(y="SNP Frequency",x="Year") + theme_spaghetti()
-ggsave("graphs/spaghetii/06_spaghetii_obs.pdf",width=4, height = 4, units = "in")
+#ggsave("graphs/spaghetii/06_spaghetii_obs.pdf",width=4, height = 4, units = "in")
 
 
 freq_env_11 <- freq_table_Final %>% filter(Site==11)
 ggplot(data=freq_env_11 ,aes(Year,Binomial_A,group=SNP_ID)) + 
   geom_line(stat="smooth",method = "glm", method.args = list(family = "binomial"), se = F, alpha=.09,cex=0.4,color="blue") + 
   labs(y="SNP Frequency",x="Year") + theme_spaghetti()
-ggsave("graphs/spaghetii/11_spaghetii_obs.pdf",width=4, height = 4, units = "in")
+#ggsave("graphs/spaghetii/11_spaghetii_obs.pdf",width=4, height = 4, units = "in")

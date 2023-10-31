@@ -37,7 +37,7 @@ ns <- function(ci,env_name){
   colnames(slope.cumul.env) <- c("Site",env_name)
   return(slope.cumul.env )
 }    
-    
+
 
 ns_all <- function(ci,env_name){
   #Filter for positive slope bin env
@@ -70,31 +70,31 @@ ns_all <- function(ci,env_name){
 
 
 #Import files that give slopes
-env_obs_ci <- read_csv("data/binomial_data_half/obs_ci_env_unique.csv")
+env_obs_ci <- read_csv("data/binomial_strong/obs_ci_env_unique.csv")
 env_obs_ci[is.na(env_obs_ci)] <- 0
 
-env_obs_ci_env <- read_csv("data/binomial_data_half/obs_ci_env_ab.csv")
-env_obs_ci_env[is.na(env_obs_ci_env)] <- 0
+#env_obs_ci_env <- read_csv("data/binomial_strong/obs_ci_env_ab.csv")
+#env_obs_ci_env[is.na(env_obs_ci_env)] <- 0
 
-env_obs_ci_env2 <- env_obs_ci_env %>% filter(env=="B MAP")
-env_obs_ci_env9 <- env_obs_ci_env %>% filter(env=="I PPT_sm")  
+#env_obs_ci_env2 <- env_obs_ci_env %>% filter(env=="B MAP")
+#env_obs_ci_env9 <- env_obs_ci_env %>% filter(env=="I PPT_sm")  
 
 #Run ns function to get cumulative score
 cumul_pos <-ns(env_obs_ci,"cumul_pos")
 cumul_all <-ns_all(env_obs_ci,"cumul_all")
 
-cumul_pos_env2 <-ns(env_obs_ci_env2,"cumul_pos_env2")
-cumul_all_env2 <-ns_all(env_obs_ci_env2,"cumul_all_env2")
+#cumul_pos_env2 <-ns(env_obs_ci_env2,"cumul_pos_env2")
+#cumul_all_env2 <-ns_all(env_obs_ci_env2,"cumul_all_env2")
 
-cumul_pos_env9 <-ns(env_obs_ci_env9,"cumul_pos_env9")
-cumul_all_env9 <-ns_all(env_obs_ci_env9,"cumul_all_env9")
+#cumul_pos_env9 <-ns(env_obs_ci_env9,"cumul_pos_env9")
+#cumul_all_env9 <-ns_all(env_obs_ci_env9,"cumul_all_env9")
 
 
 #Join
 cumul_grand <- left_join(cumul_pos,cumul_all,by="Site")
-cumul_grand_env2 <- left_join(cumul_pos_env2,cumul_all_env2,by="Site")
-cumul_grand_env9 <- left_join(cumul_pos_env9,cumul_all_env9,by="Site")
-cumul_grand <- cbind(cumul_grand,cumul_grand_env2[2:3],cumul_grand_env9[2:3])
+#cumul_grand_env2 <- left_join(cumul_pos_env2,cumul_all_env2,by="Site")
+#cumul_grand_env9 <- left_join(cumul_pos_env9,cumul_all_env9,by="Site")
+#cumul_grand <- cbind(cumul_grand,cumul_grand_env2[2:3],cumul_grand_env9[2:3])
 
 
 ##Integrate with timeseries
@@ -114,9 +114,9 @@ time_cumul$Region <- c("South",
                        "South")
 
 #Export
-write_csv(cumul_pos,"data/binomial_data_half/cumul_pos.csv")
-write_csv(cumul_all,"data/binomial_data_half/cumul_all.csv")
-write_csv(time_cumul,"data/binomial_data_half/time_cumul_beagle.csv")
+write_csv(cumul_pos,"data/binomial_strong/cumul_pos.csv")
+write_csv(cumul_all,"data/binomial_strong/cumul_all.csv")
+write_csv(time_cumul,"data/binomial_strong/time_cumul_beagle.csv")
 
 
 
