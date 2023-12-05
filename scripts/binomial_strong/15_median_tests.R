@@ -54,7 +54,7 @@ for (i in 1:12){
 colnames(wilcox.out) <- c("Site","Median","Mean","p-value")
 
 
-write_csv(wilcox.out, "data/binomial_strong/wilcox_S.csv")
+#write_csv(wilcox.out, "data/binomial_strong/wilcox_S.csv")
 
 
 ###################################################################################
@@ -83,7 +83,7 @@ emp_out[i,7] <- 1 - emp_out[i,6]
 colnames(emp_out) <- c("Site","Median","Median_Percentile","Median_p-value",
                        "Mean","Mean_Percentile","Mean_p-value")
 
-write_csv(emp_out, "data/binomial_strong/mean_median_S.csv")
+#write_csv(emp_out, "data/binomial_strong/mean_median_S.csv")
 
 ###################################################################################
 #Make Median and Mean histograms
@@ -103,7 +103,7 @@ histPop <- ggplot(median_rand,aes(x=median))+
 geom_vline(data = median_obs, aes(xintercept = median), linetype="dashed",color="red")
 histPop 
 
-ggsave("graphs/mean_median_s/Strong/5_strong_median.pdf",width=12, height = 8, units = "in")
+#ggsave("graphs/mean_median_s/Strong/5_strong_median.pdf",width=12, height = 8, units = "in")
 
 
 
@@ -116,7 +116,7 @@ histPop_mean <- ggplot(mean_rand,aes(x=mean))+
   geom_vline(data = mean_obs, aes(xintercept = mean), linetype="dashed",color="red")
 histPop_mean
 
-ggsave("graphs/mean_median_s/Strong/6_strong_mean.pdf",width=12, height = 8, units = "in")
+#ggsave("graphs/mean_median_s/Strong/6_strong_mean.pdf",width=12, height = 8, units = "in")
 
 
 
