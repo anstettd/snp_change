@@ -13,6 +13,32 @@ library(tidyverse)
 ###################################################################################
 #Functions
 
+#Calibrate timeseries abundance so that A is always the minor allele
+
+minor_A <- function(df){
+  swiss_minor_1 <- data.frame()
+  for(i in 1:10){
+    
+    start_swiss <- df[i,] %>% select(-chr_snp)
+    A_col <- sum(start_swiss[,seq(1, ncol(start_swiss), by = 2)])
+    B_col <- sum(start_swiss[,seq(2, ncol(start_swiss), by = 2)])   
+    swiss_minor_1[i,1]<- df[i,1]
+    
+    for(j in 0:61){
+      if(A_col >= B_col){
+        #B is the minor
+        swiss_minor_1[i,2+(2*j)] <- df[i,3+(2*j)]
+        swiss_minor_1[i,3+(2*j)] <- df[i,2+(2*j)]
+      } else{
+        swiss_minor_1[i,2+(2*j)] <- df[i,2+(2*j)]
+        swiss_minor_1[i,3+(2*j)] <- df[i,3+(2*j)]
+      }
+    }
+  }
+  colnames(swiss_minor_1) <- colnames(df)
+  return(swiss_minor_1)
+}
+
 #Generate frequency matrix for prop A 
 abA <- function(snp_table,pop_ID) {
   snp_prop_A<- snp_table %>% select (chr_snp)
@@ -166,50 +192,49 @@ rm(pop_order)
 
 
 #################################################################################################
-#Test GLM for Swiss
-
-swiss_1 <- snp_swiss[1:10,] #Split data set into 100k ch
 
 #Toy example to get minor allele per snp/pop/time
+
+swiss_1 <- snp_swiss[1:10,]
 swiss_minor_1 <- data.frame()
 
 for(i in 1:10){
-  for(j in 0:30){
-    if(swiss_1[i,2+2*j] >= swiss_1[i,3+2*j]){
-      swiss_minor_1[i,2+2*j] <- swiss_1[i,3+2*j]
-      swiss_minor_1[i,3+2*j] <- swiss_1[i,2+2*j]
+  
+  #Get minror allele 
+  start_swiss <- swiss_1[i,] %>% select(-chr_snp)
+  A_col <- sum(start_swiss[,seq(1, ncol(start_swiss), by = 2)])
+  B_col <- sum(start_swiss[,seq(2, ncol(start_swiss), by = 2)])   
+  swiss_minor_1[i,1]<- swiss_1[i,1]
+  
+  for(j in 0:61){
+    if(A_col >= B_col){
+      #B is the minor
+      swiss_minor_1[i,2+(2*j)] <- swiss_1[i,3+(2*j)]
+      swiss_minor_1[i,3+(2*j)] <- swiss_1[i,2+(2*j)]
     } else{
-      swiss_minor_1[i,2+2*j] <- swiss_1[i,2+2*j]
-      swiss_minor_1[i,3+2*j] <- swiss_1[i,3+2*j]
+      swiss_minor_1[i,2+(2*j)] <- swiss_1[i,2+(2*j)]
+      swiss_minor_1[i,3+(2*j)] <- swiss_1[i,3+(2*j)]
     }
   }
 }
 
+#swiss_abA <-  abA(swiss_1,pop_order_2)
+#swiss_abB <-  abB(swiss_1,pop_order_2)
 
-
-swiss_abA <-  abA(swiss_1,pop_order_2)
-swiss_abB <-  abB(swiss_1,pop_order_2)
-#swiss_propA_1 <- prop_A(swiss_1,pop_order_2) # Get frequency table
-
-#req_1.melted <- reshape2::melt(swiss_abA, id.vars = c("Site", "Year"))
-#freq_2.melted <- reshape2::melt(swiss_abB, id.vars = c("Site", "Year"))
-#colnames(freq_1.melted)[3] <- "snp_ID"
-#colnames(freq_1.melted)[4] <- "freq"
-#colnames(freq_2.melted)[3] <- "snp_ID"
-#colnames(freq_2.melted)[4] <- "freq"
-
-#swiss_glm_1 <- slope_melt(swiss_propA_1) #Run glm function
 
 #################################################################################################
 
 #GLM for Swiss
 
+
 swiss_1 <- snp_swiss[1:100000,] #Split data set into 100k ch
 #swiss_1 <- snp_swiss[1:100,] #Split data set into 100k ch
+swiss_1 <- minor_A(swiss_1)
+
 swiss_abA_1 <-  abA(swiss_1,pop_order_2)
 swiss_abB_1 <-  abB(swiss_1,pop_order_2)
 swiss_glm_1 <- slope_melt(swiss_abA_1,swiss_abB_1) #Run glm function
-write_csv(swiss_glm_1,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_1.csv")
+#write_csv(swiss_glm_1,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_1.csv")
 
 rm(swiss_1)
 rm(swiss_abA_1)
