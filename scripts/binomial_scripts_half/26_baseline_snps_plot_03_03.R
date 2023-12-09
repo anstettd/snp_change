@@ -2,7 +2,8 @@
 ## Plot SNP frequency for all baseline populations
 ## Done for all SNP set that are in the timeseries
 ## 
-## 
+## This script exports the "strong" snp set.
+## Has only SNPs with a linear correlation with climate variables
 ## Last Modified Sept 16, 2023
 ###################################################################################
 #Import libraries
