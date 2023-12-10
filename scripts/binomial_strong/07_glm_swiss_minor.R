@@ -296,7 +296,7 @@ rm(swiss_abB_5)
 rm(swiss_glm_5)
 
 swiss_6 <- snp_swiss[500001:600000,] #Split data set into 100k ch
-swiss_6 <- minor_A(swiss_7)
+swiss_6 <- minor_A(swiss_6)
 swiss_abA_6 <-  abA(swiss_6,pop_order_2)
 swiss_abB_6 <-  abB(swiss_6,pop_order_2)
 swiss_glm_6 <- slope_melt(swiss_abA_6,swiss_abB_6) #Run glm function
