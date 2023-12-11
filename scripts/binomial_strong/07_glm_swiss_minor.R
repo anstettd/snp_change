@@ -40,6 +40,23 @@ minor_A <- function(df){
   return(swiss_minor_1)
 }
 
+
+minor_fast <- function(df) {
+  map_df(1:nrow(df), ~{
+    i <- .
+    
+    start_swiss <- df[i,] %>% select(-chr_snp)
+    A_col <- sum(start_swiss[, seq(1, ncol(start_swiss), by = 2)])
+    B_col <- sum(start_swiss[, seq(2, ncol(start_swiss), by = 2)])
+    
+    minor_alleles <- ifelse(A_col >= B_col, c(df[i, 3:ncol(df)], df[i, 2:(ncol(df) - 1)]), df[i, 2:ncol(df)])
+    
+    data.frame(df[i, 1], minor_alleles)
+  }) %>%
+    set_names(colnames(df))
+}
+
+
 #Generate frequency matrix for prop A 
 abA <- function(snp_table,pop_ID) {
   snp_prop_A<- snp_table %>% select (chr_snp)
@@ -209,7 +226,7 @@ rm(pop_order)
   
 #  for(j in 0:61){
 #    if(A_col >= B_col){
-      #B is the minor
+#      #B is the minor
 #      swiss_minor_1[i,2+(2*j)] <- swiss_1[i,3+(2*j)]
 #      swiss_minor_1[i,3+(2*j)] <- swiss_1[i,2+(2*j)]
 #    } else{
@@ -362,7 +379,7 @@ rm(swiss_glm_10)
 
 
 swiss_11 <- snp_swiss[1000001:1100000,] #Split data set into 100k ch
-swiss_11 <- minor_A(swiss_1)
+swiss_11 <- minor_A(swiss_11)
 swiss_abA_11 <-  abA(swiss_11,pop_order_2)
 swiss_abB_11 <-  abB(swiss_11,pop_order_2)
 swiss_glm_11 <- slope_melt(swiss_abA_11,swiss_abB_11) #Run glm function
@@ -478,7 +495,7 @@ rm(swiss_abA_19)
 rm(swiss_abB_19)
 rm(swiss_glm_19)
 
-swiss_20 <- snp_swiss[1900001:1982192,] #Split data set into 100k ch
+swiss_20 <- snp_swiss[1900001:1982190,] #Split data set into 100k ch
 swiss_20 <- minor_A(swiss_20)
 swiss_abA_20 <-  abA(swiss_20,pop_order_2)
 swiss_abB_20 <-  abB(swiss_20,pop_order_2)
