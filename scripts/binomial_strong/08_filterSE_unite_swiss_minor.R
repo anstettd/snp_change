@@ -29,9 +29,9 @@ swiss_glm_14 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/
 swiss_glm_15 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_15.csv")
 swiss_glm_16 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_16.csv")
 swiss_glm_17 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_17.csv")
-swiss_glm_18 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_18.csv")
-swiss_glm_19 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_19.csv")
-swiss_glm_20 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_20.csv")
+#swiss_glm_18 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_18.csv")
+#swiss_glm_19 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_19.csv")
+#swiss_glm_20 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_minor_20.csv")
 
 #Bind glms
 swiss_glm <- rbind(swiss_glm_1,
@@ -50,10 +50,7 @@ swiss_glm <- rbind(swiss_glm_1,
                    swiss_glm_14,
                    swiss_glm_15,
                    swiss_glm_16,
-                   swiss_glm_17,
-                   swiss_glm_18,
-                   swiss_glm_19,
-                   swiss_glm_20)
+                   swiss_glm_17)
 
 #Filter for SE < 5
 swiss_glm_filter <- swiss_glm %>% filter(SE<5.5)
@@ -64,11 +61,6 @@ dim(swiss_glm_filter)
 #Export
 write_csv(swiss_glm_filter,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_filter_minor.csv")
 write_csv(swiss_glm,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_allSE_minor.csv")
-
-
-
-
-
 
 
 #Discriptive Plots
@@ -86,4 +78,59 @@ env_slope<- ggplot(swiss_glm_filter,aes(x=Slope))+
 #  axis.title.y = element_text(color="black", size=14,vjust = 2, face="bold",hjust=0.5))
 env_slope <- env_slope + facet_wrap(.~Site)
 env_slope
+
+
+##########################################################################################################
+#Import and merge minor neutral frequencies
+
+swiss_1 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_1.csv")
+swiss_2 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_2.csv")
+swiss_3 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_3.csv")
+swiss_4 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_4.csv")
+swiss_5 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_5.csv")
+swiss_6 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_6.csv")
+swiss_7 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_7.csv")
+swiss_8 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_8.csv")
+swiss_9 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_9.csv")
+swiss_10 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_10.csv")
+swiss_11 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_11.csv")
+swiss_12 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_12.csv")
+swiss_13 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_13.csv")
+swiss_14 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_14.csv")
+swiss_15 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_15.csv")
+swiss_16 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_16.csv")
+swiss_17 <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_minor_17.csv")
+
+
+swiss_bind <- rbind(swiss_1,
+                    swiss_2,
+                    swiss_3,
+                    swiss_4,
+                    swiss_5,
+                    swiss_6,
+                    swiss_7,
+                    swiss_8,
+                    swiss_9,
+                    swiss_10,
+                    swiss_11,
+                    swiss_12,
+                    swiss_13,
+                    swiss_14,
+                    swiss_15,
+                    swiss_16,
+                    swiss_17
+                    )
+
+
+write_csv(swiss_bind,"/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/snp_swiss_baseline_filtered.csv")
+
+
+
+
+
+
+
+
+
+
 

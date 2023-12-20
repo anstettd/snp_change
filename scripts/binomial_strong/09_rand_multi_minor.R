@@ -12,6 +12,7 @@ library(tidyverse)
 #################################################################################################
 #Functions for generating stratigied random distribution
 #################################################################################################
+
 #Large
 #pop_snp = p1A
 #freq_count = freq_count_env1_IDX
@@ -150,24 +151,24 @@ snp_pop_unique <- function(Site_ID,env1,env2,env3,env4,env5,env6,env7,env8,env9)
 
 #################################################################################################
 #Import BF>0 baseline SNPs
-env1_bf0 <- read_csv("data/env1_BF0.csv")
-env2_bf0 <- read_csv("data/env2_BF0.csv")
-env3_bf0 <- read_csv("data/env3_BF0.csv")
-env4_bf0 <- read_csv("data/env4_BF0.csv")
-env5_bf0 <- read_csv("data/env5_BF0.csv")
-env6_bf0 <- read_csv("data/env6_BF0.csv")
-env7_bf0 <- read_csv("data/env7_BF0.csv")
-env8_bf0 <- read_csv("data/env8_BF0.csv")
-env9_bf0 <- read_csv("data/env9_BF0.csv")
+#env1_bf0 <- read_csv("data/env1_BF0.csv")
+#env2_bf0 <- read_csv("data/env2_BF0.csv")
+#env3_bf0 <- read_csv("data/env3_BF0.csv")
+#env4_bf0 <- read_csv("data/env4_BF0.csv")
+#env5_bf0 <- read_csv("data/env5_BF0.csv")
+#env6_bf0 <- read_csv("data/env6_BF0.csv")
+#env7_bf0 <- read_csv("data/env7_BF0.csv")
+#env8_bf0 <- read_csv("data/env8_BF0.csv")
+#env9_bf0 <- read_csv("data/env9_BF0.csv")
 
 
 #Import full snp table for timeseries
 pop_order<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/timeseries_filtered_variants.QUAL20_MQ40_AN80_MAF0.03_DP1SD.Baypass_table.pop_order", header=F, sep="\t")
-snp<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/timeseries_filtered_variants.QUAL20_MQ40_AN80_MAF0.03_DP1SD.Baypass_table", header=F, sep=" ")
-loci<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/timeseries_filtered_variants.QUAL20_MQ40_AN80_MAF0.03_DP1SD.Baypass_table.loci", header=F, sep="\t")
-colnames(loci) <- c("Chromosome","SNP")
-loci_united <- loci %>% unite(chr_snp,"Chromosome","SNP",sep="_")
-loci_snp <-cbind(loci_united,snp) #add snp lables to rows
+#snp<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/timeseries_filtered_variants.QUAL20_MQ40_AN80_MAF0.03_DP1SD.Baypass_table", header=F, sep=" ")
+#loci<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/timeseries_filtered_variants.QUAL20_MQ40_AN80_MAF0.03_DP1SD.Baypass_table.loci", header=F, sep="\t")
+#colnames(loci) <- c("Chromosome","SNP")
+#loci_united <- loci %>% unite(chr_snp,"Chromosome","SNP",sep="_")
+#loci_snp <-cbind(loci_united,snp) #add snp lables to rows
 
 #Add Chromsome ID to pop order
 pop_order_2 <- data.frame()
@@ -178,30 +179,33 @@ pop_order_2 <- rbind(pop_order_2,pop_order)
 pop_order_V <- read_csv("data/pop_order_V.csv")
 
 #Filter full snp table to remove climate associated SNPs
-snp_swiss <-loci_snp %>% filter (!chr_snp %in% as.character(env1_bf0$chr_snp))
-snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env2_bf0$chr_snp))
-snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env3_bf0$chr_snp))
-snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env4_bf0$chr_snp))
-snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env5_bf0$chr_snp))
-snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env6_bf0$chr_snp))
-snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env7_bf0$chr_snp))
-snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env8_bf0$chr_snp))
-snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env9_bf0$chr_snp))
+#snp_swiss <-loci_snp %>% filter (!chr_snp %in% as.character(env1_bf0$chr_snp))
+#snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env2_bf0$chr_snp))
+#snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env3_bf0$chr_snp))
+#snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env4_bf0$chr_snp))
+#snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env5_bf0$chr_snp))
+#snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env6_bf0$chr_snp))
+#snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env7_bf0$chr_snp))
+#snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env8_bf0$chr_snp))
+#snp_swiss <-snp_swiss  %>% filter (!chr_snp %in% as.character(env9_bf0$chr_snp))
 
-rm(snp)
-rm(loci)
-rm(loci_united)
-rm(loci_snp)
-rm(pop_order)
-rm(env1_bf0)
-rm(env2_bf0)
-rm(env3_bf0)
-rm(env4_bf0)
-rm(env5_bf0)
-rm(env6_bf0)
-rm(env7_bf0)
-rm(env8_bf0)
-rm(env9_bf0)
+#rm(snp)
+#rm(loci)
+#rm(loci_united)
+#rm(loci_snp)
+#rm(pop_order)
+#rm(env1_bf0)
+#rm(env2_bf0)
+#rm(env3_bf0)
+#rm(env4_bf0)
+#rm(env5_bf0)
+#rm(env6_bf0)
+#rm(env7_bf0)
+#rm(env8_bf0)
+#rm(env9_bf0)
+
+#Import timeseries frequencies filtered by BF<0 and baseline
+snp_swiss <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/snp_swiss_baseline_filtered.csv")
 
 
 #################################################################################################
@@ -371,7 +375,7 @@ snp_swiss_10 <- snp_swiss %>% filter (chr_snp %in% as.character(filter(swiss_glm
 snp_swiss_11 <- snp_swiss %>% filter (chr_snp %in% as.character(filter(swiss_glm,Site==11)$snp_ID))
 snp_swiss_12 <- snp_swiss %>% filter (chr_snp %in% as.character(filter(swiss_glm,Site==12)$snp_ID))
 
-rm(snp_swiss)
+#rm(snp_swiss)
 
 #Filter Baseline A and B numbers for 12 basetime pops
 loci_base_1 <- snp_swiss_1 %>% select(chr_snp,all_of(pop_V1$V_ID)) %>% mutate(region_sum= rowSums(across(where(is.numeric))))
@@ -431,12 +435,12 @@ rm(loci_base_11)
 rm(loci_base_12)
 
 #Plot Starting Frequency for all neutral sites with low SE
-env_slope<- ggplot(p7A,aes(x=snpA))+
-  geom_histogram(position="identity",bins=10,color="black",alpha=0.5)+
-  scale_y_continuous(name="Count")+
-  scale_x_continuous(name="Starting Frequency")+
-  theme_classic()
-env_slope
+#env_slope<- ggplot(p7A,aes(x=snpA))+
+#  geom_histogram(position="identity",bins=10,color="black",alpha=0.5)+
+#  scale_y_continuous(name="Count")+
+#  scale_x_continuous(name="Starting Frequency")+
+#  theme_classic()
+#env_slope
 
 
 
