@@ -30,7 +30,7 @@ obs_env_unique <- read_csv("data/binomial_strong/slope_obs_all_unique.csv") %>%
   filter(SE<5.5) %>% mutate(abs_slope = abs(Slope))
 
 setwd("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files")
-rand_env_unique <- read_csv("rand_slope_histPop_strong_minor.csv")
+rand_env_unique <- read_csv("rand_slope_histPop_strong_50_50.csv")
 setwd("~/Dropbox/AM_Workshop/snp_change")
 
 #Get slope median
@@ -104,7 +104,7 @@ histPop <- ggplot(median_rand,aes(x=median))+
 geom_vline(data = median_obs, aes(xintercept = median), linetype="dashed",color="red")
 histPop 
 
-ggsave("graphs/mean_median_s/Minor/minor_median.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/mean_median_s/50_50/minor_median.pdf",width=12, height = 8, units = "in")
 
 
 
@@ -117,7 +117,7 @@ histPop_mean <- ggplot(mean_rand,aes(x=mean))+
   geom_vline(data = mean_obs, aes(xintercept = mean), linetype="dashed",color="red")
 histPop_mean
 
-ggsave("graphs/mean_median_s/Minor/minor_mean.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/mean_median_s/50_50/minor_mean.pdf",width=12, height = 8, units = "in")
 
 
 

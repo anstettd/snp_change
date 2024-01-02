@@ -205,12 +205,12 @@ pop_order_V <- read_csv("data/pop_order_V.csv")
 #rm(env9_bf0)
 
 #Import timeseries frequencies filtered by BF<0 and baseline
-snp_swiss <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/snp_swiss_baseline_filtered.csv")
+snp_swiss <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_fifty_fifty_abund_table.csv")
 
 
 #################################################################################################
 # Import non-climate associated slopes with low SE
-swiss_glm <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_filter_minor.csv")
+swiss_glm <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_50_50.csv")
 
 #Import obs (snp set) frequency
 #already filtered to include only basetime snps with low SE
@@ -516,7 +516,7 @@ print(seed_num)
 #Save large files in folder outside of github
 setwd("~/Dropbox/AM_Workshop/Large_files")
 
-write_csv(rand_slope_out, "rand_slope_histPop_strong_minor.csv")
+write_csv(rand_slope_out, "rand_slope_histPop_strong_50_50.csv")
 
 setwd("~/Dropbox/AM_Workshop/snp_change")
 

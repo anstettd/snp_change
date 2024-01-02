@@ -16,7 +16,7 @@ library(tidyverse)
 
 #################################################################################################
 # Import non-climate associated slopes with low SE
-swiss_glm <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_ci_filter_minor.csv")
+swiss_glm <- read_csv("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/swiss_glm_50_50.csv")
 
 #Import obs (snp set) slopes
 obs_env_unique <- read_csv("data/binomial_strong/slope_obs_all_unique.csv") %>% 
@@ -44,7 +44,7 @@ for(i in 1:12){
 
 
 
-write_csv(rand_master, "~/Dropbox/AM_Workshop/Large_files/rand_slope_histPop_strong_minor_no_strat.csv")
+write_csv(rand_master, "~/Dropbox/AM_Workshop/Large_files/rand_slope_histPop_strong_50_50_no_strat.csv")
 
 
 
