@@ -23,8 +23,6 @@ obs_env_unique <- read_csv("data/binomial_strong/slope_obs_all_unique.csv") %>%
   filter(SE<5.5) %>% mutate(abs_slope = abs(Slope))
 
 
-#output_slope <- read_csv("~/Dropbox/AM_Workshop/Large_files/rand_slope_histPop_strong_minor.csv")
-
 ############################################################################################
 
 rand_master <- data.frame()

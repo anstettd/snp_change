@@ -63,9 +63,10 @@ loci_united <- loci %>% unite(chr_snp,"Chromosome","SNP",sep="_")
 loci_snp <-cbind(loci_united,snp) #add snp lables to rows
 
 #Make pop order to organize site/year headers
-pop_order_2 <- data.frame()
-pop_order_2 [1,1] <- "chr_shp"
-pop_order_2 <- rbind(pop_order_2,pop_order)
+#pop_order_2 <- data.frame()
+#pop_order_2 [1,1] <- "chr_snp"
+#pop_order_2 <- rbind(pop_order_2,pop_order)
+#colnames(pop_order_2)<-"chr_snp"
 
 #Import Baseline data
 #import full snp table

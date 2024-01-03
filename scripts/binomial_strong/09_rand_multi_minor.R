@@ -171,9 +171,10 @@ pop_order<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/tim
 #loci_snp <-cbind(loci_united,snp) #add snp lables to rows
 
 #Add Chromsome ID to pop order
-pop_order_2 <- data.frame()
-pop_order_2 [1,1] <- "chr_shp"
-pop_order_2 <- rbind(pop_order_2,pop_order)
+#pop_order_2 <- data.frame()
+#pop_order_2 [1,1] <- "chr_snp"
+#pop_order_2 <- rbind(pop_order_2,pop_order)
+#colnames(pop_order_2)<-"chr_snp"
 
 #Import pop_order table with regional and V information
 pop_order_V <- read_csv("data/pop_order_V.csv")

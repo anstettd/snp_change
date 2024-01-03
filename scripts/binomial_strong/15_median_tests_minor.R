@@ -104,7 +104,7 @@ histPop <- ggplot(median_rand,aes(x=median))+
 geom_vline(data = median_obs, aes(xintercept = median), linetype="dashed",color="red")
 histPop 
 
-ggsave("graphs/mean_median_s/50_50/minor_median.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/mean_median_s/50_50/major_minor_median.pdf",width=12, height = 8, units = "in")
 
 
 
@@ -117,7 +117,7 @@ histPop_mean <- ggplot(mean_rand,aes(x=mean))+
   geom_vline(data = mean_obs, aes(xintercept = mean), linetype="dashed",color="red")
 histPop_mean
 
-ggsave("graphs/mean_median_s/50_50/minor_mean.pdf",width=12, height = 8, units = "in")
+ggsave("graphs/mean_median_s/50_50/major_minor_mean.pdf",width=12, height = 8, units = "in")
 
 
 

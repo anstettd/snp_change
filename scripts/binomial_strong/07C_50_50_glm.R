@@ -12,6 +12,7 @@ library(tidyverse)
 ###################################################################################
 #Functions
 
+
 #Generate frequency matrix for prop A 
 abA <- function(snp_table,pop_ID) {
   snp_prop_A<- snp_table %>% select (chr_snp)
@@ -33,7 +34,7 @@ abA <- function(snp_table,pop_ID) {
     pop_num<-pop_num+1
   }
   
-  colnames(snp_prop_A)<- pop_ID[,1] #name each pop/time combination
+  colnames(snp_prop_A)<- c("chr_snp", pop_ID[,1]) #name each pop/time combination
   rownames(snp_prop_A)<- snp_prop_A$chr_snp
   snp1A_T <- as.data.frame(t(snp_prop_A)) %>% rownames_to_column ("site_year") %>% separate(site_year, c("Site","Year"))
   colnames(snp1A_T) <- snp1A_T[1,]
@@ -65,7 +66,7 @@ abB <- function(snp_table,pop_ID) {
     pop_num<-pop_num+1
   }
   
-  colnames(snp_prop_A)<- pop_ID[,1] #name each pop/time combination
+  colnames(snp_prop_A)<- c("chr_snp", pop_ID[,1]) #name each pop/time combination
   rownames(snp_prop_A)<- snp_prop_A$chr_snp
   snp1A_T <- as.data.frame(t(snp_prop_A)) %>% rownames_to_column ("site_year") %>% separate(site_year, c("Site","Year"))
   colnames(snp1A_T) <- snp1A_T[1,]
@@ -116,8 +117,9 @@ pop_order<-read.table("/Users/daniel_anstett/Dropbox/AM_Workshop/Large_files/tim
 
 #Make pop order to organize site/year headers
 pop_order_2 <- data.frame()
-pop_order_2 [1,1] <- "chr_shp"
+#pop_order_2 [1,1] <- "chr_snp"
 pop_order_2 <- rbind(pop_order_2,pop_order)
+colnames(pop_order_2)<-"chr_snp"
 
 ###################################################################################
 
