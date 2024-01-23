@@ -78,7 +78,7 @@ site_unique <- unique(site_unique)
 
 median_pop <- left_join(median_pop,site_unique, by="Site")
 
-env_histPop_2 <- env_histPop_25 %>% filter(Site==1 | Site==3 | Site ==6 | Site==11)
+env_histPop_2 <- env_histPop_25 %>% filter(Site==2 | Site==3 | Site==11)
 env_histPop_1 <- env_histPop_25 %>% filter(Site==3 | Site==11)
 #env_histPop_4 <- env_histPop_25 %>% filter(Site==4)
 #env_histPop_6 <- env_histPop_25 %>% filter(Site==6)
@@ -96,7 +96,7 @@ median_pop_filter_1<-median_pop %>% filter(Site==3 | Site==11)
 # -2.5 to 2.5
 histPop <- ggplot(env_histPop ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
+  #geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
   #scale_y_continuous(limits=c(0,40))+ 
@@ -109,7 +109,7 @@ ggsave("graphs/histograms/strong/01_slope_ci_2.5.pdf", histPop, width=12, height
 # -1.25 to 1.25
 histPop <- ggplot(env_histPop_25 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
+  #geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
   scale_y_continuous(limits=c(0,125),breaks=seq(0,125,by=25))+ 
@@ -120,40 +120,10 @@ histPop
 ggsave("graphs/histograms/strong/02_slope_ci_1.25.pdf", histPop, width=12, height = 8, units = "in")
 
 
-# -1.25 to 1.25 No Error
-histPop <- ggplot(env_histPop_25 ,aes(x=S,y=obs,ymin=low,ymax=high))+
-  geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
-  #geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
-  geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection", y = "Number of SNPs") +
-  scale_y_continuous(limits=c(0,125),breaks=seq(0,125,by=25))+ 
-  theme_ci() + facet_wrap(.~pop_lable)+
-  geom_vline(data = median_pop, aes(xintercept = median), linetype="dashed")
-
-histPop
-ggsave("graphs/histograms/strong/03_slope_1.25.pdf", histPop, width=12, height = 8, units = "in")
-
-
-
 
 ###################################################################################
 ## Individual Graphs
 ###################################################################################
-
-#Sites 1, 3, 11
-
-histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
-  geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
-  geom_vline(xintercept=0) +
-  labs(x = "Strength of Selection", y = "Number of SNPs") +
-  scale_y_continuous(breaks=seq(0,100,by=25))+ 
-  theme_ci() + facet_wrap(.~pop_lable, ncol = 4) + theme(strip.text.x = element_text(size=0)) +
-  geom_vline(data = median_pop_filter_1, aes(xintercept = median), linetype="dashed")
-
-histPop1
-#Export 
-#ggsave("graphs/histograms/p1.pdf",width=11, height = 5, units = "in")
 
 #No CI
 histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
@@ -167,20 +137,24 @@ histPop1 <- ggplot(env_histPop_1 ,aes(x=S,y=obs,ymin=low,ymax=high))+
 
 histPop1
 #Export 
-ggsave("graphs/histograms/strong/04_slope_1.25_no_error.pdf",width=10, height = 4, units = "in")
+ggsave("graphs/histograms/strong/03_slope_1.25_no_error.pdf",width=10, height = 4, units = "in")
 
 
-#Sites 1, 3, 6, 11
+#Sites 2, 3, 11
 
-ggplot(env_histPop_2 ,aes(x=S,y=obs,ymin=low,ymax=high))+
+histPop1 <- ggplot(env_histPop_2 ,aes(x=S,y=obs,ymin=low,ymax=high))+
   geom_bar(colour = "black", stat = "identity", width = 0.1, fill = "lightblue1")+
-  geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
+  #geom_errorbar(colour = "firebrick2", stat = "identity", width = 0.06) +
   geom_vline(xintercept=0) +
   labs(x = "Strength of Selection", y = "Number of SNPs") +
   scale_y_continuous(breaks=seq(0,100,by=25))+ 
   theme_ci() + facet_wrap(.~pop_lable, ncol = 4) + theme(strip.text.x = element_text(size=0)) +
-  geom_vline(data = median_pop_filter_2, aes(xintercept = median), linetype="dashed")
+  geom_vline(data = median_pop_filter_1, aes(xintercept = median), linetype="dashed")
 
+histPop1
 #Export 
-#ggsave("graphs/histograms/p2.pdf",width=14, height = 5, units = "in")
+ggsave("graphs/histograms/strong/04_Pop1_3_11.pdf",width=11, height = 3.5, units = "in")
+
+
+
 

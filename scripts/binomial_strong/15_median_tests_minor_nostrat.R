@@ -55,7 +55,7 @@ for (i in 1:12){
 colnames(wilcox.out) <- c("Site","Median","Mean","p-value")
 
 
-write_csv(wilcox.out, "data/binomial_strong/wilcox_S_minor_nostrat.csv")
+#write_csv(wilcox.out, "data/binomial_strong/wilcox_S_minor_nostrat.csv")
 
 
 ###################################################################################
@@ -84,7 +84,7 @@ emp_out[i,7] <- 1 - emp_out[i,6]
 colnames(emp_out) <- c("Site","Median","Median_Percentile","Median_p-value",
                        "Mean","Mean_Percentile","Mean_p-value")
 
-write_csv(emp_out, "data/binomial_strong/mean_median_S_minor_nostrat.csv")
+#write_csv(emp_out, "data/binomial_strong/mean_median_S_minor_nostrat.csv")
 
 ###################################################################################
 #Make Median and Mean histograms
@@ -95,6 +95,7 @@ median_rand$Site <- factor(median_rand$Site, levels = c(1,12,2,3,4,5,6,7,8,9,10,
 mean_rand$Site <- as.factor(mean_rand$Site)
 mean_rand$Site <- factor(mean_rand$Site, levels = c(1,12,2,3,4,5,6,7,8,9,10,11))
 
+
 #Median 
 histPop <- ggplot(median_rand,aes(x=median))+
   geom_histogram(color="black",fill = "lightblue1")+
@@ -104,7 +105,7 @@ histPop <- ggplot(median_rand,aes(x=median))+
 geom_vline(data = median_obs, aes(xintercept = median), linetype="dashed",color="red")
 histPop 
 
-ggsave("graphs/mean_median_s/50_50/major_minor_median_nostrat.pdf",width=12, height = 8, units = "in")
+#ggsave("graphs/mean_median_s/50_50/major_minor_median_nostrat.pdf",width=12, height = 8, units = "in")
 
 
 
@@ -117,7 +118,49 @@ histPop_mean <- ggplot(mean_rand,aes(x=mean))+
   geom_vline(data = mean_obs, aes(xintercept = mean), linetype="dashed",color="red")
 histPop_mean
 
-ggsave("graphs/mean_median_s/50_50/major_minor_mean_nostrat.pdf",width=12, height = 8, units = "in")
+#ggsave("graphs/mean_median_s/50_50/major_minor_mean_nostrat.pdf",width=12, height = 8, units = "in")
+
+
+###################################################################################
+#Site specific histograms
+
+median_rand_pops <- median_rand %>% filter(Site == 2 | Site == 3 | Site == 11)
+median_obs_pops <- median_obs %>% filter(Site == 2 | Site == 3 | Site == 11)
+
+median_rand_pops$Site <- droplevels(median_rand_pops$Site) %>% na.omit()
+
+#Median 
+histPops <- ggplot(median_rand_pops,aes(x=median))+
+  geom_histogram(color="black",fill = "lightblue1")+
+  labs(x = "Non-Climate Associated S Median", y = "Number of Permutations") +
+  geom_vline(xintercept=0) +
+  theme_ci() + facet_wrap(.~Site) +
+  geom_vline(data = median_obs_pops, aes(xintercept = median), linetype="dashed",color="red")+
+  theme(strip.text.x = element_text(size=0))
+histPops
+
+#ggsave("graphs/mean_median_s/50_50/03_median_nostrat_pop.pdf",width=11, height = 3.5, units = "in")
+
+
+
+median_rand_pops <- median_rand %>% filter(Site == 3 | Site == 11)
+median_obs_pops <- median_obs %>% filter(Site == 3 | Site == 11)
+
+median_rand_pops$Site <- droplevels(median_rand_pops$Site) %>% na.omit()
+
+#Median 
+histPops <- ggplot(median_rand_pops,aes(x=median))+
+  geom_histogram(color="black",fill = "lightblue1")+
+  labs(x = "Median SNP Change", y = "Number of Permutations") +
+  geom_vline(xintercept=0) +
+  theme_ci() + facet_wrap(.~Site) +
+  geom_vline(data = median_obs_pops, aes(xintercept = median), linetype="dashed",color="red")+
+  scale_x_continuous(breaks=c(-0.05,0,0.05))+
+  theme(strip.text.x = element_text(size=0))
+histPops
+
+ggsave("graphs/mean_median_s/50_50/04_median_nostrat_pop.pdf",width=9, height = 3.5, units = "in")
+
 
 
 
